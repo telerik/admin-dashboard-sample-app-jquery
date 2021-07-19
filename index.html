@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Untitled</title>
+
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css">
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.rtl.min.css">
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css">
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.mobile.all.min.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2021.2.616/js/angular.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jszip.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script></head>
+<body>
+    <div id="appbar"></div>
+    <div id="drawer">
+        <div id="drawer-content">
+            <div id="Dashboard"></div>
+            <div id="Performance"></div>
+            <div id="Products"></div>
+            <div id="Settings"></div>
+        </div>
+
+    <script>
+        $("#appbar").kendoAppBar({
+            themeColor: "inherit",
+            items: [
+                { template: '<a id="toggleDrawer" k-button" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
+                { width: 16, type: "spacer" },
+                { template: '<h3 class="title">All Products</h3>', type: "contentItem" },
+                { width: 16, type: "spacer" },
+                { width: 8, type: "spacer" },
+                { template: '<span>Notification</span><a>About</a>', type: "contentItem" }
+            ]
+        })
+
+        $(document).ready(function () {
+            $("#drawer").kendoDrawer({
+                template: "<ul> \
+                            <li data-role='drawer-item' class='user-container'><div class='avatar'><div>Jaxons Danniels</div><div class='email'>jaxons.daniels@company.com</div><button id='signOutButton'>Sign Out</button></div></li> \
+                            <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-inbox'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
+                            <li data-role='drawer-separator'></li> \
+                            <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-bell'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
+                            <li data-role='drawer-item'><span class='k-icon k-i-calendar'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
+                            <li data-role='drawer-separator'></li> \
+                            <li data-role='drawer-item'><span class='k-icon k-i-hyperlink-email'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
+                          </ul>",
+                mode: "push",
+                autoCollapse: false,
+                mini: false,
+                itemClick: function (e) {
+                    if(!e.item.hasClass("k-drawer-separator")){
+                        var tabId = e.item.find(".k-item-text").text().split(" ")[0];
+                        e.sender.drawerContainer.find("#drawer-content > div").empty()
+                        $("#" + tabId).load(tabId +".html");
+                    }
+                },
+                position: 'left',
+                minHeight: 330,
+                swipeToOpen: true
+            });
+
+            $("#signOutButton").kendoButton({
+                click: signOut
+            });
+
+            function signOut() {
+                location.href = "login.html";
+            }
+
+            $("#drawer").data("kendoDrawer").show()
+
+            $("#toggleDrawer").click(function() {
+            var drawerInstance = $("#drawer").data().kendoDrawer;
+            var drawerContainer = drawerInstance.drawerContainer;
+
+            if(drawerContainer.hasClass("k-drawer-expanded")) {
+                drawerInstance.hide();
+            } else {
+                drawerInstance.show();
+            }
+            })
+        });
+
+        
+    </script>
+
+<style>
+    .user-container {
+        pointer-events: none;
+        position: fixed;
+        height: 300px;
+        left: 0;
+        top: 0;
+    }
+
+    .user-container:hover {
+        background-color: transparent;
+        background-image: none;
+    }
+
+    #appbar {
+        position: relative;
+        left: 280px;
+    }
+    #signOutButton {
+        pointer-events:auto;
+    }
+
+</style>
+</body>
+</html>
