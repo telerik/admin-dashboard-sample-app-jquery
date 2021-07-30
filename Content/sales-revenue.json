@@ -1,0 +1,33 @@
+[
+	{
+	   "newCustomerValue": null,
+	   "crossSelling": null,
+	   "category": "Value 1"
+	},
+	{
+	   "newCustomerValue": 3.975,
+	   "crossSelling": 3.15,
+	   "category": "Value 2"
+	},
+	{
+	   "newCustomerValue": 3.975,
+	   "crossSelling": 2.5,
+	   "category": "Value 3"
+	},
+	{
+	   "newCustomerValue": 3.625,
+	   "crossSelling": 6.295,
+	   "category": "Value 4"
+	},
+	{
+		"newCustomerValue": 7.437,
+		"crossSelling": 3.25,
+		"category": "Value 4"
+	 },{
+		"newCustomerValue": 6.251,
+		"crossSelling": 4.15,
+		"category": "Value 4"
+	 }
+  ]
+        
+

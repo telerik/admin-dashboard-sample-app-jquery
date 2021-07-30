@@ -1,0 +1,38 @@
+[
+	{
+		"city": "Paris",
+		"country": "France",
+		"salesAmount": 75,
+		"notCompleted": 25,
+		"valueColor": "#AA46BE"
+	},
+	{
+		"city": "Dubai",
+		"country": "UAE",
+		"salesAmount": 88,
+		"notCompleted": 12,
+		"valueColor": "#FFD246"
+	},
+	{
+		"city": "Moscow",
+		"country": "Russia",
+		"salesAmount": 43,
+		"notCompleted": 57,
+		"valueColor": "#28B4C8"
+	},
+	{
+		"city": "Beijing",
+		"country": "China",
+		"salesAmount": 58,
+		"notCompleted": 42,
+		"valueColor": "#2D73F5"
+	},
+
+	{
+		"city": "Tokyo",
+		"country": "Japan",
+		"salesAmount": 94,
+		"notCompleted": 6,
+		"valueColor": "#FF6358"
+	}
+]

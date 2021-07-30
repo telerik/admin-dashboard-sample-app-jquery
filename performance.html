@@ -1,1 +1,516 @@
-<div>Performance</div>
+<div id="products-container">
+
+  <!--  Sales Revenue Area Chart -->
+
+  <div class="performance-inner-container">
+    <div id="area-chart"></div>
+  </div>
+
+  <!--  Performance Bar Chart and Users Gouge -->
+
+  <div class="performance-users-container">
+    <div class="performance-inner-container">
+      <div id="bar-chart"></div>
+    </div>
+    <div class="performance-inner-container">
+      <h3>Users</h3>
+      <div class="products-gauges">
+        <div class="gauge-container">
+          <div id="active-users-gauge" class="active-users-gauge"></div>
+          <div class="users-info">
+            <div>Active Users</div>
+            <div>1,500,200</div>
+          </div>
+        </div>
+        <div class="gauge-container">
+          <div id="inactive-users-gauge" class="inactive-users-gauge"></div>
+          <div class="users-info">
+            <div>Inactive Users</div>
+            <div>1,500,200</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Top 5 cities charts -->
+  <div class="performance-cities-container">
+    <div class="performance-inner-container">
+      <h3>Top 5 Cities</h3>
+      <div id="cities-europe-chart"></div>
+    </div>
+
+    <div class="performance-inner-container">
+      <h3>Top 5 Cities</h3>
+      <div id="cities-global-chart"></div>
+    </div>
+  </div>
+
+  <!--  Cost Breakdown -->
+
+  <div class="performance-cost-container">
+    <div class="performance-inner-container">
+      <h3>Users</h3>
+      <div class="products-gauges">
+        <div class="gauge-container">
+          <div id="active-users-gauge-second" class="active-users-gauge"></div>
+          <div class="users-info">
+            <div>Active Users</div>
+            <div>1,500,200</div>
+          </div>
+        </div>
+        <div class="gauge-container">
+          <div id="inactive-users-gauge-second" class="inactive-users-gauge"></div>
+          <div class="users-info">
+            <div>Inactive Users</div>
+            <div>1,500,200</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="performance-inner-container">
+      <div id="cost-pie-chart"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    $("#area-chart").kendoChart({
+      dataSource: {
+        transport: {
+          read: {
+            url: "Content/sales-revenue.json",
+            dataType: "json"
+          }
+        }
+      },
+      title: {
+        text: "Sales Revenue",
+        align: "left",
+        color: '#000000',
+        font: "20px Roboto",
+        margin: {
+          left: -10,
+          bottom: 10,
+          top: 12
+        }
+      },
+      legend: {
+        position: "bottom"
+      },
+      seriesDefaults: {
+        type: "area",
+        missingValues: "gap"
+      },
+      series: [{
+        name: "New Customer",
+        field: "newCustomerValue",
+        valueField: "category",
+        color: "#FFD246",
+        opacity: 0.3
+      }, {
+        name: "UP/Cross-Selling",
+        field: "crossSelling",
+        valueField: "category",
+        color: "#78D237",
+        opacity: 0.6
+      }],
+      tooltip: {
+        visible: true,
+        template: "#= value #",
+        color: '#FFFFFF',
+        font: "14px Roboto",
+      },
+      valueAxis: {
+        labels: {
+          format: "Value {0}",
+          font: "12px Roboto",
+        },
+        line: {
+          visible: false
+        },
+        min: 1,
+      },
+      categoryAxis: {
+        line: {
+          visible: false
+        }
+      }
+    });
+
+    //Performance Bar Chart
+
+    $("#bar-chart").kendoChart({
+      title: {
+        text: "Performance",
+        align: "left",
+        color: '#000000',
+        font: "20px Roboto",
+        margin: {
+          left: -10,
+          bottom: 10,
+          top: 12
+        }
+      },
+      legend: {
+        position: "bottom",
+        spacing: 50,
+        labels: {
+          template: "#: text # "
+        }
+      },
+      dataSource: {
+        transport: {
+          read: {
+            url: "Content/performance-bar-chart.json",
+            dataType: "json"
+          }
+        }
+      },
+      seriesDefaults: {
+        type: "rangeColumn",
+        gap: 6,
+        spacing: 0.2
+      },
+      series: [{
+        name: "Male",
+        totalPercentage: "35",
+        fromField: "maleFrom",
+        toField: "maleTo",
+        categoryField: "day",
+        color: '#2D73F5'
+      }, {
+        name: "Female",
+        totalPercentage: "65",
+        fromField: "femaleFrom",
+        toField: "femaleTo",
+        categoryField: "day",
+        color: '#AA46BE'
+      }],
+      categoryAxis: {
+        majorGridLines: {
+          visible: true
+        },
+        line: {
+          visible: false
+        }
+      },
+      valueAxis: {
+        min: 20,
+        max: 75,
+        majorUnit: 10,
+        line: {
+          visible: false
+        }
+      },
+      tooltip: {
+        visible: true
+      }
+    });
+
+    //Users Gauges
+
+    $(".active-users-gauge").kendoCircularGauge({
+      value: 3100,
+      color: '#FF6358',
+      gaugeArea: {
+        width: 93,
+        height: 93
+      },
+      centerTemplate: '<span class="users-gauge-center">+#: value/1000 #k</span>',
+      scale: {
+        min: 0,
+        max: 4200,
+        startAngle: 270
+      }
+    });
+
+    $(".inactive-users-gauge").kendoCircularGauge({
+      value: 1200,
+      color: '#666666',
+      gaugeArea: {
+        width: 93,
+        height: 93
+      },
+      centerTemplate: '<span class="users-gauge-center">-#: value/1000 #k</span>',
+      scale: {
+        min: 0,
+        max: 4200,
+        startAngle: 270
+      }
+    })
+
+    //Cities Europe
+
+    $("#cities-europe-chart").kendoChart({
+      chartArea: {
+        margin: 20
+      },
+      dataSource: {
+        transport: {
+          read: {
+            url: "Content/cities-europe.json",
+            dataType: "json"
+          }
+        },
+        sort: {
+          field: "salesAmount",
+          dir: "asc"
+        }
+      },
+      title: {
+        text: "Europe",
+        align: "right"
+      },
+      legend: {
+        visible: false
+      },
+      seriesDefaults: {
+        type: "bar",
+        stack: {
+          type: "100%"
+        },
+        gap: 4
+      },
+      series: [{
+        name: "Sales amount",
+        field: "salesAmount",
+        categoryField: "city",        
+        colorField: "valueColor"
+      },{
+        name: "Not Completed",
+        field: "notCompleted",
+        color: "rgba(0, 0, 0, 0.08)",
+        labels: {
+          visible: true,
+          template: "#: 100-value #%",
+          color: "#424242",
+          font: "bold 14px  Arial,Helvetica,sans-serif"
+        },
+        border: {
+          width: 1,
+          color: "rgba(0, 0, 0, 0.08)"
+        },
+      }],
+      categoryAxis: {
+        categories: "city",
+        majorGridLines: {
+          visible: false
+        },
+        line: {
+          visible: false
+        },
+        labels: {
+          position: 'start',
+          color: "#424242",
+          font: 'bold 12px  Roboto,sans-serif',
+        }
+      },
+      valueAxis: {
+        majorGridLines: {
+          visible: false
+        },
+        line: {
+          visible: false
+        },
+        labels: {
+          position: 'start',
+          color: "#8F8F8F",
+          font: 'bold 12px  Roboto,sans-serif',
+          margin: {
+            top: 26,
+            bottom: 16
+          }
+        }
+      },
+    });
+
+    //Cities Global
+    $("#cities-global-chart").kendoChart({
+      chartArea: {       
+        margin: 20
+      },      
+      dataSource: {
+        transport: {
+          read: {
+            url: "Content/cities-global.json",
+            dataType: "json"
+          }
+        },
+        sort: {
+          field: "salesAmount",
+          dir: "asc"
+        }
+      },  
+      title: {
+        text: "Global",
+        align: "right"
+      },
+      legend: {
+        visible: false
+      },
+      seriesDefaults: {
+        type: "bar",
+        stack: {
+          type: "100%"
+        },
+        gap: 4
+      },
+      series: [{
+        field: "salesAmount",
+        categoryField: "country",
+        name: "Sales amount",
+        colorField: "valueColor"
+      },{
+        name: "Not Completed",
+        field: "notCompleted",
+        color: "rgba(0, 0, 0, 0.08)",
+        labels: {
+          visible: true,
+          template: "#: 100-value #%",
+          color: "#424242",
+          font: "bold 14px  Arial,Helvetica,sans-serif"
+        },
+        border: {
+          width: 1,
+          color: "rgba(0, 0, 0, 0.08)"
+        },
+      }],
+      categoryAxis: {
+        categories: "country",
+        majorGridLines: {
+          visible: false
+        },
+        line: {
+          visible: false
+        },
+        labels: {
+          position: 'start',
+          color: "#424242",
+          font: 'bold 12px  Roboto,sans-serif',
+        }
+      },
+      valueAxis: {
+        majorGridLines: {
+          visible: false
+        },
+        line: {
+          visible: false
+        },
+        labels: {
+          position: 'start',
+          color: "#8F8F8F",
+          font: 'bold 12px  Roboto,sans-serif',
+          margin: {
+            top: 26,
+            bottom: 16
+          }
+        }
+      },
+    });
+
+
+    $("#cost-pie-chart").kendoChart({
+      dataSource: {
+        transport: {
+          read: {
+            url: "Content/cost-breakdown.json",
+            dataType: "json"
+          }
+        }
+      },
+      title: {
+        text: "Cost Breakdown",
+        color: '#424242',
+        align: "left",
+        font: "bold 20px  Roboto"
+      },
+      legend: {
+        position: "right",
+        labels: {
+          template: "#: text # #:kendo.toString(value, 'c0')#",
+          encoded: true,
+          font: "bold 14px Roboto",
+        }
+      },
+      seriesDefaults: {
+        type: "pie"
+      },
+      series: [{
+        field: "value",
+        categoryField: "category"
+      }],
+      tooltip: {
+        visible: true,
+        template: "#= category #"
+      }
+    });   
+
+  })
+</script>
+<style> 
+  .performance-inner-container {
+    margin: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    border-radius: 4px;
+  }
+
+  .performance-users-container,
+  .performance-cities-container,
+  .performance-cost-container {
+    display: flex;
+    width: 100%
+  }
+
+  .performance-users-container .performance-inner-container:first-child,
+  .performance-cost-container .performance-inner-container:nth-child(2) {
+    width: 70%
+  }
+
+  .performance-users-container .performance-inner-container:nth-child(2),
+  .performance-cost-container .performance-inner-container:first-child {
+    width: 30%
+  }
+
+  .performance-cities-container .performance-inner-container {
+    width: 50%
+  }
+
+  .products-gauges {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .users-gauge-center {
+    font-weight: 700;
+    font-size: 22px;
+    color: #666666
+  }
+
+  #active-users-gauge .users-gauge-center,
+  #active-users-gauge-second .users-gauge-center {
+    color: #FF6358
+  }
+
+  .gauge-container {
+    margin: 10%;
+  }
+
+  .users-info>div {
+    font-weight: 400;
+    font-size: 20px;
+    color: #666666;
+    text-align: center;
+    letter-spacing: -0.1px;
+    margin-top: 20px
+  }
+
+  .performance-inner-container h3{
+    margin: 0;
+  }
+</style>
