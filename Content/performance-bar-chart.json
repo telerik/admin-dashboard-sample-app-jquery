@@ -1,0 +1,33 @@
+[{
+	"maleFrom": 35,
+	"maleTo": 73,
+	"femaleFrom": 32,
+	"femaleTo": 58,
+	"day": "Mon"
+  }, {
+	"maleFrom": 40,
+	"maleTo": 70,
+	"femaleFrom": 33,
+	"femaleTo": 52,
+	"day": "Tue"
+  }, {
+	"maleFrom": 31,
+	"maleTo": 47,
+	"femaleFrom":23,
+	"femaleTo": 67,
+	"day": "Wed"
+  }, {
+	"maleFrom": 50,
+	"maleTo": 54,
+	"femaleFrom": 55,
+	"femaleTo": 66,
+	"day": "Thu"
+  }, {
+	"maleFrom": 38,
+	"maleTo": 61,
+	"femaleFrom": 31,
+	"femaleTo": 53,
+	"day": "Fri"
+  }]
+        
+
