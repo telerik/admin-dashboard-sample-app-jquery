@@ -19,47 +19,48 @@
 </head>
 
 <body>
-    <div id="appbar"></div>
     <div id="drawer">
         <div id="drawer-content">
-            <div id="Dashboard"></div>
-            <div id="Performance"></div>
-            <div id="Products"></div>
-            <div id="Settings"></div>
+            <div id="appbar"></div>
+            <main></main>
         </div>
 
         <script>
-            $("#appbar").kendoAppBar({
-                themeColor: "inherit",
-                items: [
-                    { template: '<a id="toggleDrawer" k-button" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
-                    { width: 16, type: "spacer" },
-                    { template: '<h3 class="title">All Products</h3>', type: "contentItem" },
-                    { width: 16, type: "spacer" },
-                    { width: 8, type: "spacer" },
-                    { template: '<span>Notification</span><a>About</a>', type: "contentItem" }
-                ]
-            })
-
             $(document).ready(function () {
+                var appBarData = "data"
+                $("main").load("dashboard.html");
+
+                $("#appbar").kendoAppBar({
+                    themeColor: "inherit",
+                    items: [
+                        { template: '<a id="toggleDrawer" k-button" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
+                        { width: 8, type: "spacer" },
+                        { template: '<div class="title">Dashboard</div>', type: "contentItem" },
+                        { width: 16, type: "spacer" },
+                        { width: 8, type: "spacer" },
+                        { template: '<span class="notification"><span class="k-icon k-i-bell"></span><a class="about">About</a></span>', type: "contentItem" }
+                    ]
+                });
+
                 $("#drawer").kendoDrawer({
                     template: "<ul> \
-                            <li data-role='drawer-item' class='user-container'><div class='avatar'><h1 id='avatar-name'>Jaxons Danniels</h1><div class='email'>jaxons.daniels@company.com</div><button id='signOutButton'>Sign Out</button></div></li> \
-                            <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-inbox'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
+                            <li class='user-container'><img id='avatar' src='Content/Avatar/avatar.png' /><h1 id='avatar-name'>Jaxons Danniels</h1><div id='email'>jaxons.daniels@company.com</div><button id='signOutButton'>Sign Out</button></li> \
+                            <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
+                            <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
+                            <li data-role='drawer-item'><span class='k-icon k-i-aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
                             <li data-role='drawer-separator'></li> \
-                            <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-bell'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
-                            <li data-role='drawer-item'><span class='k-icon k-i-calendar'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
-                            <li data-role='drawer-separator'></li> \
-                            <li data-role='drawer-item'><span class='k-icon k-i-hyperlink-email'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
+                            <li data-role='drawer-item'><span class='k-icon k-i-gear'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
                           </ul>",
                     mode: "push",
                     autoCollapse: false,
                     mini: false,
                     itemClick: function (e) {
                         if (!e.item.hasClass("k-drawer-separator")) {
-                            var tabId = e.item.find(".k-item-text").text().split(" ")[0];
-                            e.sender.drawerContainer.find("#drawer-content > div").empty()
-                            $("#" + tabId).load(tabId + ".html");
+                            var tabName = e.item.find(".k-item-text").text().split(" ")[0];
+                            var titleName = e.item.find(".k-item-text").text()
+                            e.sender.drawerContainer.find("#drawer-content > main").empty()
+                            $("main").load(tabName + ".html");
+                            $("div.title").text(titleName);
                         }
                     },
                     position: 'left',
@@ -86,7 +87,14 @@
                     } else {
                         drawerInstance.show();
                     }
+
+                    setTimeout(function () {
+                        console.log(1)
+                        kendo.resize($(".chart-wrapper"));
+                    }, 400)
                 })
+
+                $("li.user-container").off()
             });
 
 
@@ -94,17 +102,17 @@
 
         <style>
             body {
+                margin: 0px;
                 font-family: Roboto;
                 font-style: normal;
                 font-weight: normal;
             }
 
             .user-container {
-                pointer-events: none;
-                position: fixed;
-                height: 300px;
-                left: 0;
-                top: 0;
+                display: block;
+                text-align: center;
+                /* pointer-events: none; */
+
             }
 
             .user-container:hover {
@@ -113,12 +121,65 @@
             }
 
             #appbar {
-                position: relative;
-                left: 280px;
+                padding: 0px 14px 0px 24px;
+                height: 48px;
+                background: #FFFFFF;
+                box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
+            }
+
+            .title {
+                color: #2D73F5;
+            }
+
+            .notification {
+                position: absolute;
+                right: 14px;
+            }
+
+            .k-i-bell {
+                margin-right: 26px;
+            }
+
+            .about {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 20px;
+
+                align-items: center;
+                text-align: center;
+                color: #424242;
+            }
+
+            a:-webkit-any-link {
+                text-decoration: none;
+
+            }
+
+            #avatar {
+                margin: 32px auto 0;
+                width: 64px;
+                border-radius: 50%;
+            }
+
+            #email {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 20px;
+                text-decoration-line: underline;
             }
 
             #signOutButton {
                 pointer-events: auto;
+                margin: 12px 0 9px 0;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 20px;
             }
 
             #avatar-name {
