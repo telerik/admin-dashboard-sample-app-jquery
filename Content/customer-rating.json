@@ -1,0 +1,106 @@
+[
+
+    {
+      "numberOfSalesA": 12,
+      "volumeA": 2000,
+      "marketShareA": 1
+    },
+    {
+      "numberOfSalesA": 13.5,
+      "volumeA": 2300,
+      "marketShareA": 1
+    },
+    {
+      "numberOfSalesA": 17,
+      "volumeA": 3800,
+      "marketShareA": 0.1
+    },
+    {
+      "numberOfSalesA": 18,
+      "volumeA": 6300,
+      "marketShareA": 2.2
+    },
+    {
+      "numberOfSalesA": 22,
+      "volumeA": 5800,
+      "marketShareA": 0.05
+    },
+
+    {
+      "numberOfSalesB": 26,
+      "volumeB": 3800,
+      "marketShareB": 1.5
+    },
+    {
+      "numberOfSalesB": 39,
+      "volumeB": 11700,
+      "marketShareB": 3.1
+    },
+    {
+      "numberOfSalesB": 45,
+      "volumeB": 12100,
+      "marketShareB": 0.08
+    },
+    {
+      "numberOfSalesB": 51,
+      "volumeB": 12600,
+      "marketShareB": 1.5
+    },
+
+    {
+      "numberOfSalesC": 15,
+      "volumeC": 14000,
+      "marketShareC": 5
+    },          
+    {
+      "numberOfSalesC": 11,
+      "volumeC": 7500,
+      "marketShareC": 0.1
+    },
+    {
+      "numberOfSalesC": 20,
+      "volumeC": 5800,
+      "marketShareC": 3
+    },
+    {
+      "numberOfSalesC": 28,
+      "volumeC": 8700,
+      "marketShareC": 3
+    },
+    {
+      "numberOfSalesC": 34,
+      "volumeC": 4900,
+      "marketShareC": 1.5
+    },
+    {
+      "numberOfSalesC": 42,
+      "volumeC": 5200,
+      "marketShareC": 1.7
+    },
+
+    {
+      "numberOfSalesD": 67,
+      "volumeD": 4600,
+      "marketShareD": 0.2
+    },
+    {
+      "numberOfSalesD": 70,
+      "volumeD": 2700,
+      "marketShareD": 1.3
+    },
+    {
+      "numberOfSalesD": 74,
+      "volumeD": 4100,
+      "marketShareD": 0.02
+    },
+    {
+      "numberOfSalesD": 76,
+      "volumeD": 6400,
+      "marketShareD": 1.5
+    },
+    {
+      "numberOfSalesD": 84,
+      "volumeD": 14100,
+      "marketShareD": 18
+    }
+  ]
