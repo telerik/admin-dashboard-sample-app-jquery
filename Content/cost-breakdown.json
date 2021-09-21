@@ -1,35 +1,22 @@
 [
-  {
-	"category": "Infrastructure",
-	"value": 3500000,
-	"color": "#AC58FF"
-  }, 
-  {
-	"category": "Services",
-	"value": 2500000,
-	"color": "#4B5FFA"
-
-  }, 
-  {
-	"category": "R&D",
-	"value": 2000000,
-	"color": "#4CD180"
-  }, 
-  {
-	"category": "Outsourcing",
-	"value": 1000000,
-	"color": "#FFE162"
-  }, 
-  {
-	"category": "Marketing",
-	"value": 2206000,
-	"color": "#FF6358"
-  }, 
-  {
-	"category": "Strategy",
-	"value": 1980000,
-	"color": "#FF5892"
-  }
-]
-        
-
+	{
+	   "Group":"Accessory",
+	   "Amount":91080,
+	   "Explode":false
+	},
+	{
+	   "Group":"Consumer Food",
+	   "Amount":12886.149999999823,
+	   "Explode":true
+	},
+	{
+	   "Group":"Whole Product",
+	   "Amount":40287,
+	   "Explode":false
+	},
+	{
+	   "Group":"Consumer Drink",
+	   "Amount":22951.5,
+	   "Explode":false
+	}
+ ]

@@ -1,38 +1,32 @@
 [
 	{
-		"city": "Paris",
-		"country": "France",
-		"salesAmount": 75,
-		"notCompleted": 25,
-		"valueColor": "#AA46BE"
+	   "Country":"Saint Kitts and Nevis",
+	   "Color":"#FF6358",
+	   "Completed":93.53285714285715,
+	   "NotCompleted":6.467142857142854
 	},
 	{
-		"city": "Dubai",
-		"country": "UAE",
-		"salesAmount": 88,
-		"notCompleted": 12,
-		"valueColor": "#FFD246"
+	   "Country":"Colombia",
+	   "Color":"#FFD246",
+	   "Completed":85.21142857142857,
+	   "NotCompleted":14.788571428571426
 	},
 	{
-		"city": "Moscow",
-		"country": "Russia",
-		"salesAmount": 43,
-		"notCompleted": 57,
-		"valueColor": "#28B4C8"
+	   "Country":"Grenada",
+	   "Color":"#AA46BE",
+	   "Completed":84.78142857142858,
+	   "NotCompleted":15.218571428571426
 	},
 	{
-		"city": "Beijing",
-		"country": "China",
-		"salesAmount": 58,
-		"notCompleted": 42,
-		"valueColor": "#2D73F5"
+	   "Country":"Martinique",
+	   "Color":"#2D73F5",
+	   "Completed":82.06928571428571,
+	   "NotCompleted":17.930714285714284
 	},
-
 	{
-		"city": "Tokyo",
-		"country": "Japan",
-		"salesAmount": 94,
-		"notCompleted": 6,
-		"valueColor": "#FF6358"
+	   "Country":"Belgium",
+	   "Color":"#28B4C8",
+	   "Completed":81.89071428571428,
+	   "NotCompleted":18.10928571428571
 	}
-]
+ ]
