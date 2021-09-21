@@ -1,33 +1,128 @@
-[{
-	"maleFrom": 35,
-	"maleTo": 73,
-	"femaleFrom": 32,
-	"femaleTo": 58,
-	"day": "Mon"
-  }, {
-	"maleFrom": 40,
-	"maleTo": 70,
-	"femaleFrom": 33,
-	"femaleTo": 52,
-	"day": "Tue"
-  }, {
-	"maleFrom": 31,
-	"maleTo": 47,
-	"femaleFrom":23,
-	"femaleTo": 67,
-	"day": "Wed"
-  }, {
-	"maleFrom": 50,
-	"maleTo": 54,
-	"femaleFrom": 55,
-	"femaleTo": 66,
-	"day": "Thu"
-  }, {
-	"maleFrom": 38,
-	"maleTo": 61,
-	"femaleFrom": 31,
-	"femaleTo": 53,
-	"day": "Fri"
-  }]
-        
-
+[
+	{
+	   "DayOfWeek":0,
+	   "PaymentType":"Debit Card",
+	   "Min":1.5,
+	   "Max":12
+	},
+	{
+	   "DayOfWeek":0,
+	   "PaymentType":"Credit Card",
+	   "Min":2,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":0,
+	   "PaymentType":"Cash",
+	   "Min":1,
+	   "Max":15
+	},
+	{
+	   "DayOfWeek":1,
+	   "PaymentType":"Cash",
+	   "Min":2,
+	   "Max":20
+	},
+	{
+	   "DayOfWeek":1,
+	   "PaymentType":"Credit Card",
+	   "Min":1,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":1,
+	   "PaymentType":"Debit Card",
+	   "Min":1,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":2,
+	   "PaymentType":"Cash",
+	   "Min":1,
+	   "Max":13
+	},
+	{
+	   "DayOfWeek":2,
+	   "PaymentType":"Debit Card",
+	   "Min":0.99,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":2,
+	   "PaymentType":"Credit Card",
+	   "Min":2,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":3,
+	   "PaymentType":"Debit Card",
+	   "Min":2,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":3,
+	   "PaymentType":"Credit Card",
+	   "Min":2,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":3,
+	   "PaymentType":"Cash",
+	   "Min":0.99,
+	   "Max":20
+	},
+	{
+	   "DayOfWeek":4,
+	   "PaymentType":"Cash",
+	   "Min":2,
+	   "Max":12
+	},
+	{
+	   "DayOfWeek":4,
+	   "PaymentType":"Credit Card",
+	   "Min":1.5,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":4,
+	   "PaymentType":"Debit Card",
+	   "Min":3.5,
+	   "Max":15
+	},
+	{
+	   "DayOfWeek":5,
+	   "PaymentType":"Debit Card",
+	   "Min":2,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":5,
+	   "PaymentType":"Cash",
+	   "Min":2,
+	   "Max":15
+	},
+	{
+	   "DayOfWeek":5,
+	   "PaymentType":"Credit Card",
+	   "Min":1,
+	   "Max":25
+	},
+	{
+	   "DayOfWeek":6,
+	   "PaymentType":"Credit Card",
+	   "Min":1.5,
+	   "Max":15
+	},
+	{
+	   "DayOfWeek":6,
+	   "PaymentType":"Debit Card",
+	   "Min":0.99,
+	   "Max":20
+	},
+	{
+	   "DayOfWeek":6,
+	   "PaymentType":"Cash",
+	   "Min":7,
+	   "Max":25
+	}
+ ]

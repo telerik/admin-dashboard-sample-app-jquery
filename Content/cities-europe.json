@@ -1,38 +1,32 @@
 [
 	{
-		"city": "Paris",
-		"country": "France",
-		"salesAmount": 75,
-		"notCompleted": 25,
-		"valueColor": "#AA46BE"
+	   "Country":"Belgium",
+	   "Color":"#FF6358",
+	   "Completed":95.53916666666666,
+	   "NotCompleted":4.460833333333332
 	},
 	{
-		"city": "Belgrade",
-		"country": "Serbia",
-		"salesAmount": 82,
-		"notCompleted": 18,
-		"valueColor": "#FFD246"
+	   "Country":"Austria",
+	   "Color":"#FFD246",
+	   "Completed":95.53666666666668,
+	   "NotCompleted":4.4633333333333285
 	},
 	{
-		"city": "Sofia",
-		"country": "Bulgaria",
-		"salesAmount": 47,
-		"notCompleted": 53,
-		"valueColor": "#28B4C8"
+	   "Country":"Andorra",
+	   "Color":"#AA46BE",
+	   "Completed":92.90666666666667,
+	   "NotCompleted":7.093333333333324
 	},
 	{
-		"city": "Berlin",
-		"country": "Germany",
-		"salesAmount": 52,
-		"notCompleted": 48,
-		"valueColor": "#2D73F5"
+	   "Country":"Jersey",
+	   "Color":"#2D73F5",
+	   "Completed":92.45333333333335,
+	   "NotCompleted":7.546666666666662
 	},
-
 	{
-		"city": "Madrid",
-		"country": "Spain",
-		"salesAmount": 96,
-		"notCompleted": 4,
-		"valueColor": "#FF6358"
+	   "Country":"Gibraltar",
+	   "Color":"#28B4C8",
+	   "Completed":91.28916666666666,
+	   "NotCompleted":8.710833333333332
 	}
-]
+ ]
