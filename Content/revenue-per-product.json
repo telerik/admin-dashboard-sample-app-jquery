@@ -1,0 +1,114 @@
+[
+  {
+     "Product":"Consumer Drink",
+     "Region":"NA",
+     "Amount":4782,
+     "SalesCount":1443,
+     "Rate":331.3929313929314
+  },
+  {
+     "Product":"Consumer Drink",
+     "Region":"APAC",
+     "Amount":10086,
+     "SalesCount":3063,
+     "Rate":329.2850146914789
+  },
+  {
+     "Product":"Consumer Drink",
+     "Region":"CALA",
+     "Amount":1538.5,
+     "SalesCount":500,
+     "Rate":307.7
+  },
+  {
+     "Product":"Whole Product",
+     "Region":"EMEA",
+     "Amount":12266,
+     "SalesCount":922,
+     "Rate":1330.3687635574838
+  },
+  {
+     "Product":"Accessory",
+     "Region":"NA",
+     "Amount":19600,
+     "SalesCount":1103,
+     "Rate":1776.9718948322754
+  },
+  {
+     "Product":"Consumer Food",
+     "Region":"EMEA",
+     "Amount":3688.149999999975,
+     "SalesCount":1382,
+     "Rate":266.87047756873915
+  },
+  {
+     "Product":"Accessory",
+     "Region":"EMEA",
+     "Amount":25390,
+     "SalesCount":1422,
+     "Rate":1785.5133614627284
+  },
+  {
+     "Product":"Consumer Food",
+     "Region":"NA",
+     "Amount":2627.949999999992,
+     "SalesCount":1049,
+     "Rate":250.51954242135292
+  },
+  {
+     "Product":"Whole Product",
+     "Region":"CALA",
+     "Amount":2960,
+     "SalesCount":224,
+     "Rate":1321.4285714285713
+  },
+  {
+     "Product":"Consumer Drink",
+     "Region":"EMEA",
+     "Amount":6545,
+     "SalesCount":1970,
+     "Rate":332.2335025380711
+  },
+  {
+     "Product":"Consumer Food",
+     "Region":"CALA",
+     "Amount":1061.2000000000005,
+     "SalesCount":402,
+     "Rate":263.9800995024877
+  },
+  {
+     "Product":"Whole Product",
+     "Region":"APAC",
+     "Amount":17218,
+     "SalesCount":1290,
+     "Rate":1334.7286821705427
+  },
+  {
+     "Product":"Consumer Food",
+     "Region":"APAC",
+     "Amount":5508.849999999942,
+     "SalesCount":2109,
+     "Rate":261.20673304883553
+  },
+  {
+     "Product":"Accessory",
+     "Region":"APAC",
+     "Amount":39515,
+     "SalesCount":2177,
+     "Rate":1815.112540192926
+  },
+  {
+     "Product":"Whole Product",
+     "Region":"NA",
+     "Amount":7843,
+     "SalesCount":589,
+     "Rate":1331.578947368421
+  },
+  {
+     "Product":"Accessory",
+     "Region":"CALA",
+     "Amount":6575,
+     "SalesCount":352,
+     "Rate":1867.8977272727273
+  }
+]
