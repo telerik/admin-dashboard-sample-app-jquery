@@ -1,205 +1,247 @@
-<script type="text/x-kendo-template" id="template">
-    <div class="k-card k-card-vertical">
-        <img class="k-card-image" src="Content/Products-images/#= ProductID #.jpg"  alt="#: ProductName # image">
+<script type="text/html" id="cardTemplate">
+    <div class="k-card" style="width:260px; height:340px;">
+        <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png"  alt="#: Title # image">
         <div class="k-card-body">
-            <h5 class="k-card-title">#: ProductName # </h5>
-            <p>#: Description #</p>            
+            <div class="k-card-title">#= Title #</div>
+            <div class="k-card-subtitle">#= Description #</div>
         </div>
-        <div class="k-card-actions k-card-actions-stretched k-card-actions-vertical">
-            <span class="k-card-action">
-                <span class="k-button k-flat"><span class="k-icon k-i-preview"></span>Review</span>
-            </span>
-            <span class="k-card-action">
-                <span class="k-button k-flat k-primary"><span class="k-icon k-i-edit"></span>Edit</span>
-            </span>
+        <div class="k-card-footer">
+            <div class="k-d-flex-col k-align-items-center">
+                <span>
+                    <span class="k-button k-flat" onclick="review()"><span class="k-icon k-i-preview"></span>Review</span>
+                </span>
+                <span>
+                    <span class="k-button k-edit-button k-flat k-primary"><span class="k-icon k-i-edit"></span>Edit</span>
+                </span>
+            </div>
         </div>
     </div>
 </script>
 
-<div id="products-container">
-    <div class="products-inner-container">        
-       <div id="bubble-chart"></div>
+<script type="text/html" id="editTemplate">
+    <div class="k-card" style="width:260px; height:340px;">
+        <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png"  alt="#: Title # image">
+        <div class="k-card-body">
+            <div class="k-card-title"><input data-role="textbox" data-bind="value: Title" name="Title" style="width: 100%;" /></div>
+            <div class="k-card-subtitle"><textarea data-role="textarea" data-rows="3" data-bind="value: Description" name="Description" style="width: 100%;" /></div>
+        </div>
+        <div class="k-card-footer">
+            <div class="k-d-flex-col k-align-items-center">
+                <span class="k-button k-flat k-cancel-button"><span class="k-icon k-i-cancel"></span>Cancel</span>
+                <span class="k-button k-flat k-primary k-update-button"><span class="k-icon k-i-check"></span>Save</span>
+            </div>
+        </div>
     </div>
-    <div class="products-inner-container">
-        <input type="text" id="filter" class="k-textbox" placeholder="Product Search"/>
-        <div id="listView"></div>
-        <div id="pager" class="k-pager-wrap"></div>
-    </div>    
-</div>
+</script>
 
-    <script>
-    $(function () { 
+<script type="text/html" id="previewTemplate">
+    <div class="k-card" style="width:260px; height:340px;">
+        <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png"  alt="#: Title # image">
+        <div class="k-card-body">
+            <div class="k-card-title">#= Title #</div>
+            <div class="k-card-subtitle">#= Description #</div>
+        </div>
+    </div>
+</script>
+
+<script id="bubble-chart-template" type="text/x-kendo-template">
+    <div id="bubble-chart" style="height:100%; width:100%"></div>
+</script>
+
+<script id="products-template" type="text/html" style="background-color: #FAFAFA">
+    <div class="k-d-flex-row k-justify-content-center k-align-content-center" style="margin-bottom:45px;">
+        <input id="filter" class="k-textbox" name="search" placeholder="Product Search" style="width:40%;"/>
+    </div>
+    <div style="height:100%;">
+        <div id="listView"></div>
+        <div id="pager"></div>
+    </div>
+</script>
+
+<div id="tilelayout"></div>
+
+<div id="review"></div>
+
+<script>
+	function review() {
+        var listView = $("#listView").getKendoListView();
+        var dataItem = listView.dataItem($(event.target).closest('.k-card'))
+		debugger;
+        var reviewWindow = $("#review").getKendoWindow();
+        if (!reviewWindow) {
+            reviewWindow = $("#review").kendoWindow({
+                actions: [
+                    "Close"
+                ],
+                visible:false,
+                title: dataItem.Title,
+            }).getKendoWindow();
+        }
+        var windowContent = kendo.template($("#previewTemplate").html());
+        reviewWindow.center().open().content(windowContent(dataItem));
+    }
+
+    function onTileResize(e) {
+        // for widgets that do not auto resize
+        // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
+        kendo.resize(e.container, true);
+    }
+
+    function resizeWidgets() {
+        $("#bubble-chart").getKendoChart().resize()
+    }
+	
+    $(document).ready(function () {       
+
+        $(window).resize(function () {
+            resizeWidgets()
+        })
+
+        $("#tilelayout").kendoTileLayout({
+            resize:onTileResize,
+            columns:1,
+            columnsWidth:"100%",
+            containers:[
+               {
+                    bodyTemplate: kendo.template($("#bubble-chart-template").html()),
+                    colSpan:1,
+                    rowSpan:1
+               },
+               {
+                    bodyTemplate: kendo.template($("#products-template").html()),
+                    colSpan :1,
+                    rowSpan :3
+               }
+            ],
+            reorderable:true,
+            resizable:true,
+            rowsHeight:"420px"
+        })
+
         $("#bubble-chart").kendoChart({
-          dataSource: {
-            transport: {
-                read: {
-                    url: "Content/customer-rating.json",
-                    dataType: "json"
+            dataSource: {
+                group: [{
+                    field: "Region"
+                }],
+                transport: {
+                    read: {
+                        url: "Content/revenue-per-product.json",
+                        dataType: "json"
+                    }
                 }
-            }
-          },
-          title: {
-              text: "Product Revenue VS. Customer Rating",
-              align: "left",
-              color: '#000000',
-              font: "20px Roboto",
-              margin: {
-                left: -10,
-                bottom: 10,
-                top: 12
-              }
-          },
-          legend: {
-            position: "bottom",
-            background: "#F4F5F8",
-            orientation: "horizontal",
-            align: "center",
-            margin: 50,
-            padding: {
-              left: 20
-            }
-          },
-          xAxis: {
-            max: 100, 
-            min: 0, 
-            labels: {
-              visible: true,
-              template: "#: value #%",
-              color: "#424242",              
-              font: "bold 14px  Arial,Helvetica,sans-serif" 
             },
-          },
-          series: [{
-            name: "Product A",
-            type: "bubble",
-            color: "#78D237",
-            xField: "numberOfSalesA",
-            yField: "volumeA",
-            sizeField: "marketShareA"
-          },{
-            name: "Product B",
-            type: "bubble",
-            color: "#2D73F5",
-            xField: "numberOfSalesB",
-            yField: "volumeB",
-            sizeField: "marketShareB"
-          },{
-            name: "Product C",
-            type: "bubble",
-            color: "#FFD246",
-            xField: "numberOfSalesC",
-            yField: "volumeC",
-            sizeField: "marketShareC"
-          },{
-            name: "Product D",
-            type: "bubble",
-            color: "#FF6358",
-            xField: "numberOfSalesD",
-            yField: "volumeD",
-            sizeField: "marketShareD"
-          }]
+            legend: {
+                labels: {
+                    margin: {
+                        right: 200
+                    }
+                },
+                visible: true,
+                position: "bottom"
+            },
+            series: [{
+                "categoryField": "Product",
+                "sizeField": "Rate",
+                "xField": "Amount",
+                "yField": "SalesCount"
+            }],
+            seriesDefaults: {
+                type: "bubble"
+            },
+            theme: "sass",
+            title: {
+                font: "font-family: Roboto; font-style: normal; font-weight: normal; font-size: 20px;",
+                text: "Revenue per Product Type",
+                align: "left",
+                position: "top"
+            },
+            tooltip: {
+                template: "#=dataItem.Region# : #=dataItem.Product# Sales : #=kendo.toString(dataItem.Amount,'c')#",
+                visible: true
+            },
+            xAxis: [{
+                labels: {
+                    "format": "{0:c}"
+                }
+            }],
+            yAxis: [{
+                labels: {
+                    "format": "{0:n}"
+                }
+            }],
         });
 
-        var dataSource =  new kendo.data.DataSource({
+        var dataSource = new kendo.data.DataSource({
             transport: {
                 read: {
                     url: "Content/products.json",
                     dataType: "json"
                 }
             },
-            pageSize: 15
-        }); 
+            pageSize: 8
+        });
 
         $("#pager").kendoPager({
             dataSource: dataSource,
-            pageSizes: [5, 10, 15]
-        });   
+            buttonCount:5,
+            input: true,
+            refresh:true,
+        });
 
         $("#listView").kendoListView({
             dataSource: dataSource,
-            template: kendo.template($("#template").html()),   
-            pageable: true
+            template: kendo.template($("#cardTemplate").html()),
+            editTemplate: kendo.template($("#editTemplate").html())
         });
 
-        $("#filter").keyup(function() {
+        $("#filter").keyup(function () {
             var filter = $(this).val(),
-                count = 0;            
+                count = 0;
 
-            $('#listView .k-card').each(function() {
+            $('#listView .k-card').each(function () {
                 if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                $(this).hide();        
+                    $(this).hide();
                 } else {
-                $(this).show(); 
-                count++;
+                    $(this).show();
+                    count++;
                 }
             });
         });
+
+        resizeWidgets()
     });
-    </script>
-
-    <style> 
-    .products-inner-container {
-        margin: 8px 16px;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        padding: 10px;
-        border-radius: 4px;
-    }  
-    .products-inner-container:nth-child(1){
-        margin: 24px;
-    }  
-
-    .products-inner-container:nth-child(2){
-        background-color: #FAFAFA;
-        border: none;
-    }
-
-    #listView{
-        border: none;
-    }
-
-    .k-listview-content {
+</script>
+<style>
+    #listView > .k-listview-content {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-between;
-        background-color: #FAFAFA;
-        border: none;
+        justify-content: center;
+        gap: 32px;
+        max-height:1100px;
     }
-
     .k-card-image {
-        object-fit: cover;
-        max-height: 111px;
-    }
-
-    .k-card{        
-        width: 260px;
-        height: 340px;        
-        padding: 0;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 4px;
-        margin-bottom: 32px;
-		margin-right: 16px;
-    }
-	
-	.k-card:nth-child(5n){        
-        margin-right: 0px;
-    }
-    
-    #filter{          
-        width: 520px;
-        height: 30px;
-        margin: 0 30% 2% 30%;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        box-sizing: border-box;
-        border-radius: 2px;
-    }
-
-    #listView{
         width: 100%;
-        background-color: #FAFAFA;
+        height: 111px;
+    }
+    .k-card-title {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .k-card-subtitle {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .k-tilelayout-item.k-card:nth-child(2) {
+        border: none;
+        background: inherit;
+    }
+    .k-listview {
+        background: inherit;
         border: none;
     }
-    </style>
-</div>
+</style>
