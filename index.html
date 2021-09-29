@@ -33,18 +33,23 @@
                 $("#appbar").kendoAppBar({
                     themeColor: "inherit",
                     items: [
-                        { template: '<a id="toggleDrawer" k-button" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
-                        { width: 8, type: "spacer" },
-                        { template: '<div class="title">Dashboard</div>', type: "contentItem" },
-                        { width: 16, type: "spacer" },
-                        { width: 8, type: "spacer" },
-                        { template: '<span class="notification"><span class="k-icon k-i-bell"></span><a class="about">About</a></span>', type: "contentItem" }
+                        { template: '<a id="toggleDrawer" class="k-button" style="border:0px; background:\\#FFFFFF;" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
+                        { template: '<div class="appTitle">Overview</div>', type: "contentItem" },
+                        { width: 0, type: "spacer" },
+                        { template: "<div class='app-bar-link'><span class='k-icon k-i-notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></div>", type: "contentItem" },
+                        { width: 26, type: "spacer" },
+                        { template: "<a class='k-link app-bar-link aboutPage'>About</a>" }
                     ]
+                }).on("click", ".aboutPage", function (e) {
+                    $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
+                    var aboutTitle = $(".aboutPage").text();
+                    $("div.appTitle").text(aboutTitle);
+                    $("main").load("about.html");
                 });
 
                 $("#drawer").kendoDrawer({
                     template: "<ul> \
-                            <li class='user-container'><img id='avatar' src='Content/Avatar/avatar.png' /><h1 id='avatar-name'>Jaxons Danniels</h1><div id='email'>jaxons.daniels@company.com</div><button id='signOutButton'>Sign Out</button></li> \
+                            <li class='user-container'><img id='avatar' src='Content/Avatar/avatar.png' /><h1 style='font-size: 16px;'>Jaxons Danniels</h1><div style='text-decoration-line: underline;'>jaxons.daniels@company.com</div><button id='signOutButton'>Sign Out</button></li> \
                             <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
@@ -57,10 +62,13 @@
                     itemClick: function (e) {
                         if (!e.item.hasClass("k-drawer-separator")) {
                             var tabName = e.item.find(".k-item-text").text().split(" ")[0];
-                            var titleName = e.item.find(".k-item-text").text()
-                            e.sender.drawerContainer.find("#drawer-content > main").empty()
+                            var titleName = e.item.find(".k-item-text").text();
+                            e.sender.drawerContainer.find("#drawer-content > main").empty();
                             $("main").load(tabName + ".html");
-                            $("div.title").text(titleName);
+                            $("div.appTitle").text(titleName);
+                            if ($("div.appTitle").text() === "Dashboard") {
+                                $("div.appTitle").text("Overview");
+                            }
                         }
                     },
                     position: 'left',
@@ -89,15 +97,12 @@
                     }
 
                     setTimeout(function () {
-                        console.log(1)
                         kendo.resize($(".chart-wrapper"));
                     }, 400)
                 })
 
                 $("li.user-container").off()
             });
-
-
         </script>
 
         <style>
@@ -111,8 +116,6 @@
             .user-container {
                 display: block;
                 text-align: center;
-                /* pointer-events: none; */
-
             }
 
             .user-container:hover {
@@ -121,40 +124,15 @@
             }
 
             #appbar {
-                padding: 0px 14px 0px 24px;
+                padding: 0px 25px 0px 24px;
                 height: 48px;
                 background: #FFFFFF;
                 box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
             }
 
-            .title {
+            .appTitle {
                 color: #2D73F5;
-            }
-
-            .notification {
-                position: absolute;
-                right: 14px;
-            }
-
-            .k-i-bell {
-                margin-right: 26px;
-            }
-
-            .about {
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 14px;
-                line-height: 20px;
-
-                align-items: center;
-                text-align: center;
-                color: #424242;
-            }
-
-            a:-webkit-any-link {
-                text-decoration: none;
-
+                font-size: 18px;
             }
 
             #avatar {
@@ -163,31 +141,19 @@
                 border-radius: 50%;
             }
 
-            #email {
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 12px;
-                line-height: 20px;
-                text-decoration-line: underline;
-            }
-
             #signOutButton {
                 pointer-events: auto;
                 margin: 12px 0 9px 0;
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 14px;
-                line-height: 20px;
-            }
-
-            #avatar-name {
-                font-size: 16px;
+                background: rgba(66, 66, 66, 0.16);
             }
 
             #drawer-content {
                 background-color: #FAFAFA;
+            }
+
+            .k-display-flex {
+                display: flex;
+                width: 250px;
             }
         </style>
 </body>
