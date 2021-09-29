@@ -1,1 +1,256 @@
-<div>Settings</div>
+<div id="settings-tilelayout"></div>
+
+<script id="info-template" type="text/html">
+    <div class="k-d-flex-col">
+        <div class="k-align-items-start">
+            <button id="accountButton" class="k-primary k-flat k-state-selected">Account</button>
+            <button id="securityButton" class="k-secondary k-flat">Security</button>
+            <button id="billingButton" class="k-secondary k-flat">Billing</button>
+            <button id="notificationsButton" class="k-secondary k-flat">Notifications</button>
+        </div>
+
+        <div class="k-d-flex-row k-justify-content-around" style="padding-top: 16px;">
+            <div class="k-icon k-i-user" style="font-size:2em;"></div>
+            <form id="userDetailForm" style="width: 90%;"></form>
+        </div>
+
+        <div class="k-d-flex-row k-justify-content-around">
+            <div class="k-icon k-i-information" style="font-size:2em;"></div>
+            <form id="userInformationForm" style="width: 90%;"></form>
+        </div>
+    </div>
+</script>
+
+<script id="formButtons" type="text/html">
+    <div>
+        <input data-role="switch" data-checked="true"/> Public Profile
+    </div>
+    <button class="k-button k-primary k-form-submit k-state-disabled" type="submit">Save Changes</button>
+</script>
+
+<script id="date-template" type="text/html">
+    <div style="display:flex; justify-content:center; flex-direction:row; align-content:center">
+        <div id="calendar"></div>
+    </div>
+</script>
+
+<script id="weather-header-template" type="text/html">
+    <span class="k-card-title">Weather</span>
+    <span class="k-spacer k-toolbar-spacer"></span>
+    <a class="k-card-title k-link" style="float: right;"><span class="k-icon k-i-globe" style="margin-right:9px;"></span><span style="color: \\#0058E9;">Sofia</span></a>
+</script>
+
+<script id="weather-template" type="text/html">
+    <div class="k-d-flex-col k-align-items-center k-justify-content-around">
+        <div style="width: 100px; height: 100px; background-image: url(Content/images/cloud.svg)"></div>
+        <div class="k-state-disabled">Partly Cloudy</div>
+        <div style="font-family: 'Roboto'; font-size: 70px; font-weight: 300; color: \\#0058E9">12 &\\#176;C</div>
+    </div>
+    <div class="k-card-footer">
+        <div class="weather-data-container k-d-flex-row k-align-items-center k-justify-content-center">
+            <div>
+                Humidity:<br>
+                Dew:<br>
+                Pressure:<br>
+                Wind Speed:
+            </div>
+            <div>
+                76%<br>
+                2˚C<br>
+                1031mb<br>
+                12km/h NW
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script>
+    $("#settings-tilelayout").kendoTileLayout({
+        containers: [{
+            colSpan: 2,
+            rowSpan: 2,
+            bodyTemplate: kendo.template($("#info-template").html())
+        }, {
+            colSpan: 1,
+            rowSpan: 1,
+            header: {
+                template: "<span class='k-card-title'>Date</span>"
+            },
+            bodyTemplate: kendo.template($("#date-template").html())
+        }, {
+            colSpan: 1,
+            rowSpan: 1,
+            header: {
+                template: kendo.template($("#weather-header-template").html())
+            },
+            bodyTemplate: kendo.template($("#weather-template").html())
+        }],
+        columns: 3,
+        columnsWidth: "33%",
+        rowsHeight: "400px",
+        reorderable: true,
+        resizable: true
+    });
+
+
+
+    $(document).ready(function () {
+        $("#accountButton").kendoButton({
+            icon: "user"
+        });
+
+        $("#securityButton").kendoButton({
+            icon: "lock"
+        });
+
+        $("#billingButton").kendoButton({
+            icon: "file-txt"
+        });
+
+        $("#notificationsButton").kendoButton({
+            icon: "notification"
+        });
+
+        $("#calendar").kendoCalendar({
+            componentType: "modern"
+        });
+
+        $("#userDetailForm").kendoForm({
+            validatable: {
+                validateOnBlur: false,
+                validationSummary: false
+            },
+            formData: {
+                Username: "jaxons.danniels@company.com",
+                Email: "jaxons.danniels@company.com",
+                Nickname: "Jaxons Danniels",
+                Phone: "112345678901"
+            },
+            layout: "grid",
+            grid: {
+                "cols": 2,
+                "gutter": 20
+            },
+            item: [{
+                field: "Username",
+                label: {
+                    text: "Username"
+                },
+            }, {
+                field: "Email",
+                label: {
+                    text: "Email Address"
+                },
+            }, {
+                field: "Nickname",
+                label: {
+                    text: "Nickname"
+                },
+            }, {
+                field: "Phone",
+                editor: "MaskedTextBox",
+                editorOptions: {
+                    mask: "(+9) 0000-000-00-00",
+                },
+                label: {
+                    text: "Phone Number"
+                },
+            }],
+            buttonsTemplate: " ",
+        });
+
+        $("#userInformationForm").kendoForm({
+            validatable: {
+                validateOnBlur: false,
+                validationSummary: false
+            },
+            formData: {
+                "BirthDate": "0001-01-01T00:00:00",
+                "Country": "1",
+                "Website": "https://www.telerik.com/",
+                "WorkPhone": "112345678901"
+            },
+            layout: "grid",
+            grid: {
+                "cols": 2,
+                "gutter": 20
+            },
+            items: [{
+                field: "BirthDate",
+                editor: "DateInput",
+                editorOptions: {
+                    format: "{0:MM|dd|yy}"
+                },
+                label: {
+                    text: "Birth Date"
+                }
+            }, {
+                field: "Country",
+                editor: "DropDownList",
+                editorOptions: {
+                    dataTextField: "Text",
+                    dataValueField: "Value",
+                    dataSource: [{
+                        Text: "USA",
+                        Value: "1",
+                        Selected: false
+                    }, {
+                        Text: "United Kingdom",
+                        Value: "2",
+                        Selected: false
+                    }, {
+                        Text: "Bulgaria",
+                        Value: "3",
+                        Selected: false
+                    }]
+                },
+                label: {
+                    "text": "Country"
+                }
+            }, {
+                field: "Website",
+                label: {
+                    text: "Website"
+                }
+            }, {
+                field: "WorkPhone",
+                editor: "MaskedTextBox",
+                editorOptions: {
+                    mask: "(+9) 0000-000-00-00",
+                },
+                label: {
+                    text: "Phone Number"
+                }
+            }],
+            buttonsTemplate: jQuery('\#formButtons').html()
+        });
+    });
+</script>
+
+<style>
+    #settings-tilelayout .k-card-header {
+        border-style: none;
+    }
+
+    .weather-data-container {
+        padding: 8px 0px 0px;
+        gap: 18px
+    }
+
+    .weather-data-container>div {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .weather-data-container>div:nth-child(1) {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    #userInformationForm>div.k-form-buttons {
+        justify-content: space-between;
+    }
+</style>
