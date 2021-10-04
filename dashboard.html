@@ -122,8 +122,8 @@
 
     $("#trend-volume-buttons").kendoButtonGroup({
         items: [
-            { text: "Trend", attributes: {style: "padding: 4px 35px"} },
-            { text: "Volume", attributes: {style: "padding: 4px 29px"} },
+            { text: "Trend", attributes: { style: "padding: 4px 35px" } },
+            { text: "Volume", attributes: { style: "padding: 4px 29px" } },
         ],
         index: 0,
         select: onChartChange
@@ -131,8 +131,8 @@
 
     $("#grid-button-group").kendoButtonGroup({
         items: [
-            { text: "My Team", attributes: {style: "padding: 4px 24px"} },
-            { text: "All Teams", attributes: {style: "padding: 4px 22px"} },
+            { text: "My Team", attributes: { style: "padding: 4px 24px" } },
+            { text: "All Teams", attributes: { style: "padding: 4px 22px" } },
         ],
         index: 0,
         select: onGridChange
@@ -182,7 +182,7 @@
 
 
     function createChart() {
-        $("#total-points-chart").kendoChart({
+        var chart = $("#total-points-chart").kendoChart({
             dataSource: salesRevenueDataSource,
             title: {
                 visible: false,
@@ -198,11 +198,11 @@
             legend: {
                 position: "bottom",
                 labels: {
-						margin: {
-							right: 200
-						}
-					},
-					align: "center"
+                    margin: {
+                        right: 200
+                    }
+                },
+                align: "center"
             },
             series: [{
                 type: "line",
@@ -227,9 +227,11 @@
                 shared: true,
                 format: "N0"
             }
-        });
+        }).data("kendoChart");
 
-        kendo.resize($(".k-chart"));
+        setTimeout(function () {
+            chart.resize();
+        }, 350);
     }
 
 
@@ -368,10 +370,62 @@
         else return kendo.format("{0:c}", dataItem.Budget)
     }
 
+    // function updateTilesOnMobile() {
+    //     var tilelayout = $("#dashboard-tilelayout").data("kendoTileLayout");
+    //     if ($(window).width() <= 980) {
+    //             setTimeout(function () {
+    //                 var options = tilelayout.getOptions();
+    //                 options.containers.forEach(function(el) {
+    //                     console.log("el", el)
+    //                     el.colSpan = 1;
+    //                     el.rowSpan = 1;
+    //                 })
+    //                 console.log("options", options)
+    //                 // tilelayout.setOptions({
+    //                 //     columns: 1,
+    //                 //     containers: options.containers
+    //                 // })
+    //             });
+    //         }
+    // }
+
+    function updateCategoryAxisLabelsStep() {
+        var chart = $("#total-points-chart").data("kendoChart");
+        if ($(window).width() <= 716) {
+            chart.setOptions({
+                categoryAxis: {
+                    labels: {
+                        step: 2
+                    }
+                }
+            });
+        } else {
+            chart.setOptions({
+                categoryAxis: {
+                    labels: {
+                        step: 1
+                    }
+                }
+            });
+        }
+    }
+
     $(document).ready(createChart);
+
+    $(document).ready(function () {
+        createChart();
+        updateCategoryAxisLabelsStep()
+
+
+    });
+
+
+
+
 
     $(window).on("resize", function () {
         kendo.resize($(".k-chart"));
+        updateCategoryAxisLabelsStep();
     });
 </script>
 
@@ -458,5 +512,11 @@
     .k-button.k-state-active {
         background-color: #FF6358;
         color: #FFFFFF;
+    }
+
+    @media (max-width: 716px) {
+        #dashboard-tilelayout div.k-tilelayout-item:nth-child(-n+4) {
+            grid-column-end: span 4 !important;
+        }
     }
 </style>

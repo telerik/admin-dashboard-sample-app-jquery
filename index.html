@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Untitled</title>
 
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default-v2.min.css">
@@ -26,14 +27,13 @@
 
         <script>
             $(document).ready(function () {
-                var appBarData = "data"
                 $("main").load("dashboard.html");
 
                 $("#appbar").kendoAppBar({
                     themeColor: "inherit",
                     items: [
                         { template: '<a id="toggleDrawer" class="k-button" style="border:0px; background:\\#FFFFFF;" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
-                        { template: '<div class="appTitle">Overview</div>', type: "contentItem" },
+                        { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
                         { width: 0, type: "spacer" },
                         { template: "<div class='app-bar-link'><span class='k-icon k-i-notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></div>", type: "contentItem" },
                         { width: 26, type: "spacer" },
@@ -46,9 +46,8 @@
                     $("main").load("about.html");
                 });
 
-                $("#drawer").kendoDrawer({
+                var drawer = $("#drawer").kendoDrawer({
                     template: "<ul> \
-                            <li class='user-container'><img id='avatar' src='Content/Avatar/avatar.png' /><h1 style='font-size: 16px;'>Jaxons Danniels</h1><div style='text-decoration-line: underline;'>jaxons.daniels@company.com</div><button id='signOutButton'>Sign Out</button></li> \
                             <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
@@ -59,21 +58,39 @@
                     autoCollapse: false,
                     mini: false,
                     itemClick: function (e) {
+                        
                         if (!e.item.hasClass("k-drawer-separator")) {
                             var tabName = e.item.find(".k-item-text").text().split(" ")[0];
                             var titleName = e.item.find(".k-item-text").text();
                             e.sender.drawerContainer.find("#drawer-content > main").empty();
-                            $("main").load(tabName + ".html");
+                            $("main").load(tabName + ".html", function () {
+
+                            });
                             $("div.appTitle").text(titleName);
                             if ($("div.appTitle").text() === "Dashboard") {
                                 $("div.appTitle").text("Overview");
                             }
+
+                            if ($(window).width() <= 980) {
+                                var drawerInstance = e.sender;
+                                drawerInstance.hide();
+                            }
                         }
                     },
                     position: 'left',
-                    minHeight: 330,
+                    width: 240,
                     swipeToOpen: true
-                });
+                }).getKendoDrawer();
+
+                var userContentTemplate = kendo.template("\
+                    <div class='user-container' style='text-align: center;'> \
+                        <img id='avatar' src='Content/Avatar/avatar.png' /> \
+                        <h1 style='font-size: 14px;'>Jaxons Danniels</h1> \
+                        <div style='text-decoration-line: underline; font-size: 12px;'>jaxons.daniels@company.com</div> \
+                        <button id='signOutButton'>Sign Out</button> \
+                    </div>");
+
+                drawer.drawerWrapper.prepend(userContentTemplate)
 
                 $("#signOutButton").kendoButton({
                     click: signOut
@@ -86,7 +103,7 @@
                 $("#drawer").data("kendoDrawer").show()
 
                 $("#toggleDrawer").click(function () {
-                    var drawerInstance = $("#drawer").data().kendoDrawer;
+                    var drawerInstance = $("#drawer").data("kendoDrawer");
                     var drawerContainer = drawerInstance.drawerContainer;
 
                     if (drawerContainer.hasClass("k-drawer-expanded")) {
@@ -96,12 +113,20 @@
                     }
 
                     setTimeout(function () {
-                        kendo.resize($(".chart-wrapper"));
-                    }, 400)
+                        kendo.resize($(".k-chart"));
+                    }, 350)
                 })
 
-                $("li.user-container").off()
+                //$("div.user-container").off();
+
             });
+
+            if ($(window).width() <= 980) {
+                setTimeout(function () {
+                    var drawerInstance = $("#drawer").data("kendoDrawer");
+                    drawerInstance.hide();
+                });
+            }
         </script>
 
         <style>
@@ -112,26 +137,11 @@
                 font-weight: normal;
             }
 
-            .user-container {
-                display: block;
-                text-align: center;
-            }
-
-            .user-container:hover {
-                background-color: transparent;
-                background-image: none;
-            }
-
             #appbar {
                 padding: 0px 25px 0px 24px;
                 height: 48px;
                 background: #FFFFFF;
                 box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
-            }
-
-            .appTitle {
-                color: #2D73F5;
-                font-size: 18px;
             }
 
             #avatar {
@@ -148,11 +158,6 @@
 
             #drawer-content {
                 background-color: #FAFAFA;
-            }
-
-            .k-display-flex {
-                display: flex;
-                width: 250px;
             }
         </style>
 </body>

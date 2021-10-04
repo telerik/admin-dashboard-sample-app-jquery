@@ -1,14 +1,14 @@
 <div id="settings-tilelayout"></div>
 
+<script id="info-header-template" type="text/html">
+        <button id="accountButton" class="k-primary k-flat k-state-selected">Account</button>
+        <button id="securityButton" class="k-secondary k-flat">Security</button>
+        <button id="billingButton" class="k-secondary k-flat">Billing</button>
+        <button id="notificationsButton" class="k-secondary k-flat">Notifications</button>
+</script>
+
 <script id="info-template" type="text/html">
     <div class="k-d-flex-col">
-        <div class="k-align-items-start">
-            <button id="accountButton" class="k-primary k-flat k-state-selected">Account</button>
-            <button id="securityButton" class="k-secondary k-flat">Security</button>
-            <button id="billingButton" class="k-secondary k-flat">Billing</button>
-            <button id="notificationsButton" class="k-secondary k-flat">Notifications</button>
-        </div>
-
         <div class="k-d-flex-row k-justify-content-around" style="padding-top: 16px;">
             <div class="k-icon k-i-user" style="font-size:2em;"></div>
             <form id="userDetailForm" style="width: 90%;"></form>
@@ -70,6 +70,9 @@
         containers: [{
             colSpan: 2,
             rowSpan: 2,
+            header: {
+                template: kendo.template($("#info-header-template").html())
+            },
             bodyTemplate: kendo.template($("#info-template").html())
         }, {
             colSpan: 1,
@@ -88,7 +91,7 @@
         }],
         columns: 3,
         columnsWidth: "33%",
-        rowsHeight: "400px",
+        rowsHeight: "auto",
         reorderable: true,
         resizable: true
     });
@@ -252,5 +255,11 @@
 
     #userInformationForm>div.k-form-buttons {
         justify-content: space-between;
+    }
+
+    @media (max-width: 716px) {
+        #settings-tilelayout div.k-tilelayout-item {
+            grid-column-end: span 3 !important;
+        }
     }
 </style>
