@@ -21,142 +21,142 @@
             <div id="appbar"></div>
             <main></main>
         </div>
+    </div>
 
-        <script>
-            $(document).ready(function () {
-                $("main").load("dashboard.html");
+    <script>
+        $(document).ready(function () {
+            $("main").load("dashboard.html");
+            $("#appbar").kendoAppBar({
+                themeColor: "inherit",
+                items: [
+                    { template: '<a id="toggleDrawer" class="k-button" style="border:0px; background:\\#FFFFFF;" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
+                    { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
+                    { width: 0, type: "spacer" },
+                    { template: "<div class='app-bar-link'><span class='k-icon k-i-notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></div>", type: "contentItem" },
+                    { width: 26, type: "spacer" },
+                    { template: "<a class='k-link app-bar-link aboutPage'>About</a>" }
+                ]
+            }).on("click", ".aboutPage", function (e) {
+                $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
 
-                $("#appbar").kendoAppBar({
-                    themeColor: "inherit",
-                    items: [
-                        { template: '<a id="toggleDrawer" class="k-button" style="border:0px; background:\\#FFFFFF;" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
-                        { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
-                        { width: 0, type: "spacer" },
-                        { template: "<div class='app-bar-link'><span class='k-icon k-i-notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></div>", type: "contentItem" },
-                        { width: 26, type: "spacer" },
-                        { template: "<a class='k-link app-bar-link aboutPage'>About</a>" }
-                    ]
-                }).on("click", ".aboutPage", function (e) {
-                    $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
+                var aboutTitle = $(".aboutPage").text();
+                $("div.appTitle").text(aboutTitle);
+                $("main").load("about.html");
+                document.title = aboutTitle + " - AdminDashboard";
+            });
 
-                    var aboutTitle = $(".aboutPage").text();
-                    $("div.appTitle").text(aboutTitle);
-                    $("main").load("about.html");
-                    document.title = aboutTitle + " - AdminDashboard";
-                });
-
-                var drawer = $("#drawer").kendoDrawer({
-                    template: "<ul> \
+            var drawer = $("#drawer").kendoDrawer({
+                template: "<ul> \
                             <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
                             <li data-role='drawer-separator'></li> \
                             <li data-role='drawer-item'><span class='k-icon k-i-gear'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
                           </ul>",
-                    mode: "push",
-                    autoCollapse: false,
-                    mini: false,
-                    itemClick: function (e) {
-                        if (!e.item.hasClass("k-drawer-separator")) {
-                            var tabName = e.item.find(".k-item-text").text().split(" ")[0];
-                            var titleName = e.item.find(".k-item-text").text();
-                            e.sender.drawerContainer.find("#drawer-content > main").empty();
-                            $("main").load(tabName + ".html");
+                mode: "push",
+                autoCollapse: false,
+                mini: false,
+                itemClick: function (e) {
+                    if (!e.item.hasClass("k-drawer-separator")) {
+                        var tabName = e.item.find(".k-item-text").text().split(" ")[0];
+                        var titleName = e.item.find(".k-item-text").text();
+                        e.sender.drawerContainer.find("#drawer-content > main").empty();
+                        $("main").load(tabName + ".html");
 
-                            document.title = titleName + " - AdminDashboard";
-                            $("div.appTitle").text(titleName);
+                        document.title = titleName + " - AdminDashboard";
+                        $("div.appTitle").text(titleName);
 
-                            if ($("div.appTitle").text() === "Dashboard") {
-                                $("div.appTitle").text("Overview");
-                            }
-
-                            if ($(window).width() <= 980) {
-                                var drawerInstance = e.sender;
-                                drawerInstance.hide();
-                            }
+                        if ($("div.appTitle").text() === "Dashboard") {
+                            $("div.appTitle").text("Overview");
                         }
-                    },
-                    position: 'left',
-                    width: 240,
-                    swipeToOpen: true
-                }).getKendoDrawer();
 
-                var userContentTemplate = kendo.template("\
+                        if ($(window).width() <= 980) {
+                            var drawerInstance = e.sender;
+                            drawerInstance.hide();
+                        }
+                    }
+                },
+                position: 'left',
+                width: 240,
+                swipeToOpen: true
+            }).getKendoDrawer();
+
+            var userContentTemplate = kendo.template("\
                     <div class='user-container' style='text-align: center;'> \
                         <img id='avatar' src='Content/Avatar/avatar.png' /> \
                         <h1 style='font-size: 14px;'>Jaxons Danniels</h1> \
                         <div style='text-decoration-line: underline; font-size: 12px;'>jaxons.daniels@company.com</div> \
                         <button id='signOutButton'>Sign Out</button> \
                     </div>");
-                drawer.drawerWrapper.prepend(userContentTemplate);
+            drawer.drawerWrapper.prepend(userContentTemplate);
 
-                document.title = $("div.appTitle").text(); + " - AdminDashboard";
+            document.title = $("div.appTitle").text(); + " - AdminDashboard";
 
-                $("#signOutButton").kendoButton({
-                    click: signOut
-                });
-
-                function signOut() {
-                    location.href = "login.html";
-                };
-
-                $("#drawer").data("kendoDrawer").show();
-
-                $("#toggleDrawer").click(function () {
-                    var drawerInstance = $("#drawer").data("kendoDrawer");
-                    var drawerContainer = drawerInstance.drawerContainer;
-
-                    if (drawerContainer.hasClass("k-drawer-expanded")) {
-                        drawerInstance.hide();
-                    } else {
-                        drawerInstance.show();
-                    };
-
-                    setTimeout(function () {
-                        kendo.resize($(".k-chart"));
-                    }, 350);
-                });
-
-                if ($(window).width() <= 980) {
-                    setTimeout(function () {
-                        var drawerInstance = $("#drawer").data("kendoDrawer");
-                        drawerInstance.hide();
-                    });
-                };
+            $("#signOutButton").kendoButton({
+                click: signOut
             });
-        </script>
 
-        <style>
-            body {
-                margin: 0px;
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: normal;
-            }
+            function signOut() {
+                location.href = "login.html";
+            };
 
-            #appbar {
-                padding: 0px 25px 0px 24px;
-                height: 48px;
-                background: #FFFFFF;
-                box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
-            }
+            $("#drawer").data("kendoDrawer").show();
 
-            #avatar {
-                margin: 32px auto 0;
-                width: 64px;
-                border-radius: 50%;
-            }
+            $("#toggleDrawer").click(function () {
+                var drawerInstance = $("#drawer").data("kendoDrawer");
+                var drawerContainer = drawerInstance.drawerContainer;
 
-            #signOutButton {
-                pointer-events: auto;
-                margin: 12px 0 9px 0;
-                background: rgba(66, 66, 66, 0.16);
-            }
+                if (drawerContainer.hasClass("k-drawer-expanded")) {
+                    drawerInstance.hide();
+                } else {
+                    drawerInstance.show();
+                };
 
-            #drawer-content {
-                background-color: #FAFAFA;
-            }
-        </style>
+                setTimeout(function () {
+                    kendo.resize($(".k-chart"));
+                }, 350);
+            });
+
+            if ($(window).width() <= 980) {
+                setTimeout(function () {
+                    var drawerInstance = $("#drawer").data("kendoDrawer");
+                    drawerInstance.hide();
+                });
+            };
+        });
+    </script>
+
+    <style>
+        body {
+            margin: 0px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        #appbar {
+            padding: 0px 25px 0px 24px;
+            height: 48px;
+            background: #FFFFFF;
+            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        #avatar {
+            margin: 32px auto 0;
+            width: 64px;
+            border-radius: 50%;
+        }
+
+        #signOutButton {
+            pointer-events: auto;
+            margin: 12px 0 9px 0;
+            background: rgba(66, 66, 66, 0.16);
+        }
+
+        #drawer-content {
+            background-color: #FAFAFA;
+        }
+    </style>
 </body>
 
 </html>
