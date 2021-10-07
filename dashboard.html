@@ -2,27 +2,16 @@
 <div id="dashboard-tilelayout" style="margin-bottom: 24px"></div>
 
 <script id="tasks-ontrack-template" type="text/html">
-  <div
-    style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#37B400"
-  >
-    22
-  </div>
+  <div style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#37B400">22</div>
   <div class="template-footer">In Backlog: 43</div>
 </script>
 <script id="overdue-tasks-template" type="text/html">
-  <div
-    style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#F31700"
-  >
-    7
-  </div>
+  <div style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#F31700">7</div>
   <div class="template-footer">From Yesterday: 16</div>
 </script>
 <script id="issues-template" type="text/html">
   <div
-    style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#FFC000"
-  >
-    47
-  </div>
+    style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#FFC000">47</div>
   <div class="template-footer">Closed By Team: 15</div>
 </script>
 <script id="used-space-template" type="text/html">
@@ -33,30 +22,19 @@
 <script id="total-points-header-template" type="text/html">
   <span class="points-header" style="display: inline-block;">Total Points</span>
   <span id="date-selection-buttons">
-    <span> Today </span>
-    <button
-      class="k-button k-button-icon k-icon-button k-nav-prev"
-      title="Previous"
-      aria-label="Previous"
-    >
+    <span>Today</span>
+    <button class="k-button k-button-icon k-icon-button k-nav-prev" title="Previous" aria-label="Previous">
       <span class="k-icon k-i-arrow-60-left"></span>
     </button>
-    <button
-      class="k-button k-button-icon k-icon-button k-nav-next"
-      title="Next"
-      aria-label="Next"
-    >
+    <button class="k-button k-button-icon k-icon-button k-nav-next" title="Next" aria-label="Next">
       <span class="k-icon k-i-arrow-60-right"></span>
     </button>
   </span>
-  <span style="margin-left: 8px"
-    ><span class="k-icon k-i-calendar" style="margin-right: 5px;"></span
-    ><span class="todaysDate"></span
-  ></span>
-  <span
-    id="trend-volume-buttons"
-    style="float: right; padding: 23px 16px 0 0;"
-  ></span>
+  <span style="margin-left: 8px">
+    <span class="k-icon k-i-calendar" style="margin-right: 5px;"></span>
+    <span class="todaysDate"></span>
+  </span>
+  <span id="trend-volume-buttons" style="float: right; padding: 23px 16px 0 0;"></span>
 </script>
 
 <script id="total-points-template" type="text/x-kendo-template">
@@ -64,20 +42,16 @@
 </script>
 
 <script id="mk-team-header-template" type="text/html">
-  <span class="mkteam-header" style="display: inline-block; margin-top: 16px"
-    >MK Team</span
-  >
-  <span
-    id="grid-button-group"
-    style="float: right; padding: 12px 0 0 0;"
-  ></span>
+  <span class="mkteam-header" style="display: inline-block; margin-top: 16px">MK Team</span>
+  <span id="grid-button-group" style="float: right; padding: 12px 0 0 0;"></span>
 </script>
 
 <script id="mk-team-template" type="text/x-kendo-template">
   <div id="my-team-grid"></div>
 </script>
 
-<script src="https://kendo.cdn.telerik.com/2021.2.616/js/pako_deflate.min.js"></script>
+<!-- Load Pako ZLIB library to enable PDF compression -->
+<script src="https://kendo.cdn.telerik.com/2021.3.914/js/pako_deflate.min.js"></script>
 
 <script>
   $("#dashboard-tilelayout").kendoTileLayout({
@@ -87,53 +61,53 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Tasks On Track</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>",
+            "<span class=k-card-title>Tasks On Track</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
         },
-        bodyTemplate: kendo.template($("#tasks-ontrack-template").html()),
+        bodyTemplate: kendo.template($("#tasks-ontrack-template").html())
       },
       {
         colSpan: 1,
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Overdue Tasks</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>",
+            "<span class=k-card-title>Overdue Tasks</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
         },
-        bodyTemplate: kendo.template($("#overdue-tasks-template").html()),
+        bodyTemplate: kendo.template($("#overdue-tasks-template").html())
       },
       {
         colSpan: 1,
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Issues</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>",
+            "<span class=k-card-title>Issues</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
         },
-        bodyTemplate: kendo.template($("#issues-template").html()),
+        bodyTemplate: kendo.template($("#issues-template").html())
       },
       {
         colSpan: 1,
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Used Space</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>",
+            "<span class=k-card-title>Used Space</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
         },
-        bodyTemplate: kendo.template($("#used-space-template").html()),
+        bodyTemplate: kendo.template($("#used-space-template").html())
       },
       {
         colSpan: 4,
         rowSpan: 2,
         header: {
-          template: kendo.template($("#total-points-header-template").html()),
+          template: kendo.template($("#total-points-header-template").html())
         },
-        bodyTemplate: kendo.template($("#total-points-template").html()),
+        bodyTemplate: kendo.template($("#total-points-template").html())
       },
       {
         colSpan: 4,
         rowSpan: 3,
         header: {
-          template: kendo.template($("#mk-team-header-template").html()),
+          template: kendo.template($("#mk-team-header-template").html())
         },
-        bodyTemplate: kendo.template($("#mk-team-template").html()),
-      },
+        bodyTemplate: kendo.template($("#mk-team-template").html())
+      }
     ],
     columns: 4,
     columnsWidth: "25%",
@@ -142,16 +116,15 @@
     resizable: true,
     resize: function (e) {
       // for widgets that do not auto resize
-      // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
       kendo.resize(e.container, true);
-    },
+    }
   });
 
   $("#gauge").kendoArcGauge({
     value: 50,
     centerTemplate:
       "<span style='color:\\#0058E9; font-size:28px; font-weight: bold;'>#:value#%</span>",
-    color: "#0058E9",
+    color: "#0058E9"
   });
 
   var today = new Date().toString().substring(0, 15);
@@ -165,7 +138,7 @@
       { text: "Volume", attributes: { style: "padding: 4px 29px" } },
     ],
     index: 0,
-    select: onChartChange,
+    select: onChartChange
   });
 
   $("#grid-button-group").kendoButtonGroup({
@@ -174,7 +147,7 @@
       { text: "All Teams", attributes: { style: "padding: 4px 22px" } },
     ],
     index: 0,
-    select: onGridChange,
+    select: onGridChange
   });
 
   var salesCountDataSource = new kendo.data.DataSource({
@@ -182,7 +155,7 @@
       read: {
         url: "Content/region-sales-count.json",
         dataType: "json",
-      },
+      }
     },
     schema: {
       model: {
@@ -190,98 +163,96 @@
           Region: { type: "string" },
           Date: { type: "date" },
           Sum: { type: "number" },
-        },
-      },
+        }
+      }
     },
     group: {
       field: "Region",
-    },
+    }
   });
 
   var salesRevenueDataSource = new kendo.data.DataSource({
     transport: {
       read: {
         url: "Content/region-sales-revenue.json",
-        dataType: "json",
-      },
+        dataType: "json"
+      }
     },
     schema: {
       model: {
         fields: {
           Region: { type: "string" },
           Date: { type: "date" },
-          Sum: { type: "number" },
-        },
-      },
+          Sum: { type: "number" }
+        }
+      }
     },
     group: {
-      field: "Region",
-    },
+      field: "Region"
+    }
   });
 
   function createChart() {
-    var chart = $("#total-points-chart")
-      .kendoChart({
-        dataSource: salesRevenueDataSource,
-        title: {
-          visible: false,
-        },
-        plotArea: {
+    var chart = $("#total-points-chart").kendoChart({
+      dataSource: salesRevenueDataSource,
+      title: {
+        visible: false
+      },
+      plotArea: {
+        margin: {
+          bottom: 16,
+        }
+      },
+      chartArea: {
+        margin: { top: "0px" }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
           margin: {
-            bottom: 16,
-          },
+            right: 200
+          }
         },
-        chartArea: {
-          margin: { top: "0px" },
+        align: "center"
+      },
+      series: [
+        {
+          type: "line",
+          field: "Sum",
+          categoryField: "Date",
+          name: "#= group.value #"
+        }
+      ],
+      categoryAxis: {
+        field: "Date",
+        labels: {
+          format: "MMM"
+        }
+      },
+      valueAxis: {
+        labels: {
+          template: getTemplate,
         },
-        legend: {
-          position: "bottom",
-          labels: {
-            margin: {
-              right: 200,
-            },
-          },
-          align: "center",
-        },
-        series: [
-          {
-            type: "line",
-            field: "Sum",
-            categoryField: "Date",
-            name: "#= group.value #",
-          },
-        ],
-        categoryAxis: {
-          field: "Date",
-          labels: {
-            format: "MMM",
-          },
-        },
-        valueAxis: {
-          labels: {
-            template: getTemplate,
-          },
-          type: "numeric",
-        },
-        tooltip: {
-          visible: true,
-          shared: true,
-          format: "N0",
-        },
-      })
-      .data("kendoChart");
+        type: "numeric"
+      },
+      tooltip: {
+        visible: true,
+        shared: true,
+        format: "N0"
+      },
+    }).data("kendoChart");
 
     setTimeout(function () {
       chart.resize();
     }, 350);
-  }
+  };
 
   var myTeamDataSource = new kendo.data.DataSource({
     transport: {
       read: {
         url: "Content/my-team-data.json",
-        dataType: "json",
-      },
+        dataType: "json"
+      }
     },
     schema: {
       model: {
@@ -290,11 +261,11 @@
           FullName: { type: "string" },
           JobTitle: { type: "string" },
           Rating: { type: "number" },
-          Budget: { type: "number" },
-        },
-      },
+          Budget: { type: "number" }
+        }
+      }
     },
-    pageSize: 8,
+    pageSize: 8
   });
 
   var allTeamsDataSource = new kendo.data.DataSource({
@@ -311,11 +282,11 @@
           FullName: { type: "string" },
           JobTitle: { type: "string" },
           Rating: { type: "number" },
-          Budget: { type: "number" },
-        },
-      },
+          Budget: { type: "number" }
+        }
+      }
     },
-    pageSize: 8,
+    pageSize: 8
   });
 
   $("#my-team-grid").kendoGrid({
@@ -327,7 +298,7 @@
     pageable: {
       refresh: true,
       pageSizes: true,
-      buttonCount: 5,
+      buttonCount: 5
     },
     columns: [
       { selectable: true, width: "50px" },
@@ -340,33 +311,32 @@
             template:
               "<div class='customer-photo'" +
               "style='background-image: url(Content/Employees-images/#:getId(Id)#.jpg);'></div>" +
-              "<div class='customer-name'>#: FullName #</div>",
+              "<div class='customer-name'>#: FullName #</div>"
           },
           {
             field: "JobTitle",
             title: "Job title",
-          },
-        ],
+          }
+        ]
       },
       {
         title: "Performance",
         columns: [
           {
             field: "Rating",
-            template:
-              "<input id='rating_\\#=Id\\#' data-bind='value: Rating' class='ratingInGrid' />",
+            template: "<input id='rating_\\#=Id\\#' data-bind='value: Rating' class='ratingInGrid' />",
             attributes: {
               style: "text-align: center;",
-            },
+            }
           },
           {
             field: "Budget",
-            template: "#= getBudgetTemplate(data)#",
+            template: "#= getBudgetTemplate(data)#"
           },
         ],
       },
     ],
-    dataBound: onDataBound,
+    dataBound: onDataBound
   });
 
   function onDataBound(e) {
@@ -377,7 +347,7 @@
         min: 1,
         max: 5,
         label: false,
-        readonly: true,
+        readonly: true
       });
 
       kendo.bind($(this), dataItem);
@@ -411,10 +381,7 @@
   }
 
   function getTemplate(data) {
-    var selectedOption = $("#trend-volume-buttons")
-      .getKendoButtonGroup()
-      .current()
-      .index();
+    var selectedOption = $("#trend-volume-buttons").getKendoButtonGroup().current().index();
     if (selectedOption != 1) {
       return kendo.toString(data.value, "c");
     } else return kendo.toString(data.value, "n0");
@@ -422,32 +389,28 @@
 
   function getBudgetTemplate(dataItem) {
     if (dataItem.Budget < 0) {
-      return (
-        '<span style="color: #FF6358;">-' +
-        kendo.format("{0:c}", Math.abs(dataItem.Budget)) +
-        "</span>"
-      );
+      return '<span style="color: #FF6358;">-' + kendo.format("{0:c}", Math.abs(dataItem.Budget)) + "</span>";
     } else return kendo.format("{0:c}", dataItem.Budget);
   }
 
   function updateCategoryAxisLabelsStep() {
-    if ($("#total-points-chart").data("kendoChart")) {
-      var chart = $("#total-points-chart").data("kendoChart");
+    var chart = $("#total-points-chart").data("kendoChart")
+    if (chart) {
       if ($(window).width() <= 716) {
         chart.setOptions({
           categoryAxis: {
             labels: {
-              step: 2,
-            },
-          },
+              step: 2
+            }
+          }
         });
       } else {
         chart.setOptions({
           categoryAxis: {
             labels: {
-              step: 1,
-            },
-          },
+              step: 1
+            }
+          }
         });
       }
     }
