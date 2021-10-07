@@ -4,18 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled</title>
-
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default-v2.min.css">
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.rtl.min.css">
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.mobile.all.min.css">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-v2.min.css">
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.mobile.all.min.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/angular.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jszip.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
 </head>
 
 <body>
@@ -41,9 +38,11 @@
                     ]
                 }).on("click", ".aboutPage", function (e) {
                     $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
+
                     var aboutTitle = $(".aboutPage").text();
                     $("div.appTitle").text(aboutTitle);
                     $("main").load("about.html");
+                    document.title = aboutTitle + " - AdminDashboard";
                 });
 
                 var drawer = $("#drawer").kendoDrawer({
@@ -58,15 +57,15 @@
                     autoCollapse: false,
                     mini: false,
                     itemClick: function (e) {
-                        
                         if (!e.item.hasClass("k-drawer-separator")) {
                             var tabName = e.item.find(".k-item-text").text().split(" ")[0];
                             var titleName = e.item.find(".k-item-text").text();
                             e.sender.drawerContainer.find("#drawer-content > main").empty();
-                            $("main").load(tabName + ".html", function () {
+                            $("main").load(tabName + ".html");
 
-                            });
+                            document.title = titleName + " - AdminDashboard";
                             $("div.appTitle").text(titleName);
+
                             if ($("div.appTitle").text() === "Dashboard") {
                                 $("div.appTitle").text("Overview");
                             }
@@ -89,8 +88,9 @@
                         <div style='text-decoration-line: underline; font-size: 12px;'>jaxons.daniels@company.com</div> \
                         <button id='signOutButton'>Sign Out</button> \
                     </div>");
+                drawer.drawerWrapper.prepend(userContentTemplate);
 
-                drawer.drawerWrapper.prepend(userContentTemplate)
+                document.title = $("div.appTitle").text(); + " - AdminDashboard";
 
                 $("#signOutButton").kendoButton({
                     click: signOut
@@ -98,9 +98,9 @@
 
                 function signOut() {
                     location.href = "login.html";
-                }
+                };
 
-                $("#drawer").data("kendoDrawer").show()
+                $("#drawer").data("kendoDrawer").show();
 
                 $("#toggleDrawer").click(function () {
                     var drawerInstance = $("#drawer").data("kendoDrawer");
@@ -110,23 +110,20 @@
                         drawerInstance.hide();
                     } else {
                         drawerInstance.show();
-                    }
+                    };
 
                     setTimeout(function () {
                         kendo.resize($(".k-chart"));
-                    }, 350)
-                })
-
-                //$("div.user-container").off();
-
-            });
-
-            if ($(window).width() <= 980) {
-                setTimeout(function () {
-                    var drawerInstance = $("#drawer").data("kendoDrawer");
-                    drawerInstance.hide();
+                    }, 350);
                 });
-            }
+
+                if ($(window).width() <= 980) {
+                    setTimeout(function () {
+                        var drawerInstance = $("#drawer").data("kendoDrawer");
+                        drawerInstance.hide();
+                    });
+                };
+            });
         </script>
 
         <style>
