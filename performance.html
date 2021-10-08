@@ -28,7 +28,7 @@
       <div class="sales k-card-title">117.00</div>
     </div>
   </div>
-</script>    
+</script>
 
 <!-- container chart templates -->
 <script id="performance-template" type="text/x-kendo-template">
@@ -41,539 +41,585 @@
   <div id="cost-pie-chart" style="height:100%; width:100%"></div>
 </script>
 <script id="europe-template" type="text/x-kendo-template">
-  <div id="cities-europe-chart" style="height:100%; width:100%"></div>
+  <div id="europe-chart" style="height:100%; width:100%"></div>
 </script>
 <script id="global-template" type="text/x-kendo-template">
-  <div id="cities-global-chart" style="height:100%; width:100%"></div>
+  <div id="global-chart" style="height:100%; width:100%"></div>
 </script>
 
 <script>
-    $("#tilelayout").kendoTileLayout({
-      resize:onTileResize,
-      columns:6,
-      columnsWidth:"16%",
-      containers:[
-         {            
-            bodyTemplate: kendo.template($("#sales-revenue-template").html()),
-            colSpan:6,
-            header:{
-               template:"<div class='k-card-title'>Sales Revenue</div>"
+  $("#tilelayout").kendoTileLayout({
+    resize: onTileResize,
+    columns: 6,
+    columnsWidth: "16%",
+    containers: [{
+        bodyTemplate: kendo.template($("#sales-revenue-template").html()),
+        colSpan: 6,
+        header: {
+          template: "<div class='k-card-title'>Sales Revenue</div>"
+        },
+        rowSpan: 1
+      },
+      {
+        bodyTemplate: kendo.template($("#performance-template").html()),
+        colSpan: 4,
+        header: {
+          template: '<div class="k-card-title">Weekday Payment Preferences</div>'
+        },
+        rowSpan: 1
+      },
+      {
+        bodyTemplate: kendo.template($("#monthly-sales-template").html()),
+        colSpan: 2,
+        header: {
+          template: '<div class="k-card-title">Monthly Sales<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+        },
+        rowSpan: 1
+      },
+      {
+        bodyTemplate: kendo.template($("#europe-template").html()),
+        colSpan: 3,
+        header: {
+          template: '<div class="k-card-title">Top 5 Countries <span class="k-state-disabled" style="float:right;">Europe</span></div>'
+        },
+        rowSpan: 1
+      },
+      {
+        bodyTemplate: kendo.template($("#global-template").html()),
+        colSpan: 3,
+        header: {
+          template: '<div class="k-card-title">Top 5 Countries <span class="k-state-disabled" style="float:right;">Global</span></div>'
+        },
+        rowSpan: 1
+      },
+      {
+        bodyTemplate: kendo.template($("#weekly-sales-template").html()),
+        colSpan: 2,
+        header: {
+          template: '<div class="k-card-title">Weekly Sales<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+        },
+        rowSpan: 1
+      },
+      {
+        bodyTemplate: kendo.template($("#cost-template").html()),
+        colSpan: 4,
+        header: {
+          template: '<div class="k-card-title">Cost Breakdown<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+        },
+        rowSpan: 1
+      }
+    ],
+    reorderable: true,
+    resizable: true,
+    rowsHeight: "380px"
+  });
+
+  $("#area-chart").kendoChart({
+    dataSource: {
+      group: [{
+        field: "Region"
+      }],
+      transport: {
+        read: {
+          url: "Content/sales-revenue.json",
+          dataType: "json"
+        }
+      },
+      schema: {
+        model: {
+          fields: {
+            Region: {
+              "type": "string"
             },
-            rowSpan:1
-         },
-         {
-             bodyTemplate: kendo.template($("#performance-template").html()),
-            colSpan:4,
-            header:{
-               template:'<div class="k-card-title">Weekday Payment Preferences</div>'
+            Date: {
+              "type": "date"
             },
-            rowSpan:1
-         },
-         {            
-            bodyTemplate: kendo.template($("#monthly-sales-template").html()),
-            colSpan:2,
-            header:{
-               template:'<div class="k-card-title">Monthly Sales<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+            Sum: {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    categoryAxis: [{
+      field: "Date",
+      labels: {
+        format: "MMM",
+        rotation: "auto"
+      }
+    }],
+    chartArea: {
+      background: "transparent"
+    },
+    legend: {
+      align: "center",
+      position: "bottom"
+    },
+    series: [{
+      categoryField: "Date",
+      field: "Sum",
+      style: "normal"
+    }],
+    seriesDefaults: {
+      type: "area"
+    },
+    theme: "sass",
+    valueAxis: [{
+      labels: {
+        format: "{0:c}"
+      },
+      type: "numeric"
+    }],
+  });
+
+  //Performance Bar Chart
+
+  $("#bar-chart").kendoChart({
+    dataSource: {
+      group: [{
+        field: "PaymentType"
+      }],
+      transport: {
+        read: {
+          url: "Content/performance-bar-chart.json",
+          dataType: "json"
+        }
+      },
+      schema: {
+        model: {
+          fields: {
+            "DayOfWeek": {
+              "type": "number"
             },
-            rowSpan:1
-         },
-         {            
-            bodyTemplate: kendo.template($("#europe-template").html()),
-            colSpan:3,
-            header:{
-               template:'<div class="k-card-title">Top 5 Countries <span class="k-state-disabled" style="float:right;">Europe</span></div>'
+            "PaymentType": {
+              "type": "string"
             },
-            rowSpan:1
-         },
-         {
-          bodyTemplate: kendo.template($("#global-template").html()),
-            colSpan:3,
-            header:{
-               template:'<div class="k-card-title">Top 5 Countries <span class="k-state-disabled" style="float:right;">Global</span></div>'
-            },
-            rowSpan:1
-         },
-         {            
-            bodyTemplate: kendo.template($("#weekly-sales-template").html()),
-            colSpan:2,
-            header:{
-               template:'<div class="k-card-title">Weekly Sales<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
-            },
-            rowSpan:1
-         },
-         {            
-            bodyTemplate: kendo.template($("#cost-template").html()),
-            colSpan:4,
-            header:{
-               template:'<div class="k-card-title">Cost Breakdown<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
-            },
-            rowSpan:1
-         }
+            "Sum": {
+              "type": "number"
+            }
+          }
+        }
+      },
+    },
+    categoryAxis: [{
+      categories: [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
       ],
-      "reorderable":true,
-      "resizable":true,
-      "rowsHeight":"380px"
-        });
+      labels: {
+        rotation: "auto",
+        step: 1
+      }
+    }],
+    legend: {
+      labels: {
+        template: "#= data.series._groupValue#",
+        step: 2
+      },
+      position: "bottom"
+    },
+    series: [{
+      fromField: "Min",
+      toField: "Max",
+      gap: 10,
+      labels: {
+        visible: false
+      },
+      type: "rangeColumn"
+    }],
+    seriesColors: [
+      "#28B4C8",
+      "#2D73F5",
+      "#AA46BE"
+    ],
+    theme: "sass",
+  });
 
+  //Monthly Sales Gauges
 
-    $("#area-chart").kendoChart({
-      dataSource: {
-        "group": [{
-          "field": "Region"
-        }],
-        transport: {
-          read: {
-            url: "Content/sales-revenue.json",
-            dataType: "json"
-          }
-        },
-        schema: {
-          model: {
-            fields: {
-              Region: {
-                "type": "string"
-              },
-              Date: {
-                "type": "date"
-              },
-              Sum: {
-                "type": "number"
-              }
-            }
-          }
+  $("#active-users-gauge").kendoCircularGauge({
+    value: 1275,
+    color: '#FF6358',
+    gaugeArea: {
+      width: 100,
+      height: 100
+    },
+    centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
+    scale: {
+      min: 0,
+      max: 4976,
+      startAngle: 270
+    },
+    theme: "sass"
+  });
+
+  $("#inactive-users-gauge").kendoCircularGauge({
+    value: 419,
+    color: '#666666',
+    gaugeArea: {
+      width: 100,
+      height: 100
+    },
+    centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
+    scale: {
+      min: 0,
+      max: 4200,
+      startAngle: 270
+    },
+    theme: "sass"
+  })
+
+  //Weekly Sales Gauges
+
+  $("#active-gauge-week").kendoCircularGauge({
+    value: 419,
+    color: '#FF6358',
+    gaugeArea: {
+      width: 100,
+      height: 100
+    },
+    centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
+    scale: {
+      min: 0,
+      max: 1275,
+      startAngle: 270
+    },
+    theme: "sass"
+  });
+
+  $("#inactive-gauge-week").kendoCircularGauge({
+    value: 117,
+    color: '#666666',
+    gaugeArea: {
+      width: 100,
+      height: 100
+    },
+    centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
+    scale: {
+      min: 0,
+      max: 419,
+      startAngle: 270
+    },
+    theme: "sass"
+  })
+
+  //Europe Chart
+
+  $("#europe-chart").kendoChart({
+    dataSource: {
+      transport: {
+        read: {
+          url: "Content/cities-europe.json",
+          dataType: "json"
         }
       },
-      categoryAxis: [{
-        field: "Date",
+      sort: [{
+        dir: "Ascending",
+        field: "Completed"
+      }]
+    },
+    categoryAxis: [{
+      labels: {
+        color: "#424242",
+        font: "bold 12px  Roboto,sans-serif",
+        position: "start"
+      },
+      line: {
+        visible: false
+      },
+      majorGridLines: {
+        visible: false
+      }
+    }],
+    chartArea: {
+      margin: {
+        right: 20
+      }
+    },
+    legend: {
+      "position": "top",
+    },
+    "series": [{
+        categoryField: "Country",
+        "colorField": "Color",
+        "field": "Completed",
+        "gap": 10,
+        "spacing": 0.2
+      },
+      {
+        "border": {
+          "color": "rgba(0, 0, 0, 0.08)",
+          "width": 1
+        },
+        categoryField: "Country",
+        "color": "rgba(0, 0, 0, 0.08)",
+        "field": "NotCompleted",
+        "gap": 10,
         labels: {
-          "format": "MMM"
+          "color": "#424242",
+          "font": "bold 14px  Arial,Helvetica,sans-serif",
+          template: "#= kendo.toString(100-value,'n0') #%",
+          "visible": true
+        },
+        "spacing": 0.2
+      }
+    ],
+    "seriesDefaults": {
+      "gap": 4,
+      "stack": {
+        "type": "100%"
+      },
+      "type": "bar"
+    },
+    "valueAxis": [{
+      labels: {
+        "color": "#8F8F8F",
+        "font": "bold 12px  Roboto,sans-serif",
+        "position": "start"
+      },
+      "line": {
+        "visible": false
+      },
+      majorGridLines: {
+        "visible": false
+      }
+    }]
+  });
+
+  //Global Chart
+
+  $("#global-chart").kendoChart({
+    dataSource: {
+      transport: {
+        read: {
+          url: "Content/cities-global.json",
+          dataType: "json"
         }
-      }],
-      chartArea: {
-        background: "transparent"
       },
-      legend: {
-        labels: {
-          margin: {
-            right: 200
-          }
-        },
-        align: "center",
-        position: "bottom"
+      sort: {
+        field: "Completed",
+        dir: "asc"
+      }
+    },
+    categoryAxis: [{
+      labels: {
+        color: "#424242",
+        font: "bold 12px  Roboto,sans-serif",
+        position: "start"
       },
-      series: [{
-        categoryField: "Date",
-        field: "Sum",
-        style: "normal"
-      }],
-      seriesDefaults: {
-        type: "area"
+      line: {
+        visible: false
       },
-      theme: "sass",
-      valueAxis: [{
-        labels: {
-          format: "{0:c}"
-        },
-        type: "numeric"
-      }],
-    });
-
-    //Performance Bar Chart
-
-    $("#bar-chart").kendoChart({
-      dataSource: {
-        group: [{
-          field: "PaymentType"
-        }],
-        transport: {
-          read: {
-            url: "Content/performance-bar-chart.json",
-            dataType: "json"
-          }
-        },
-        schema: {
-          model: {
-            fields: {
-              "DayOfWeek": {
-                "type": "number"
-              },
-              "PaymentType": {
-                "type": "string"
-              },
-              "Sum": {
-                "type": "number"
-              }
-            }
-          }
-        },
+      majorGridLines: {
+        visible: false
+      }
+    }],
+    chartArea: {
+      margin: {
+        right: 20
+      }
+    },
+    legend: {
+      position: "top"
+    },
+    series: [{
+        categoryField: "Country",
+        colorField: "Color",
+        field: "Completed",
+        gap: 10,
+        spacing: 0.2
       },
-      categoryAxis: [{
-        categories: [
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ]
-      }],
-      legend: {
-        labels: {
-          template: "#= data.series._groupValue#"
+      {
+        border: {
+          color: "rgba(0, 0, 0, 0.08)",
+          width: 1
         },
-        position: "bottom"
-      },
-      series: [{
-        fromField: "Min",
-        toField: "Max",
+        categoryField: "Country",
+        color: "rgba(0, 0, 0, 0.08)",
+        field: "NotCompleted",
         gap: 10,
         labels: {
-          visible: false
+          color: "#424242",
+          font: "bold 14px  Arial,Helvetica,sans-serif",
+          template: "#= kendo.toString(100-value,'n0') #%",
+          visible: true
         },
-        type: "rangeColumn"
-      }],
-      seriesColors: [
-        "#28B4C8",
-        "#2D73F5",
-        "#AA46BE"
-      ],
-      theme: "sass",
-    });
+        spacing: 0.2
+      }
+    ],
+    seriesDefaults: {
+      gap: 4,
+      stack: {
+        type: "100%"
+      },
+      type: "bar"
+    },
+    valueAxis: [{
+      labels: {
+        color: "#8F8F8F",
+        font: "bold 12px  Roboto,sans-serif",
+        position: "start"
+      },
+      line: {
+        visible: false
+      },
+      majorGridLines: {
+        visible: false
+      }
+    }]
+  });
 
-    //Monthly Sales Gauges
-
-    $("#active-users-gauge").kendoCircularGauge({
-      value: 1275,
-      color: '#FF6358',
-      gaugeArea: {
-        width: 100,
-        height: 100
-      },
-      centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
-      scale: {
-        min: 0,
-        max: 4976,
-        startAngle: 270
-      },
-      theme: "sass"
-    });
-
-    $("#inactive-users-gauge").kendoCircularGauge({
-      value: 419,
-      color: '#666666',
-      gaugeArea: {
-        width: 100,
-        height: 100
-      },
-      centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
-      scale: {
-        min: 0,
-        max: 4200,
-        startAngle: 270
-      },
-      theme: "sass"
-    })
-
-    //Weekly Sales Gauges
-
-    $("#active-gauge-week").kendoCircularGauge({
-      value: 419,
-      color: '#FF6358',
-      gaugeArea: {
-        width: 100,
-        height: 100
-      },
-      centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
-      scale: {
-        min: 0,
-        max: 1275,
-        startAngle: 270
-      },
-      theme: "sass"
-    });
-
-    $("#inactive-gauge-week").kendoCircularGauge({
-      value: 117,
-      color: '#666666',
-      gaugeArea: {
-        width: 100,
-        height: 100
-      },
-      centerTemplate: '<span class="users-gauge-center">#: value/1000 #k</span>',
-      scale: {
-        min: 0,
-        max: 419,
-        startAngle: 270
-      },
-      theme: "sass"
-    })
-
-    //Cities Europe
-
-    $("#cities-europe-chart").kendoChart({
-      dataSource: {
-        transport: {
-          read: {
-            url: "Content/cities-europe.json",
-            dataType: "json"
-          }
-        },
-        "sort": [{
-          "dir": "Ascending",
-          "field": "Completed"
-        }]
-      },
-      "categoryAxis": [{
-        "labels": {
-          "color": "#424242",
-          "font": "bold 12px  Roboto,sans-serif",
-          "position": "start"
-        },
-        "line": {
-          "visible": false
-        },
-        "majorGridLines": {
-          "visible": false
+  $("#cost-pie-chart").kendoChart({
+    dataSource: {
+      transport: {
+        read: {
+          url: "Content/cost-breakdown.json",
+          dataType: "json"
         }
-      }],
-      "chartArea": {
-        "margin": {
-          "right": 20
+      }
+    },
+    legend: {
+      item: {
+        visual: function (e) {
+          var rect = new kendo.geometry.Rect([0, 0], [400, 20]);
+          var layout = new kendo.drawing.Layout(rect, {
+            spacing: 15
+          });
+          var label = new kendo.drawing.Text(e.series.data[e.pointIndex].Group, [40, 0], {
+            fill: {
+              color: e.options.labels.color
+            },
+            font: "normal 14px 'Roboto', sans-serif"
+          });
+          var value = new kendo.drawing.Text(kendo.toString(e.series.data[e.pointIndex].Amount, "c"), [0,
+            0
+          ], {
+            fill: {
+              color: e.options.labels.color
+            },
+            font: "bold 14px 'Roboto', sans-serif"
+          });
+          var marker = new kendo.drawing.Path({
+            fill: {
+              color: e.options.markers.background
+            },
+            stroke: {
+              width: 3,
+              color: e.options.markers.background
+            }
+          }).moveTo(0, 0).moveTo(10, 10).lineTo(30, 10);
+          var spaceRect = new kendo.geometry.Rect([0, 0], [(200 - value.measure().width - label.measure()
+            .width), 20]);
+          var spacer = new kendo.drawing.Rect(spaceRect, {
+            opacity: 0
+          });
+          var labelGroup = new kendo.drawing.Group();
+          labelGroup.append(marker, label);
+          layout.append(labelGroup, spacer, value);
+          layout.reflow();
+          return layout;
         }
       },
-      "legend": {
-        "position": "top"
+      labels: {
+        font: "bold 14px Roboto",
+        template: "#: text # | #:kendo.toString(value, 'c0')#"
       },
-      "series": [{
-          "categoryField": "Country",
-          "colorField": "Color",
-          "field": "Completed",
-          "gap": 10,
-          "spacing": 0.2
-        },
-        {
-          "border": {
-            "color": "rgba(0, 0, 0, 0.08)",
-            "width": 1
-          },
-          "categoryField": "Country",
-          "color": "rgba(0, 0, 0, 0.08)",
-          "field": "NotCompleted",
-          "gap": 10,
-          "labels": {
-            "color": "#424242",
-            "font": "bold 14px  Arial,Helvetica,sans-serif",
-            template: "#= kendo.toString(100-value,'n0') #%",
-            "visible": true
-          },
-          "spacing": 0.2
-        }
-      ],
-      "seriesDefaults": {
-        "gap": 4,
-        "stack": {
-          "type": "100%"
-        },
-        "type": "bar"
-      },
-      "valueAxis": [{
-        "labels": {
-          "color": "#8F8F8F",
-          "font": "bold 12px  Roboto,sans-serif",
-          "position": "start"
-        },
-        "line": {
-          "visible": false
-        },
-        "majorGridLines": {
-          "visible": false
-        }
-      }]
-    });
-
-    //Cities Global
-    $("#cities-global-chart").kendoChart({
-      dataSource: {
-        transport: {
-          read: {
-            url: "Content/cities-global.json",
-            dataType: "json"
-          }
-        },
-        sort: {
-          field: "Completed",
-          dir: "asc"
-        }
-      },
-      "categoryAxis": [{
-        "labels": {
-          "color": "#424242",
-          "font": "bold 12px  Roboto,sans-serif",
-          "position": "start"
-        },
-        "line": {
-          "visible": false
-        },
-        "majorGridLines": {
-          "visible": false
-        }
-      }],
-      "chartArea": {
-        "margin": {
-          "right": 20
-        }
-      },
-      "legend": {
-        "position": "top"
-      },
-      "series": [{
-          "categoryField": "Country",
-          "colorField": "Color",
-          "field": "Completed",
-          "gap": 10,
-          "spacing": 0.2
-        },
-        {
-          "border": {
-            "color": "rgba(0, 0, 0, 0.08)",
-            "width": 1
-          },
-          "categoryField": "Country",
-          "color": "rgba(0, 0, 0, 0.08)",
-          "field": "NotCompleted",
-          "gap": 10,
-          "labels": {
-            "color": "#424242",
-            "font": "bold 14px  Arial,Helvetica,sans-serif",
-            template: "#= kendo.toString(100-value,'n0') #%",
-            "visible": true
-          },
-          "spacing": 0.2
-        }
-      ],
-      "seriesDefaults": {
-        "gap": 4,
-        "stack": {
-          "type": "100%"
-        },
-        "type": "bar"
-      },
-      "valueAxis": [{
-        "labels": {
-          "color": "#8F8F8F",
-          "font": "bold 12px  Roboto,sans-serif",
-          "position": "start"
-        },
-        "line": {
-          "visible": false
-        },
-        "majorGridLines": {
-          "visible": false
-        }
-      }]
-    });
-
-
-    $("#cost-pie-chart").kendoChart({
-      dataSource: {
-        transport: {
-          read: {
-            url: "Content/cost-breakdown.json",
-            dataType: "json"
-          }
-        }
-      },
-      legend: {
-        item: {
-          visual: function (e) {
-            var rect = new kendo.geometry.Rect([0, 0], [400, 20]);
-            var layout = new kendo.drawing.Layout(rect, {
-              spacing: 15
-            });
-            var label = new kendo.drawing.Text(e.series.data[e.pointIndex].Group, [40, 0], {
-              fill: {
-                color: e.options.labels.color
-              },
-              font: "normal 14px 'Roboto', sans-serif"
-            });
-            var value = new kendo.drawing.Text(kendo.toString(e.series.data[e.pointIndex].Amount, "c"), [0,
-              0], {
-                fill: {
-                  color: e.options.labels.color
-                },
-                font: "bold 14px 'Roboto', sans-serif"
-              });
-            var marker = new kendo.drawing.Path({
-              fill: {
-                color: e.options.markers.background
-              },
-              stroke: {
-                width: 3,
-                color: e.options.markers.background
-              }
-            }).moveTo(0, 0).moveTo(10, 10).lineTo(30, 10);
-            var spaceRect = new kendo.geometry.Rect([0, 0], [(200 - value.measure().width - label.measure()
-              .width), 20]);
-            var spacer = new kendo.drawing.Rect(spaceRect, {
-              opacity: 0
-            });
-            var labelGroup = new kendo.drawing.Group();
-            labelGroup.append(marker, label);
-            layout.append(labelGroup, spacer, value);
-            layout.reflow()
-            return layout;
-          }
-        },
-        labels: {
-          font: "bold 14px Roboto",
-          template: "#: text # | #:kendo.toString(value, 'c0')#"
-        },
-        position: "right"
-      },
-      series: [{
-        categoryField: "Group",
-        explodeField: "Explode",
-        field: "Amount"
-      }],
-      seriesDefaults: {
-        type: "pie"
-      },
-      theme: "sass",
-      tooltip: {
-        template: "#= category #",
-        visible: true
-      },
-    });
-
-    function onTileResize(e) {
-        // for widgets that do not auto resize
-        // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
-        kendo.resize(e.container, true);
+      position: "right"
+    },
+    series: [{
+      categoryField: "Group",
+      explodeField: "Explode",
+      field: "Amount"
+    }],
+    seriesDefaults: {
+      type: "pie"
+    },
+    theme: "sass",
+    tooltip: {
+      template: "#= category #",
+      visible: true
     }
-    function resizeWidgets() {
-        var charts = $(".k-chart");
-        charts.each((idx, elem) => $(elem).getKendoChart().resize())
+  });
+
+  function onTileResize(e) {
+    // for widgets that do not auto resize
+    // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
+    kendo.resize(e.container, true);
+  }
+
+  function updateLabelsStepsPerformance() {
+
+    var performanceBarChart = $("#bar-chart").data("kendoChart");
+    var costPieChart = $("#cost-pie-chart").data("kendoChart");
+    var europeChart = $("#europe-chart").data("kendoChart");
+    var globalChart = $("#global-chart").data("kendoChart");
+    var windowWidth = $(window).width();
+
+    if (windowWidth >= 960) {
+
+      performanceBarChart.options.categoryAxis.labels.step = 1;
+      costPieChart.options.legend.position = "right";
+      europeChart.options.valueAxis.labels.step = 1;
+      globalChart.options.valueAxis.labels.step = 1;
+
+    } else if (windowWidth >= 716 && windowWidth < 960) {
+
+      performanceBarChart.options.categoryAxis.labels.step = 1;
+      costPieChart.options.legend.position = "bottom";
+      europeChart.options.valueAxis.labels.step = 2;
+      globalChart.options.valueAxis.labels.step = 2;
+
+    } else {
+
+      performanceBarChart.options.categoryAxis.labels.step = 1;
+      costPieChart.options.legend.position = "bottom";
+      europeChart.options.valueAxis.labels.step = 3;
+      globalChart.options.valueAxis.labels.step = 3;
+
     }
-    $(document).ready(function () {
-        resizeWidgets()
-        $(window).resize(function () {
-            resizeWidgets()
-        })
+  }
+
+  function resizeWidgets() {    
+    updateLabelsStepsPerformance();
+    var charts = $(".k-chart");
+    charts.each((idx, elem) => $(elem).getKendoChart().resize());
+  }
+
+  $(document).ready(function () {
+    resizeWidgets();
+    $(window).resize(function () {
+      resizeWidgets();
     })
+  })
 </script>
 <style>
   .k-card-title {
-      font-size: 20px;
-      line-height: 24px;
-      font-weight: 400;
-      color: #000000
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #000000;
   }
 
   .sales {
-      color: #666666
+    color: #666666;
   }
+
   #tilelayout .k-card-header {
-      border-style: none;
+    border-style: none;
+  }
+
+  .k-tilelayout-item {
+    min-width: 220px;
+  }
+
+  @media (max-width: 780px) {
+    #tilelayout div.k-tilelayout-item {
+      grid-column-end: span 6 !important;
+    }
   }
 </style>
