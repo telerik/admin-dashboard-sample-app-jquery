@@ -92,20 +92,24 @@
 
     function updateLabelsProducts() {
         var productsChart = $("#bubble-chart").data("kendoChart");
-        var windowWidth = $(window).width();
 
-        if (windowWidth >= 925) {
+        if (productsChart) {
+            
+            var windowWidth = $(window).width();
 
-            productsChart.options.xAxis.labels.step = 1;
+            if (windowWidth >= 925) {
 
-        } else if (windowWidth >= 716 && windowWidth < 925) {
+                productsChart.options.xAxis.labels.step = 1;
 
-            productsChart.options.xAxis.labels.step = 2;
+            } else if (windowWidth >= 716 && windowWidth < 925) {
 
-        } else if (windowWidth >= 520 && windowWidth < 716) {
+                productsChart.options.xAxis.labels.step = 2;
 
-            productsChart.options.xAxis.labels.step = 4;
+            } else if (windowWidth >= 520 && windowWidth < 716) {
 
+                productsChart.options.xAxis.labels.step = 4;
+
+            }
         }
     }
 
@@ -207,6 +211,7 @@
         $("#pager").kendoPager({
             dataSource: dataSource,
             buttonCount: 5,
+            responsive: true,
             input: true,
             refresh: true,
         });
@@ -233,7 +238,7 @@
 
         setTimeout(function () {
             resizeWidgets();
-        }, 250);
+        }, 350);
     });
 </script>
 <style>
