@@ -338,7 +338,7 @@
     }],
     chartArea: {
       margin: {
-        right: 20
+        right: 35
       }
     },
     legend: {
@@ -421,7 +421,7 @@
     }],
     chartArea: {
       margin: {
-        right: 20
+        right: 35
       }
     },
     legend: {
@@ -546,6 +546,10 @@
     }
   });
 
+  setTimeout(function () {
+    kendo.resize($(".k-chart"));
+  }, 350);
+
   function onTileResize(e) {
     // for widgets that do not auto resize
     // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
@@ -580,7 +584,6 @@
       costPieChart.options.legend.position = "bottom";
       europeChart.options.valueAxis.labels.step = 3;
       globalChart.options.valueAxis.labels.step = 3;
-
     }
   }
 
@@ -620,6 +623,12 @@
   @media (max-width: 780px) {
     #tilelayout div.k-tilelayout-item {
       grid-column-end: span 6 !important;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .k-card-body {
+      padding: 16px 0px;
     }
   }
 </style>
