@@ -1,13 +1,20 @@
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-v2.min.css">
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.rtl.min.css">
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.mobile.all.min.css">
+<!DOCTYPE html>
+<html>
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-v2.min.css">
 
-<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2021.3.914/js/angular.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2021.3.914/js/jszip.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+</head>
+
+<body>
 
 <div id="sign-in-page">
         <div id="sign-in-wrapper">
@@ -23,18 +30,8 @@
                 </div>
             </div>
             <div id="inputs-wrapper">
-                <div>
-                    <input id="username"/>
-                </div>
-                <div>
-                    <input type="password" id="password"/>
-                </div>
-                <div id="remember-me">
-                    <input type="checkbox" class='k-checkbox'/> <label >Remember me</label>
-                </div>
-                <div>
-                    <a href="index.html" class="k-button">Sign in</a>
-                </div>
+                <form id="login"></form>
+                
             </div>
             <div id="continue-with-wrapper">
                 <hr > <span>Or continue with</span><hr>
@@ -63,22 +60,53 @@
 </div>
     <script>
         $(document).ready(function(){
-            $("#username").kendoTextBox({
-                placeholder:"Email"
+            $("#login").kendoForm({
+                grid:{
+                    cols:1,
+                    gutter:5
+                },
+                buttonsTemplate: "<a href='index.html' class='k-button'>Sign In</a>",
+                formData:{
+                    Email:"",
+                    Password:"",
+                    RememberMe:false
+                },
+                items: [
+                    {
+                        field: "Email",
+                        label:"",
+                        attributes:{
+                            placeholder: "Email",
+                            required:true
+                        }
+                    }, 
+                    {
+                        field: "Password",
+                        label:"",
+                        attributes:{
+                            type:"password",
+                            required:true
+                        }
+                    },
+                    {
+                        field: "RememberMe",
+                        label:"Remember Me",
+                        attributes:{
+                            type:"checkbox"
+                        }
+                    }
+                ]
             })
-            $("#password").kendoTextBox({
-                value:"somepassword"
-            });
-            $("#password").parent().append("<span class='k-icon k-i-preview'></span>");
-
+            $("#Password").parent().append("<span class='k-icon k-i-preview'></span>");
+            $("#Password").val("somepassword");
             $(".k-i-preview").mousedown(function(){
 
-                $("#password").attr("type", "text");
+                $("#Password").attr("type", "text");
             })
             $(".k-i-preview").mouseup(function(){
 
-                $("#password").attr("type", "password");
-            })
+                $("#Password").attr("type", "password");
+            })           
         })
     </script>
 
@@ -95,7 +123,11 @@
     }
 
     .k-icon.k-i-preview {
-        right:5px;
+        position: absolute;
+        bottom: 2px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
         color:gray;
     }
     #logo-wrapper{
@@ -137,6 +169,7 @@
         height: 20px;
         width: 270px;
         margin-bottom:16px;
+        margin-top: 16px;
 
     }
     #continue-with-wrapper>span{
@@ -146,15 +179,7 @@
         line-height: 20px;
 
     }
-    #remember-me {
-        display:flex;
-    }
-    #remember-me>label{
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        margin-left:8px;
-    }
+   
     hr {
         width:75px;
         height:0px;
@@ -180,26 +205,23 @@
         background: #FFFFFF;
     }
 
-    #inputs-wrapper {
+    #login {
         height: 202px;
         width: 270px;
-        padding:16px 0px 16px 0px;
         justify-content: space-between;
         display: flex;
         flex-flow: column;
 
     }
-
-    #username {
-        height: 30px;
-        width: 270px;
-        top: calc(50% - 30px/2);
+    div.k-form-field:nth-child(3) {
+        display: flex;
     }
-
-    #password {
-        height: 30px;
-        width: 270px;
-
+    #RememberMe-form-label {
+        order: 1;
+        padding-left: 0.5em;
+    }
+    .k-form-field-wrap {
+        position: relative;
     }
 
     .k-button, .k-button:hover {
@@ -309,3 +331,5 @@
        margin-top: 5vh;
    }
 </style>
+</body>
+</html>

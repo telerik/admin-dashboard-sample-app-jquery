@@ -1,13 +1,20 @@
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-v2.min.css">
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.rtl.min.css">
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.mobile.all.min.css">
+<!DOCTYPE html>
+<html>
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.default-v2.min.css">
 
-<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2021.3.914/js/angular.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2021.3.914/js/jszip.min.js"></script>
-<script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+</head>
+
+<body>
 <div id="sign-in-page">
     <div id="sign-in-wrapper">
         <div id="logo-wrapper">
@@ -18,28 +25,11 @@
                 Sign Up
             </div>
             <div id="account">
-                Already have an account? <a href="login.html">Sign in</a>
+                Already have an account? <a href="login.html">Sign In</a>
             </div>
         </div>
         <div id="inputs-wrapper">
-            <div>
-                <input id="fullname" placeholder="Full Name"/>
-            </div>
-            <div>
-                <input id="email" placeholder="Email Address"/>
-            </div>
-            <div>
-                <input type="password" id="password" placeholder="Password"/>
-            </div>
-            <div>
-                <input id="company" placeholder="Company"/>
-            </div>
-            <div id="agree">
-                <input type="checkbox" class='k-checkbox'/> <label >I agree to the <a href="#">Terms of Services</a> and <a href="#">Privacy Policy</a></label>
-            </div>
-            <div>
-                <a class="k-button">Create free account</a>
-            </div>
+            <form id="login"></form>           
         </div>
         
     </div>
@@ -55,20 +45,66 @@
 </div>
 <script>
     $(document).ready(function(){
-        $("#fullname").kendoTextBox({
-            placeholder:"Full Name"
+        $("#login").kendoForm({
+            grid:{
+                cols:1,
+                gutter:5
+            },
+            buttonsTemplate: "<a href='index.html' class='k-button'>Create free account</a>",
+            formData:{
+                fullname:"",
+                email:"",
+                password:"",
+                company:"",
+                agree:false
+            },
+            items: [
+                {
+                    field: "fullname",
+                    label:"",
+                    attributes:{
+                        placeholder: "Full Name",
+                        required:true
+                    }
+                }, 
+                {
+                    field: "email",
+                    label:"",
+                    attributes:{
+                        placeholder: "Email Address",
+                        required:true
+                    }
+                },
+                {
+                    field: "password",
+                    label:"",
+                    attributes:{
+                        placeholder: "Password",
+                        type:"password",
+                        required:true
+                    }
+                },
+                {
+                    field: "company",
+                    label:"",
+                    attributes:{
+                        placeholder: "Company",
+                        required:true
+                    }
+                },                
+                {
+                    field: "agree",
+                    label:{
+                        text:"I agree to the <a href='#''>Terms of Services</a> and <a href='#''>Privacy Policy</a>",
+                        encoded:false
+                    },
+                    attributes:{
+                        type:"checkbox"
+                    }
+                }
+            ]
         })
-        $("#email").kendoTextBox({
-            placeholder:"Email"
-        })
-        $("#password").kendoTextBox({
-            placeholder:"Password"
-        });
-        $("#company").kendoTextBox({
-            placeholder:"Company"
-        });
         $("#password").parent().append("<span class='k-icon k-i-preview'></span>");
-
         $(".k-i-preview").mousedown(function(){
 
             $("#password").attr("type", "text");
@@ -76,10 +112,9 @@
         $(".k-i-preview").mouseup(function(){
 
             $("#password").attr("type", "password");
-        })
+        })           
     })
 </script>
-</body>
 
 <style>
 body {
@@ -93,10 +128,6 @@ span.k-textbox {
     width: 100%;
 }
 
-.k-icon.k-i-preview {
-    right:5px;
-    color:gray;
-}
 #logo-wrapper{
     height: 370px;
     width: 270px;
@@ -145,17 +176,25 @@ span.k-textbox {
     line-height: 20px;
 
 }
-#agree{
-    display: flex;
+div.k-form-field:nth-child(5) {
+        display: flex;
+    }
+#agree-form-label{
+    display: block;
+    order: 1;
+    padding-left: 0.5em;   
 }
-#agree>label{
-        font-family: Roboto;
-        font-style: normal;
-        font-size: 14px;
-        align-items: center;
-        margin-left:8px;
-}
-
+div.k-form-field:nth-child(3) {
+        position: relative;
+    }        
+.k-icon.k-i-preview {
+        position: absolute;
+        bottom: 2px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
+        color:gray;
+    }
 hr {
     width:75px;
     height:0px;
@@ -181,7 +220,7 @@ hr {
     background: #FFFFFF;
 }
 
-#inputs-wrapper {
+#login {
     height: 346px;
     width: 270px;
     padding:16px 0px 16px 0px;
@@ -310,3 +349,5 @@ hr {
    margin-top: 5vh;
 }
 </style>
+</body>
+</html>
