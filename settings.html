@@ -1,4 +1,5 @@
 <div id="settings-tilelayout"></div>
+<div id="dialog"></div>
 
 <script id="info-header-template" type="text/html">
   <button id="accountButton" class="k-primary k-flat k-state-selected">Account</button>
@@ -22,8 +23,8 @@
 </script>
 
 <script id="formButtons" type="text/html">
-  <div><input data-role="switch" data-checked="true" />Public Profile</div>
-  <button class="k-button k-primary k-form-submit k-state-disabled" type="submit">Save Changes</button>
+  <div><input data-role="switch" data-checked="true" style="margin-right: 8px;"/>Public Profile</div>
+  <button id="save" class="k-button k-primary k-form-submit k-state-disabled" type="submit">Save Changes</button>
 </script>
 
 <script id="date-template" type="text/html">
@@ -103,6 +104,12 @@
   });
 
   $(document).ready(function () {
+    $("#dialog").kendoDialog({
+      title: "Success",
+      content: "Form has been submitted!",
+      visible: false
+    });
+
     $("#accountButton").kendoButton({
       icon: "user"
     });
@@ -169,7 +176,10 @@
           }
         }
       ],
-      buttonsTemplate: " "
+      buttonsTemplate: " ",
+      change: function (e) {
+        $("#save").removeClass("k-state-disabled")
+      }
     });
 
     $("#userInformationForm").kendoForm({
@@ -244,7 +254,15 @@
           },
         },
       ],
-      buttonsTemplate: jQuery("\#formButtons").html()
+      buttonsTemplate: kendo.template($("#formButtons").html()),
+      change: function (e) {
+        $("#save").removeClass("k-state-disabled")
+      },
+      submit: function (e) {
+        e.preventDefault();
+        $("#dialog").data("kendoDialog").open();
+        $("#save").addClass("k-state-disabled")
+      }
     });
   });
 </script>

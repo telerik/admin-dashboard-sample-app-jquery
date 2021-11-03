@@ -21,19 +21,7 @@
 
 <script id="total-points-header-template" type="text/html">
   <span class="points-header" style="display: inline-block;">Total Points</span>
-  <span id="date-selection-buttons">
-    <span>Today</span>
-    <button class="k-button k-button-icon k-icon-button k-nav-prev" title="Previous" aria-label="Previous">
-      <span class="k-icon k-i-arrow-60-left"></span>
-    </button>
-    <button class="k-button k-button-icon k-icon-button k-nav-next" title="Next" aria-label="Next">
-      <span class="k-icon k-i-arrow-60-right"></span>
-    </button>
-  </span>
-  <span style="margin-left: 8px">
-    <span class="k-icon k-i-calendar" style="margin-right: 5px;"></span>
-    <span class="todaysDate"></span>
-  </span>
+    <div id="range-selection" title="daterangepicker" style="display: inline;"></div>
   <span id="trend-volume-buttons" style="float: right; padding: 23px 16px 0 0;"></span>
 </script>
 
@@ -127,10 +115,12 @@
     color: "#0058E9"
   });
 
-  var today = new Date().toString().substring(0, 15);
-  $(".todaysDate").text(today);
-
-  $("#date-selection-buttons").kendoButtonGroup();
+  $("#range-selection").kendoDateRangePicker({
+    labels: false,
+    min: new Date(2019, 00, 01),
+    max: new Date(2019, 11, 31),
+    close: rangeSelection
+  });
 
   $("#trend-volume-buttons").kendoButtonGroup({
     items: [
@@ -339,6 +329,18 @@
     dataBound: onDataBound
   });
 
+  function rangeSelection(e) {
+    var range = this.range();
+    var chart = $("#total-points-chart").data("kendoChart");
+    chart.dataSource.filter({
+      logic: "and",
+      filters: [
+        { field: "Date", operator: "gte", value: range.start },
+        { field: "Date", operator: "lte", value: range.end }
+      ]
+    });
+  }
+
   function onDataBound(e) {
     var grid = this;
     grid.table.find("tr").each(function () {
@@ -356,14 +358,23 @@
 
   function onChartChange(e) {
     var selectedOption = e.sender.current().index();
+    var range = $("#range-selection").data("kendoDateRangePicker").range();
+    if (range) {
+      var filterByRange = {
+        logic: "and",
+        filters: [
+          { field: "Date", operator: "gte", value: range.start },
+          { field: "Date", operator: "lte", value: range.end }
+        ]
+      }
+      salesCountDataSource.filter(filterByRange);
+      salesRevenueDataSource.filter(filterByRange);
+    }
+
     if (selectedOption === 1) {
-      $("#total-points-chart")
-        .getKendoChart()
-        .setDataSource(salesCountDataSource);
+      $("#total-points-chart").getKendoChart().setDataSource(salesCountDataSource);
     } else {
-      $("#total-points-chart")
-        .getKendoChart()
-        .setDataSource(salesRevenueDataSource);
+      $("#total-points-chart").getKendoChart().setDataSource(salesRevenueDataSource);
     }
   }
 
@@ -394,7 +405,7 @@
   }
 
   function updateCategoryAxisLabelsStep() {
-    var chart = $("#total-points-chart").data("kendoChart")
+    var chart = $("#total-points-chart").data("kendoChart");
     if (chart) {
       if ($(window).width() <= 716) {
         chart.setOptions({
