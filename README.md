@@ -4,7 +4,7 @@ Kendo UI Admin Dashboard is a web application built with Progress award-winning 
 
 ----------
 
-## Featured jQuery & HTML5 UI Components
+## Featured Kendo UI widgets
 
 The sample app showcases some of the most popular Kendo UI for jQuery widgets, such as:
 
