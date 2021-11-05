@@ -1,5 +1,8 @@
 <div class="greeting">Hello again, Jaxons!</div>
 <div id="dashboard-tilelayout" style="margin-bottom: 24px"></div>
+<ul id="options-menu">
+  <li><span class='k-icon k-i-delete'></span>Delete</li>
+</ul>
 
 <script id="tasks-ontrack-template" type="text/html">
   <div style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#37B400">22</div>
@@ -42,14 +45,14 @@
 <script src="https://kendo.cdn.telerik.com/2021.3.914/js/pako_deflate.min.js"></script>
 
 <script>
-  $("#dashboard-tilelayout").kendoTileLayout({
+  var tilelayout = $("#dashboard-tilelayout").kendoTileLayout({
     containers: [
       {
         colSpan: 1,
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Tasks On Track</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
+            "<span class=k-card-title>Tasks On Track</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#tasks-ontrack-template").html())
       },
@@ -58,7 +61,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Overdue Tasks</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
+            "<span class=k-card-title>Overdue Tasks</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#overdue-tasks-template").html())
       },
@@ -67,7 +70,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Issues</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
+            "<span class=k-card-title>Issues</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#issues-template").html())
       },
@@ -76,7 +79,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Used Space</span><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span>"
+            "<span class=k-card-title>Used Space</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#used-space-template").html())
       },
@@ -106,39 +109,36 @@
       // for widgets that do not auto resize
       kendo.resize(e.container, true);
     }
+  }).data("kendoTileLayout");
+
+  $("#options-menu").kendoContextMenu({
+    target: "#dashboard-tilelayout",
+    filter: ".contextMenuButton",
+    showOn: "click",
+    select: function (e) {
+      var itemId = $(e.target).closest(".k-tilelayout-item").attr("id");
+      var mainItems = tilelayout.items;
+      var item = tilelayout.itemsMap[itemId];
+
+      mainItems.splice(mainItems.indexOf(item), 1);
+      item.colSpan = 1;
+
+      $("#my-team-grid").data("kendoGrid").destroy();
+      recreateSetup(mainItems);
+
+    }
   });
 
-  $("#gauge").kendoArcGauge({
-    value: 50,
-    centerTemplate:
-      "<span style='color:\\#0058E9; font-size:28px; font-weight: bold;'>#:value#%</span>",
-    color: "#0058E9"
-  });
+  function recreateSetup(mainItems) {
+    for (var i = 0; i < mainItems.length; i++) {
+      if (mainItems[i]) {
+        mainItems[i].order = i;
+      }
+    }
 
-  $("#range-selection").kendoDateRangePicker({
-    labels: false,
-    min: new Date(2019, 00, 01),
-    max: new Date(2019, 11, 31),
-    close: rangeSelection
-  });
-
-  $("#trend-volume-buttons").kendoButtonGroup({
-    items: [
-      { text: "Trend", attributes: { style: "padding: 4px 35px" } },
-      { text: "Volume", attributes: { style: "padding: 4px 29px" } },
-    ],
-    index: 0,
-    select: onChartChange
-  });
-
-  $("#grid-button-group").kendoButtonGroup({
-    items: [
-      { text: "My Team", attributes: { style: "padding: 4px 24px" } },
-      { text: "All Teams", attributes: { style: "padding: 4px 22px" } },
-    ],
-    index: 0,
-    select: onGridChange
-  });
+    tilelayout.setOptions({ containers: mainItems });
+    createWidgets();
+  }
 
   var salesCountDataSource = new kendo.data.DataSource({
     transport: {
@@ -182,7 +182,40 @@
     }
   });
 
-  function createChart() {
+  function createWidgets() {
+    $("#gauge").kendoArcGauge({
+      value: 50,
+      centerTemplate:
+        "<span style='color:\\#0058E9; font-size:28px; font-weight: bold;'>#:value#%</span>",
+      color: "#0058E9"
+    });
+
+    $("#range-selection").kendoDateRangePicker({
+      labels: false,
+      min: new Date(2019, 00, 01),
+      max: new Date(2019, 11, 31),
+      close: rangeSelection
+    });
+
+    $("#trend-volume-buttons").kendoButtonGroup({
+      items: [
+        { text: "Trend", attributes: { style: "padding: 4px 35px" } },
+        { text: "Volume", attributes: { style: "padding: 4px 29px" } },
+      ],
+      index: 0,
+      select: onChartChange
+    });
+
+    $("#grid-button-group").kendoButtonGroup({
+      items: [
+        { text: "My Team", attributes: { style: "padding: 4px 24px" } },
+        { text: "All Teams", attributes: { style: "padding: 4px 22px" } },
+      ],
+      index: 0,
+      select: onGridChange
+    });
+
+
     var chart = $("#total-points-chart").kendoChart({
       dataSource: salesRevenueDataSource,
       title: {
@@ -235,6 +268,57 @@
     setTimeout(function () {
       chart.resize();
     }, 350);
+
+
+    $("#my-team-grid").kendoGrid({
+      dataSource: myTeamDataSource,
+      height: "650px",
+      toolbar: ["search", "excel", "pdf"],
+      groupable: true,
+      sortable: true,
+      pageable: {
+        refresh: true,
+        pageSizes: true,
+        buttonCount: 5
+      },
+      columns: [
+        { selectable: true, width: "50px" },
+        {
+          title: "Employee",
+          columns: [
+            {
+              field: "FullName",
+              title: "Full Name",
+              template:
+                "<div class='customer-photo'" +
+                "style='background-image: url(Content/Employees-images/#:getId(Id)#.jpg);'></div>" +
+                "<div class='customer-name'>#: FullName #</div>"
+            },
+            {
+              field: "JobTitle",
+              title: "Job title",
+            }
+          ]
+        },
+        {
+          title: "Performance",
+          columns: [
+            {
+              field: "Rating",
+              template: "<input id='rating_\\#=Id\\#' data-bind='value: Rating' class='ratingInGrid' />",
+              attributes: {
+                style: "text-align: center;",
+              }
+            },
+            {
+              field: "Budget",
+              template: "#= getBudgetTemplate(data)#"
+            },
+          ],
+        },
+      ],
+      dataBound: onDataBound
+    });
   };
 
   var myTeamDataSource = new kendo.data.DataSource({
@@ -277,56 +361,6 @@
       }
     },
     pageSize: 8
-  });
-
-  $("#my-team-grid").kendoGrid({
-    dataSource: myTeamDataSource,
-    height: "650px",
-    toolbar: ["search", "excel", "pdf"],
-    groupable: true,
-    sortable: true,
-    pageable: {
-      refresh: true,
-      pageSizes: true,
-      buttonCount: 5
-    },
-    columns: [
-      { selectable: true, width: "50px" },
-      {
-        title: "Employee",
-        columns: [
-          {
-            field: "FullName",
-            title: "Full Name",
-            template:
-              "<div class='customer-photo'" +
-              "style='background-image: url(Content/Employees-images/#:getId(Id)#.jpg);'></div>" +
-              "<div class='customer-name'>#: FullName #</div>"
-          },
-          {
-            field: "JobTitle",
-            title: "Job title",
-          }
-        ]
-      },
-      {
-        title: "Performance",
-        columns: [
-          {
-            field: "Rating",
-            template: "<input id='rating_\\#=Id\\#' data-bind='value: Rating' class='ratingInGrid' />",
-            attributes: {
-              style: "text-align: center;",
-            }
-          },
-          {
-            field: "Budget",
-            template: "#= getBudgetTemplate(data)#"
-          },
-        ],
-      },
-    ],
-    dataBound: onDataBound
   });
 
   function rangeSelection(e) {
@@ -428,7 +462,7 @@
   }
 
   $(document).ready(function () {
-    createChart();
+    createWidgets();
     updateCategoryAxisLabelsStep();
     $(window).on("resize", function () {
       kendo.resize($(".k-chart"));
