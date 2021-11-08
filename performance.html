@@ -1,4 +1,8 @@
-<div id="tilelayout"></div>
+<div id="performance-tilelayout"></div>
+
+<ul id="performance-options-menu">
+  <li><span class='k-icon k-i-delete'></span>Delete</li>
+</ul>
 
 <!-- container gauges templates -->
 <script id="monthly-sales-template" type="text/x-kendo-template">
@@ -48,7 +52,7 @@
 </script>
 
 <script>
-  $("#tilelayout").kendoTileLayout({
+var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     resize: onTileResize,
     columns: 6,
     columnsWidth: "16%",
@@ -56,7 +60,7 @@
         bodyTemplate: kendo.template($("#sales-revenue-template").html()),
         colSpan: 6,
         header: {
-          template: "<div class='k-card-title'>Sales Revenue</div>"
+          template: "<span class=k-card-title>Sales Revenue</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         rowSpan: 1
       },
@@ -64,7 +68,7 @@
         bodyTemplate: kendo.template($("#performance-template").html()),
         colSpan: 4,
         header: {
-          template: '<div class="k-card-title">Weekday Payment Preferences</div>'
+          template: "<span class=k-card-title>Weekday Payment Preferences</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         rowSpan: 1
       },
@@ -72,7 +76,7 @@
         bodyTemplate: kendo.template($("#monthly-sales-template").html()),
         colSpan: 2,
         header: {
-          template: '<div class="k-card-title">Monthly Sales<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+          template: "<span class=k-card-title>Monthly Sales</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         rowSpan: 1
       },
@@ -80,7 +84,7 @@
         bodyTemplate: kendo.template($("#europe-template").html()),
         colSpan: 3,
         header: {
-          template: '<div class="k-card-title">Top 5 Countries <span class="k-state-disabled" style="float:right;">Europe</span></div>'
+          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Europe</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a></span></div>"
         },
         rowSpan: 1
       },
@@ -88,7 +92,7 @@
         bodyTemplate: kendo.template($("#global-template").html()),
         colSpan: 3,
         header: {
-          template: '<div class="k-card-title">Top 5 Countries <span class="k-state-disabled" style="float:right;">Global</span></div>'
+          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Global</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a></span></div>"
         },
         rowSpan: 1
       },
@@ -96,7 +100,7 @@
         bodyTemplate: kendo.template($("#weekly-sales-template").html()),
         colSpan: 2,
         header: {
-          template: '<div class="k-card-title">Weekly Sales<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+          template: "<span class=k-card-title>Weekly Sales </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         rowSpan: 1
       },
@@ -104,7 +108,7 @@
         bodyTemplate: kendo.template($("#cost-template").html()),
         colSpan: 4,
         header: {
-          template: '<div class="k-card-title">Cost Breakdown<span style="float:right" class="k-icon k-i-more-vertical"></span></div>'
+          template: "<span class=k-card-title>Cost Breakdown </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
         },
         rowSpan: 1
       }
@@ -112,9 +116,10 @@
     reorderable: true,
     resizable: true,
     rowsHeight: "380px"
-  });
+  }).data("kendoTileLayout");
 
-  $("#area-chart").kendoChart({
+  function createWidgets() {
+    $("#area-chart").kendoChart({
     dataSource: {
       group: [{
         field: "Region"
@@ -550,6 +555,25 @@
     kendo.resize($(".k-chart"));
   }, 350);
 
+  }
+
+  $("#performance-options-menu").kendoContextMenu({
+    target: "#performance-tilelayout",
+    filter: ".contextMenuButton",
+    showOn: "click",
+    select: function (e) {
+      var itemId = $(e.target).closest(".k-tilelayout-item").attr("id");
+      var mainItems = tilelayout.items;
+      var item = tilelayout.itemsMap[itemId];
+
+      mainItems.splice(mainItems.indexOf(item), 1);
+      item.colSpan = 1;
+     
+      recreateSetup(mainItems);
+
+    }
+  });
+
   function onTileResize(e) {
     // for widgets that do not auto resize
     // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
@@ -594,8 +618,10 @@
   }
 
   $(document).ready(function () {
+    createWidgets()
     resizeWidgets();
     $(window).resize(function () {
+      kendo.resize($(".k-chart"));
       resizeWidgets();
     })
   })
@@ -612,7 +638,11 @@
     color: #666666;
   }
 
-  #tilelayout .k-card-header {
+  .k-menu-link{
+    font-size: 14px;
+  }
+
+  #performance-tilelayout .k-card-header {
     border-style: none;
   }
 
