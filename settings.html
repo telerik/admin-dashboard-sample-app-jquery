@@ -1,27 +1,110 @@
 <div id="settings-tilelayout"></div>
+<ul id="plan-cards-menu">
+  <li><span class='k-icon k-i-delete'></span>Delete</li>
+</ul>
 <div id="dialog"></div>
 
 <script id="info-header-template" type="text/html">
   <button id="accountButton" class="k-primary k-flat k-state-selected">Account</button>
+  <button id="billingButton" class="k-flat">Billing</button>
+  <button id="notificationsButton" class="k-flat">Notifications</button>
 </script>
 
-<script id="info-template" type="text/html">
+<script id="account-template" type="text/html">
   <div class="k-d-flex-col">
-    <div class="k-d-flex-row k-justify-content-around" style="padding-top: 16px;">
-      <div class="k-icon k-i-user" style="font-size:2em;"></div>
-      <form id="userDetailForm" style="width: 90%;"></form>
+    <div style="margin-bottom: 16px;">
+      <div class="formTitle" class="formTitle">USERNAME</div>
+      <form id="userDetailForm" class="settingsForm"></form>
     </div>
 
-    <div class="k-d-flex-row k-justify-content-around">
-      <div class="k-icon k-i-information" style="font-size:2em;"></div>
-      <form id="userInformationForm" style="width: 90%;"></form>
+    <div style="margin-bottom: 16px;">
+      <div class="formTitle" class="formTitle">INFORMATION</div>
+      <form id="userInformationForm" class="settingsForm"></form>
+    </div>
+
+    <div>
+      <div class="formTitle" class="formTitle">SECURITY</div>
+      <form id="securityForm" class="settingsForm"></form>
+      <div class="k-hstack" style="margin-top: 26px;">
+        <div>Public Profile<input id="publicProfile" aria-label="Name Switch" style="margin-left: 8px;"/></div>
+        <div class="k-spacer"></div>
+        <div>
+          <button id="cancelButton" class="k-flat">Cancel</button>
+          <button id="save" class="k-primary k-form-submit" type="submit">Save Changes</button>
+        </div>
+      </div>
     </div>
   </div>
 </script>
 
-<script id="formButtons" type="text/html">
-  <div><input data-role="switch" data-checked="true" style="margin-right: 8px;"/>Public Profile</div>
-  <button id="save" class="k-button k-primary k-form-submit k-state-disabled" type="submit">Save Changes</button>
+<script id="billing-template" type="text/html">
+  <div class="formTitle" class="formTitle">CHANGE YOUR PLAN</div>
+  <div id="cards-container">
+    <div class="k-card k-card-type-rich">
+        <div class="k-card-header plan-card">
+            <h5 class="k-card-title plan-title">Starter</h5>
+            <span class="template-menu">
+                <div class="k-card-header-actions">
+                    <button class="k-button k-flat k-taskboard-card-menu-button k-button-icon">
+                        <span class="k-icon k-i-more-vertical"></span>
+                    </button>
+                </div>
+            </span>
+        </div>
+        <div class="k-card-body body-label">
+            Free
+        </div>
+        <div class="k-card-footer plan-footer">STARTER  PLAN FOR INDIVIDUALS</div>
+    </div>
+
+    <div class="k-card k-card-type-rich">
+      <div class="k-card-header plan-card">
+          <h5 class="k-card-title plan-title">Team</h5>
+          <span class="template-menu">
+              <div class="k-card-header-actions menu">
+                  <button class="k-button k-flat k-taskboard-card-menu-button k-button-icon">
+                      <span class="k-icon k-i-more-vertical"></span>
+                  </button>
+              </div>
+          </span>
+      </div>
+      <div class="k-card-body body-label">$20/Month</div>
+      <div class="k-card-footer plan-footer">COLLABORATE UP TO 16 PEOPLE</div>
+    </div>
+    <div class="k-card k-card-type-rich">
+      <div class="k-card-header plan-card">
+          <h5 class="k-card-title plan-title">Enterprise</h5>
+          <span class="template-menu">
+              <div class="k-card-header-actions">
+                  <button class="k-button k-flat k-taskboard-card-menu-button k-button-icon">
+                      <span class="k-icon k-i-more-vertical"></span>
+                  </button>
+              </div>
+          </span>
+      </div>
+      <div class="k-card-body body-label">$45/Month</div>
+      <div class="k-card-footer plan-footer">FOR BIGGER BUSINESSES</div>
+    </div>
+  </div>
+  <div class="formTitle">PAYMENT DETAILS</div>
+  <form id="paymentDetailsForm" class="settingsForm"></form>
+  <div style="margin-top: 26px; float: right;">
+    <button id="cancelButton" class="k-flat">Cancel</button>
+    <button id="save" class="k-primary k-form-submit" type="submit">Save Changes</button>
+  </div>
+</script>
+
+<script id="notifications-template" type="text/html">
+  <div style="float: right; margin-right: 15px;"><span>Toggle all notifications</span><input id="allNotifications" aria-label="Name Switch" style="margin-left: 8px;"/></div>
+  <div class="formTitle" style="margin-top: 30px;">ALERT</div>
+  <form id="alertsForm" class="settingsForm"></form>
+
+  <div class="formTitle">EMAILS</div>
+  <form id="emailsForm" class="settingsForm"></form>
+  <div style="margin-top: 26px; float: right;">
+    <button id="cancelButton" class="k-flat">Cancel</button>
+    <button id="save" class="k-primary k-form-submit" type="submit">Save Changes</button>
+  </div>
 </script>
 
 <script id="date-template" type="text/html">
@@ -31,11 +114,11 @@
 </script>
 
 <script id="weather-header-template" type="text/html">
-  <span class="k-card-title">Weather</span>
+  <span class="k-card-title side-tile-header">Weather</span>
   <span class="k-spacer k-toolbar-spacer"></span>
   <a class="k-card-title k-link" style="float: right;">
     <span class="k-icon k-i-globe" style="margin-right:9px;"></span>
-    <span style="color: \\#0058E9;">Sofia</span>
+    <span class="side-tile-header" style="color: \\#0058E9;">Sofia</span>
   </a>
 </script>
 
@@ -66,7 +149,7 @@
 </script>
 
 <script>
-  $("#settings-tilelayout").kendoTileLayout({
+  var settingsTileLayout = $("#settings-tilelayout").kendoTileLayout({
     containers: [
       {
         colSpan: 2,
@@ -74,13 +157,13 @@
         header: {
           template: kendo.template($("#info-header-template").html()),
         },
-        bodyTemplate: kendo.template($("#info-template").html())
+        bodyTemplate: kendo.template($("#account-template").html())
       },
       {
         colSpan: 1,
         rowSpan: 1,
         header: {
-          template: "<span class='k-card-title'>Date</span>"
+          template: "<span class='k-card-title side-tile-header'>Date</span>"
         },
         bodyTemplate: kendo.template($("#date-template").html())
       },
@@ -98,23 +181,112 @@
     rowsHeight: "auto",
     reorderable: true,
     resizable: true,
-  });
+  }).data("kendoTileLayout");
 
   $(document).ready(function () {
+    createConstantWidgets();
+    createAccountWidgets();
+
     $("#dialog").kendoDialog({
       title: "Success",
       content: "Form has been submitted!",
       visible: false
     });
+  });
+
+  function createConstantWidgets() {
+    $("#plan-cards-menu").kendoContextMenu({
+      target: "#settings-tilelayout",
+      filter: ".template-menu",
+      showOn: "click",
+      select: function (e) {
+        e.target.closest(".k-card").remove();
+      }
+    });
 
     $("#accountButton").kendoButton({
-      icon: "user"
+      icon: "user",
+      click: function () {
+        settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#account-template").html());
+        var containers = settingsTileLayout.options.containers
+        settingsTileLayout.setOptions({
+          containers: containers
+        });
+
+        createConstantWidgets();
+        $("#accountButton").addClass("k-state-selected").addClass("k-primary");
+        $("#billingButton").removeClass("k-primary").removeClass("k-state-selected");
+        $("#notificationsButton").removeClass("k-state-selected").removeClass("k-primary");
+        createAccountWidgets();
+      }
+    });
+
+    $("#cancelButton").kendoButton({
+      enable: false,
+      click: function (e) {
+        if ($("#paymentDetailsForm").length) {
+          $("#paymentDetailsForm").data("kendoForm").clear();
+        }
+        if ($("#userDetailForm").length) {
+          $("#userDetailForm").data("kendoForm").clear();
+          $("#userInformationForm").data("kendoForm").clear();
+          $("#securityForm").data("kendoForm").clear();
+          $("#publicProfile").data("kendoSwitch").check(false);
+        }
+        $("#save").data("kendoButton").enable(false);
+        e.sender.enable(false);
+      }
+    });
+
+    $("#save").kendoButton({
+      enable: false,
+      click: function () {
+        $("#dialog").data("kendoDialog").open();
+        $("#save").data("kendoButton").enable(false);
+        $("#cancelButton").data("kendoButton").enable(false);
+      }
+    });
+
+    $("#billingButton").kendoButton({
+      icon: "file-txt",
+      click: function () {
+        settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#billing-template").html());
+        var containers = settingsTileLayout.options.containers
+        settingsTileLayout.setOptions({
+          containers: containers
+        });
+
+        createConstantWidgets();
+        $("#accountButton").removeClass("k-state-selected").removeClass("k-primary");
+        $("#billingButton").addClass("k-primary").addClass("k-state-selected");
+        createBillingWidgets();
+      }
+    });
+
+    $("#notificationsButton").kendoButton({
+      icon: "notification",
+      showOn: "click",
+      click: function () {
+        settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#notifications-template").html());
+        var containers = settingsTileLayout.options.containers
+        settingsTileLayout.setOptions({
+          containers: containers
+        });
+
+        createConstantWidgets();
+        $("#accountButton").removeClass("k-state-selected").removeClass("k-primary");
+        $("#billingButton").removeClass("k-state-selected").removeClass("k-primary");
+        $("#notificationsButton").addClass("k-primary").addClass("k-state-selected");
+        createNotificationsWidgets();
+      }
     });
 
     $("#calendar").kendoCalendar({
       componentType: "modern"
     });
+  }
 
+  function createAccountWidgets() {
     $("#userDetailForm").kendoForm({
       validatable: {
         validateOnBlur: false,
@@ -163,7 +335,8 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").removeClass("k-state-disabled")
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
       }
     });
 
@@ -239,17 +412,284 @@
           },
         },
       ],
-      buttonsTemplate: kendo.template($("#formButtons").html()),
+      buttonsTemplate: " ",
       change: function (e) {
-        $("#save").removeClass("k-state-disabled")
-      },
-      submit: function (e) {
-        e.preventDefault();
-        $("#dialog").data("kendoDialog").open();
-        $("#save").addClass("k-state-disabled")
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
       }
     });
-  });
+
+    $("#securityForm").kendoForm({
+      validatable: {
+        validateOnBlur: false,
+        validationSummary: false
+      },
+      formData: {
+        CurrentPassword: "*********",
+        NewPassword: "",
+        TwoStepAuth: true,
+        ChangePwOnSixMonths: true
+      },
+      layout: "grid",
+      grid: {
+        cols: 1,
+        gutter: 5
+      },
+      items: [
+        {
+          field: "CurrentPassword",
+          editor: function (container, options) {
+            $("<input type='password' name='" + options.field + "'/>")
+              .appendTo(container)
+              .kendoTextBox()
+          },
+          label: {
+            text: "Current Password"
+          },
+          cols: 1,
+        },
+        {
+          field: "NewPassword",
+          editor: function (container, options) {
+            $("<input type='password' name='" + options.field + "'/>")
+              .appendTo(container)
+              .kendoTextBox()
+          },
+          label: {
+            text: "New Password"
+          },
+          hint: "Minimum 8 characters, include numbers, letter and special characters.",
+          cols: 1
+        },
+        {
+          field: "TwoStepAuth",
+          editor: "Switch",
+          label: "Enable 2-step authentication"
+        },
+        {
+          field: "ChangePwOnSixMonths",
+          editor: "Switch",
+          label: {
+            text: "Ask to change password on every 6 months"
+          }
+        }
+      ],
+      buttonsTemplate: " ",
+      change: function (e) {
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
+      }
+    });
+
+    $("#publicProfile").kendoSwitch({
+      checked: true,
+      change: function () {
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
+      }
+    });
+  }
+
+  function createBillingWidgets() {
+    $("#paymentDetailsForm").kendoForm({
+      validatable: {
+        validateOnBlur: false,
+        validationSummary: false,
+      },
+      formData: {
+        CardHolder: "Jaxons Danniels",
+        CardNumber: "JS",
+        ExpirationDate: "MM/YY",
+        CVC: "",
+        Country: 1,
+        ZIP: "#"
+      },
+      layout: "grid",
+      grid: {
+        cols: 7,
+        gutter: 20
+      },
+      items: [
+        {
+          field: "CardHolder",
+          label: "Card holder",
+          colSpan: 7,
+        },
+        {
+          field: "CardNumber",
+          label: "Card number",
+          colSpan: 4,
+        },
+        {
+          field: "ExpirationDate",
+          label: "Expiration date",
+          colSpan: 2,
+        },
+        {
+          field: "CVC",
+          label: "CVC",
+          colSpan: 1,
+        },
+        {
+          field: "Country",
+          editor: "DropDownList",
+          editorOptions: {
+            dataTextField: "Text",
+            dataValueField: "Value",
+            dataSource: [
+              {
+                Text: "USA",
+                Value: "1",
+                Selected: false
+              },
+              {
+                Text: "United Kingdom",
+                Value: "2",
+                Selected: false
+              },
+              {
+                Text: "Bulgaria",
+                Value: "3",
+                Selected: false
+              },
+            ],
+          },
+          label: {
+            text: "Country"
+          },
+          colSpan: 4,
+        },
+        {
+          field: "Zip",
+          label: "Zip / Postal code",
+          colSpan: 3,
+        }
+      ],
+      buttonsTemplate: " ",
+      change: function (e) {
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
+      }
+    });
+  }
+
+  function createNotificationsWidgets() {
+    $("#allNotifications").kendoSwitch({
+      checked: true,
+      change: function (e) {
+        $("#save").data("kendoButton").enable(true);
+        var switchValue = e.sender.check();
+        var alertsFormData = $("#alertsForm").data("kendoForm").options.formData;
+        var emailsFormData = $("#emailsForm").data("kendoForm").options.formData
+
+        for (const key of Object.keys(alertsFormData)) {
+          alertsFormData[key] = switchValue;
+        }
+        $("#alertsForm").data("kendoForm").setOptions({
+          formData: alertsFormData
+        });
+
+        for (const key of Object.keys(emailsFormData)) {
+          emailsFormData[key] = switchValue;
+        }
+        $("#emailsForm").data("kendoForm").setOptions({
+          formData: emailsFormData
+        });
+        $("#cancelButton").data("kendoButton").enable(true);
+      }
+    });
+
+    $("#alertsForm").kendoForm({
+      orientation: "horizontal",
+      validatable: {
+        validateOnBlur: false,
+        validationSummary: false
+      },
+      formData: {
+        Communication: true,
+        Security: false,
+        Meetups: true,
+      },
+      layout: "grid",
+      grid: {
+        cols: 1,
+        gutter: 20
+      },
+      items: [
+        {
+          field: "Communication",
+          editor: "Switch",
+          label: {
+            text: "<div>Communication</div><div class='alertSubLabel'>Get news, announcements and product updates.</div>",
+            encoded: false
+          }
+        },
+        {
+          field: "Security",
+          editor: "Switch",
+          label: {
+            text: "<div>Security</div><div class='alertSubLabel'>Get important notifications about your account security.</div>",
+            encoded: false
+          }
+        },
+        {
+          field: "Meetups",
+          editor: "Switch",
+          label: {
+            text: "<div>Meetups</div><div class='alertSubLabel'>Get an email when a Meetup is posted close to my location.</div>",
+            encoded: false
+          }
+        }
+      ],
+      buttonsTemplate: " ",
+      change: function (e) {
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
+      }
+    });
+
+    $("#emailsForm").kendoForm({
+      orientation: "horizontal",
+      validatable: {
+        validateOnBlur: false,
+        validationSummary: false
+      },
+      formData: {
+        PhotoComments: false,
+        MentionOnComment: false,
+        ReplyToMyGroup: true,
+      },
+      layout: "grid",
+      items: [
+        {
+          field: "PhotoComments",
+          editor: "Switch",
+          label: {
+            text: "Photo comments",
+          }
+        },
+        {
+          field: "MentionOnComment",
+          editor: "Switch",
+          label: {
+            text: "Mention on a comment"
+          }
+        },
+        {
+          field: "ReplyToMyGroup",
+          editor: "Switch",
+          label: {
+            text: "Reply to my group"
+          }
+        }
+      ],
+      buttonsTemplate: " ",
+      change: function (e) {
+        $("#save").data("kendoButton").enable(true);
+        $("#cancelButton").data("kendoButton").enable(true);
+      }
+    });
+  }
 </script>
 
 <style>
@@ -282,5 +722,75 @@
     #settings-tilelayout div.k-tilelayout-item {
       grid-column-end: span 3 !important;
     }
+  }
+
+  #cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .k-card-type-rich {
+    min-width: 160px;
+    flex-grow: 1;
+    padding: 8px 16px;
+    justify-content: space-between;
+  }
+
+  .plan-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 8px 8px 0px;
+  }
+
+  .plan-title {
+    font-family: Roboto;
+    font-size: 20px;
+    color: #424242;
+  }
+
+  .body-label {
+    text-align: center;
+    font-weight: 300;
+    font-size: 28px;
+  }
+
+  .plan-footer {
+    color: #8F8F8F;
+    font-weight: 400;
+    font-size: 12px;
+    border-width: 0px;
+  }
+
+  .k-form-field-wrap .k-switch {
+    float: right;
+  }
+
+  .k-form-horizontal .k-form-field>.k-form-label {
+    align-items: flex-start;
+    width: 85%;
+  }
+
+  .alertSubLabel {
+    color: #8F8F8F;
+  }
+
+  .formTitle {
+    color: #8F8F8F;
+    padding: 16px 0px 8px 0px;
+    font-size: 12px;
+  }
+
+  .settingsForm {
+    background-color: #fafafa;
+    padding: 0px 16px 0px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .side-tile-header {
+    font-size: 20px;
   }
 </style>
