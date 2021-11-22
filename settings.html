@@ -422,6 +422,7 @@
     });
 
     $("#securityForm").kendoForm({
+      orientation: "horizontal",
       validatable: {
         validateOnBlur: false,
         validationSummary: false
@@ -435,7 +436,7 @@
       layout: "grid",
       grid: {
         cols: 1,
-        gutter: 5
+        gutter: 20
       },
       items: [
         {
@@ -493,8 +494,10 @@
       }
     });
 
-    $("input[name='CurrentPassword']").closest(".k-textbox").width("47%")
-    $("input[name='NewPassword']").closest(".k-textbox").width("47%")
+    $("input[name='CurrentPassword']").closest(".k-form-field").css("display", "block");
+    $("input[name='CurrentPassword']").closest(".k-textbox").width("65%");
+    $("input[name='NewPassword']").closest(".k-form-field").css("display", "block");
+    $("input[name='NewPassword']").closest(".k-textbox").width("65%");
   }
 
   function createBillingWidgets() {
