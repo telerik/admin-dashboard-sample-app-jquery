@@ -40,7 +40,7 @@
 <script id="billing-template" type="text/html">
   <div class="formTitle" class="formTitle">CHANGE YOUR PLAN</div>
   <div id="cards-container">
-    <div class="k-card k-card-type-rich">
+    <div class="k-card k-card-type-rich" onclick="selectCard(event)">
         <div class="k-card-header plan-card">
             <h5 class="k-card-title plan-title">Starter</h5>
             <span class="template-menu">
@@ -57,7 +57,7 @@
         <div class="k-card-footer plan-footer">STARTER  PLAN FOR INDIVIDUALS</div>
     </div>
 
-    <div class="k-card k-card-type-rich">
+    <div class="k-card k-card-type-rich" onclick="selectCard(event)">
       <div class="k-card-header plan-card">
           <h5 class="k-card-title plan-title">Team</h5>
           <span class="template-menu">
@@ -71,7 +71,7 @@
       <div class="k-card-body body-label">$20/Month</div>
       <div class="k-card-footer plan-footer">COLLABORATE UP TO 16 PEOPLE</div>
     </div>
-    <div class="k-card k-card-type-rich">
+    <div class="k-card k-card-type-rich" onclick="selectCard(event)">
       <div class="k-card-header plan-card">
           <h5 class="k-card-title plan-title">Enterprise</h5>
           <span class="template-menu">
@@ -194,6 +194,11 @@
     });
   });
 
+  function selectCard(e) {
+    $(".selected").removeClass("selected");
+    $(e.target).closest(".k-card-type-rich").addClass("selected");
+  }
+
   function createConstantWidgets() {
     $("#plan-cards-menu").kendoContextMenu({
       target: "#settings-tilelayout",
@@ -293,44 +298,36 @@
         validationSummary: false
       },
       formData: {
-        Username: "jaxons.danniels@company.com",
+        Username: "Jaxons",
         Email: "jaxons.danniels@company.com",
-        Nickname: "Jaxons Danniels",
-        Phone: "112345678901"
+        Nickname: "JX",
+        PhoneNumber: 183738379302
       },
       layout: "grid",
       grid: {
         cols: 2,
         gutter: 20
       },
-      item: [
+      items: [
         {
           field: "Username",
-          label: {
-            text: "Username"
-          }
+          label: "Username"
         },
         {
           field: "Email",
-          label: {
-            text: "Email Address"
-          }
+          label: "Email Address"
         },
         {
           field: "Nickname",
-          label: {
-            text: "Nickname"
-          }
+          label: "Nickname"
         },
         {
-          field: "Phone",
+          field: "PhoneNumber",
           editor: "MaskedTextBox",
           editorOptions: {
             mask: "(+9) 0000-000-00-00"
           },
-          label: {
-            text: "Phone Number"
-          }
+          label: "Phone Number"
         }
       ],
       buttonsTemplate: " ",
@@ -349,7 +346,7 @@
         BirthDate: "0001-01-01T00:00:00",
         Country: "1",
         Website: "https://www.telerik.com/",
-        WorkPhone: "112345678901"
+        WorkPhone: 183738379301
       },
       layout: "grid",
       grid: {
@@ -361,7 +358,12 @@
           field: "BirthDate",
           editor: "DateInput",
           editorOptions: {
-            format: "{0:MM|dd|yy}"
+            format: "{0:MM / dd / YY}",
+            messages: {
+              "year": "YY",
+              "month": "MM",
+              "day": "DD",
+            }
           },
           label: {
             text: "Birth Date"
@@ -393,13 +395,13 @@
           },
           label: {
             text: "Country"
-          },
+          }
         },
         {
           field: "Website",
           label: {
             text: "Website"
-          },
+          }
         },
         {
           field: "WorkPhone",
@@ -409,8 +411,8 @@
           },
           label: {
             text: "Phone Number"
-          },
-        },
+          }
+        }
       ],
       buttonsTemplate: " ",
       change: function (e) {
@@ -437,6 +439,7 @@
       },
       items: [
         {
+          id: "Current_Password",
           field: "CurrentPassword",
           editor: function (container, options) {
             $("<input type='password' name='" + options.field + "'/>")
@@ -447,6 +450,7 @@
             text: "Current Password"
           },
           cols: 1,
+          hint: "You can only change your password once within 48 hours."
         },
         {
           field: "NewPassword",
@@ -488,6 +492,9 @@
         $("#cancelButton").data("kendoButton").enable(true);
       }
     });
+
+    $("input[name='CurrentPassword']").closest(".k-textbox").width("47%")
+    $("input[name='NewPassword']").closest(".k-textbox").width("47%")
   }
 
   function createBillingWidgets() {
@@ -523,10 +530,27 @@
         {
           field: "ExpirationDate",
           label: "Expiration date",
+          editor: "DateInput",
+          editorOptions: {
+            format: "{0:MM / dd}",
+            messages: {
+              "year": "YY",
+              "month": "MM",
+              "day": "DD",
+            }
+          },
           colSpan: 2,
         },
         {
           field: "CVC",
+          editor: "NumericTextBox",
+          editorOptions: {
+            spinners: false,
+            decimals: 0,
+            restrictDecimals: true,
+            min: 0,
+            format: "###"
+          },
           label: "CVC",
           colSpan: 1,
         },
@@ -571,6 +595,8 @@
         $("#cancelButton").data("kendoButton").enable(true);
       }
     });
+
+    $("input#CVC").attr('maxlength', '3');
   }
 
   function createNotificationsWidgets() {
@@ -792,5 +818,9 @@
 
   .side-tile-header {
     font-size: 20px;
+  }
+
+  .selected {
+    border: 1px solid #37B400;
   }
 </style>
