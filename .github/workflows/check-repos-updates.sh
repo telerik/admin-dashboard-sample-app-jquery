@@ -4,7 +4,7 @@ LATEST_RELEASE=$(curl -s https://api.github.com/repos/telerik/kendo-ui-core/rele
 echo "Last release version is $LATEST_RELEASE"
 
 function getCurrentVersion {
-    for file in `find . -type f -name "*.cshtml"`  
+    for file in `find . -type f -name "*.html"`  
     do
         CURRENT_VERSION=$(grep -hnr "kendo.cdn" $file | head -1 |cut -d '/' -f 4)
         if [ ! -z "$CURRENT_VERSION" ]
@@ -17,15 +17,7 @@ function getCurrentVersion {
     echo "Current version is $CURRENT_GLOBAL_VERSION"
 
 
-for file in `find . -type f -name "*.cshtml"`  
-do
-    sed -i "s/$CURRENT_GLOBAL_VERSION/$LATEST_RELEASE/g" $file
-done
-for file in `find . -type f -name "*.csproj"`  
-do
-    sed -i "s/$CURRENT_GLOBAL_VERSION/$LATEST_RELEASE/g" $file
-done
-for file in `find . -type f -name "*.config"`  
+for file in `find . -type f -name "*.html"`  
 do
     sed -i "s/$CURRENT_GLOBAL_VERSION/$LATEST_RELEASE/g" $file
 done
