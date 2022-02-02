@@ -5,9 +5,9 @@
 <div id="dialog"></div>
 
 <script id="info-header-template" type="text/html">
-  <button id="accountButton" class="k-primary k-flat k-state-selected">Account</button>
-  <button id="billingButton" class="k-flat">Billing</button>
-  <button id="notificationsButton" class="k-flat">Notifications</button>
+  <button id="accountButton" class="k-selected">Account</button>
+  <button id="billingButton">Billing</button>
+  <button id="notificationsButton">Notifications</button>
 </script>
 
 <script id="account-template" type="text/html">
@@ -28,9 +28,9 @@
       <div class="k-hstack" style="margin-top: 26px;">
         <div>Public Profile<input id="publicProfile" aria-label="Name Switch" style="margin-left: 8px;"/></div>
         <div class="k-spacer"></div>
-        <div>
-          <button id="cancelButton" class="k-flat">Cancel</button>
-          <button id="save" class="k-primary k-form-submit" type="submit">Save Changes</button>
+        <div style="margin-top: 26px; float: right;">
+          <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
+          <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-form-submit" type="submit">Save Changes</button>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
             <h5 class="k-card-title plan-title">Starter</h5>
             <span class="template-menu">
                 <div class="k-card-header-actions">
-                    <button class="k-button k-flat k-taskboard-card-menu-button k-button-icon">
+                    <button class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-taskboard-card-menu-button k-button-icon">
                         <span class="k-icon k-i-more-vertical"></span>
                     </button>
                 </div>
@@ -62,7 +62,7 @@
           <h5 class="k-card-title plan-title">Team</h5>
           <span class="template-menu">
               <div class="k-card-header-actions menu">
-                  <button class="k-button k-flat k-taskboard-card-menu-button k-button-icon">
+                  <button class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-taskboard-card-menu-button k-button-icon">
                       <span class="k-icon k-i-more-vertical"></span>
                   </button>
               </div>
@@ -76,7 +76,7 @@
           <h5 class="k-card-title plan-title">Enterprise</h5>
           <span class="template-menu">
               <div class="k-card-header-actions">
-                  <button class="k-button k-flat k-taskboard-card-menu-button k-button-icon">
+                  <button class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-taskboard-card-menu-button k-button-icon">
                       <span class="k-icon k-i-more-vertical"></span>
                   </button>
               </div>
@@ -89,8 +89,8 @@
   <div class="formTitle">PAYMENT DETAILS</div>
   <form id="paymentDetailsForm" class="settingsForm"></form>
   <div style="margin-top: 26px; float: right;">
-    <button id="cancelButton" class="k-flat">Cancel</button>
-    <button id="save" class="k-primary k-form-submit" type="submit">Save Changes</button>
+    <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
+    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
@@ -102,8 +102,8 @@
   <div class="formTitle">EMAILS</div>
   <form id="emailsForm" class="settingsForm"></form>
   <div style="margin-top: 26px; float: right;">
-    <button id="cancelButton" class="k-flat">Cancel</button>
-    <button id="save" class="k-primary k-form-submit" type="submit">Save Changes</button>
+    <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
+    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
@@ -210,6 +210,8 @@
     });
 
     $("#accountButton").kendoButton({
+      fillMode:"flat",
+      themeColor:"primary",
       icon: "user",
       click: function () {
         settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#account-template").html());
@@ -219,9 +221,9 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").addClass("k-state-selected").addClass("k-primary");
-        $("#billingButton").removeClass("k-primary").removeClass("k-state-selected");
-        $("#notificationsButton").removeClass("k-state-selected").removeClass("k-primary");
+        $("#accountButton").addClass("k-selected").addClass("k-button-flat-primary");
+        $("#billingButton").removeClass("k-button-flat-primary").removeClass("k-selected");
+        $("#notificationsButton").removeClass("k-selected").removeClass("k-button-flat-primary");
         createAccountWidgets();
       }
     });
@@ -244,6 +246,8 @@
     });
 
     $("#save").kendoButton({
+      fillMode:"flat",
+      themeColor:"primary",
       enable: false,
       click: function () {
         $("#dialog").data("kendoDialog").open();
@@ -253,6 +257,7 @@
     });
 
     $("#billingButton").kendoButton({
+      fillMode:"flat",
       icon: "file-txt",
       click: function () {
         settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#billing-template").html());
@@ -262,13 +267,14 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").removeClass("k-state-selected").removeClass("k-primary");
-        $("#billingButton").addClass("k-primary").addClass("k-state-selected");
+        $("#accountButton").removeClass("k-selected").removeClass("k-button-flat-primary");
+        $("#billingButton").addClass("k-button-flat-primary").addClass("k-selected");
         createBillingWidgets();
       }
     });
 
     $("#notificationsButton").kendoButton({
+      fillMode:"flat",
       icon: "notification",
       showOn: "click",
       click: function () {
@@ -279,9 +285,9 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").removeClass("k-state-selected").removeClass("k-primary");
-        $("#billingButton").removeClass("k-state-selected").removeClass("k-primary");
-        $("#notificationsButton").addClass("k-primary").addClass("k-state-selected");
+        $("#accountButton").removeClass("k-selected").removeClass("k-button-flat-primary");
+        $("#billingButton").removeClass("k-selected").removeClass("k-button-flat-primary");
+        $("#notificationsButton").addClass("k-button-flat-primary").addClass("k-selected");
         createNotificationsWidgets();
       }
     });
