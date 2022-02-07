@@ -272,7 +272,7 @@
     $("#my-team-grid").kendoGrid({
       dataSource: myTeamDataSource,
       height: "650px",
-      toolbar: ["search", "excel", "pdf"],
+      toolbar: ["excel", "pdf", "search"],
       groupable: true,
       sortable: true,
       pageable: {
@@ -554,7 +554,13 @@
     background-color: #ff6358;
     color: #ffffff;
   }
-
+  .k-spacer {
+    display:none;
+  }
+  .k-grid-excel{
+    margin-left:auto;
+  }
+  
   @media (max-width: 716px) {
     #dashboard-tilelayout div.k-tilelayout-item:nth-child(-n + 4) {
       grid-column-end: span 4 !important;

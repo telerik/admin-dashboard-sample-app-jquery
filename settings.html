@@ -5,7 +5,7 @@
 <div id="dialog"></div>
 
 <script id="info-header-template" type="text/html">
-  <button id="accountButton" class="k-selected">Account</button>
+  <button id="accountButton">Account</button>
   <button id="billingButton">Billing</button>
   <button id="notificationsButton">Notifications</button>
 </script>
@@ -30,7 +30,7 @@
         <div class="k-spacer"></div>
         <div style="margin-top: 26px; float: right;">
           <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
-          <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-form-submit" type="submit">Save Changes</button>
+          <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@
   <form id="paymentDetailsForm" class="settingsForm"></form>
   <div style="margin-top: 26px; float: right;">
     <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
-    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-form-submit" type="submit">Save Changes</button>
+    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
@@ -103,7 +103,7 @@
   <form id="emailsForm" class="settingsForm"></form>
   <div style="margin-top: 26px; float: right;">
     <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
-    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-form-submit" type="submit">Save Changes</button>
+    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
@@ -221,14 +221,15 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").addClass("k-selected").addClass("k-button-flat-primary");
-        $("#billingButton").removeClass("k-button-flat-primary").removeClass("k-selected");
-        $("#notificationsButton").removeClass("k-selected").removeClass("k-button-flat-primary");
+        $("#accountButton").addClass("k-active k-button-flat-primary").removeClass("k-button-flat-base");
+        $("#billingButton").removeClass("k-button-flat-primary k-active").addClass("k-button-flat-base");
+        $("#notificationsButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
         createAccountWidgets();
       }
     });
-
-    $("#cancelButton").kendoButton({
+    $("#accountButton").addClass("k-active");
+    var cancelButton = $("#cancelButton").kendoButton({
+      fillMode:"flat",
       enable: false,
       click: function (e) {
         if ($("#paymentDetailsForm").length) {
@@ -240,21 +241,20 @@
           $("#securityForm").data("kendoForm").clear();
           $("#publicProfile").data("kendoSwitch").check(false);
         }
-        $("#save").data("kendoButton").enable(false);
-        e.sender.enable(false);
-      }
-    });
 
-    $("#save").kendoButton({
-      fillMode:"flat",
+        disableButton();
+      }
+    }).data("kendoButton");
+
+    var saveButton = $("#save").kendoButton({
       themeColor:"primary",
       enable: false,
       click: function () {
         $("#dialog").data("kendoDialog").open();
-        $("#save").data("kendoButton").enable(false);
-        $("#cancelButton").data("kendoButton").enable(false);
+
+        disableButtons();
       }
-    });
+    }).data("kendoButton");
 
     $("#billingButton").kendoButton({
       fillMode:"flat",
@@ -267,8 +267,9 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").removeClass("k-selected").removeClass("k-button-flat-primary");
-        $("#billingButton").addClass("k-button-flat-primary").addClass("k-selected");
+        $("#accountButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
+        $("#billingButton").removeClass('k-button-flat-base').addClass("k-button-flat-primary k-active");
+        $("#notificationsButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
         createBillingWidgets();
       }
     });
@@ -285,10 +286,11 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").removeClass("k-selected").removeClass("k-button-flat-primary");
-        $("#billingButton").removeClass("k-selected").removeClass("k-button-flat-primary");
-        $("#notificationsButton").addClass("k-button-flat-primary").addClass("k-selected");
+        $("#accountButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
+        $("#billingButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
+        
         createNotificationsWidgets();
+        $("#notificationsButton").addClass("k-button-flat-primary k-active").removeClass("k-button-flat-base");
       }
     });
 
@@ -338,8 +340,8 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+
+        enableButtons();
       }
     });
 
@@ -422,8 +424,8 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+
+        enableButtons();
       }
     });
 
@@ -487,16 +489,14 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+        enableButtons();
       }
     });
 
     $("#publicProfile").kendoSwitch({
       checked: true,
       change: function () {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+        enableButtons();
       }
     });
 
@@ -600,8 +600,7 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+        enableButtons();
       }
     });
 
@@ -678,8 +677,7 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+        enableButtons();
       }
     });
 
@@ -720,11 +718,21 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
-        $("#cancelButton").data("kendoButton").enable(true);
+        enableButtons();
       }
     });
   }
+
+  function enableButtons(){
+      saveButton.enable(true);
+      cancelButton.enable(true);
+  }
+
+  function disableButtons(){
+      saveButton.enable(false);
+      cancelButton.enable(false);
+  }
+
 </script>
 
 <style>
