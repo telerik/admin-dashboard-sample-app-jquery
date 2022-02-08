@@ -214,7 +214,6 @@
       select: onGridChange
     });
 
-
     var chart = $("#total-points-chart").kendoChart({
       dataSource: salesRevenueDataSource,
       title: {
@@ -267,7 +266,6 @@
     setTimeout(function () {
       chart.resize();
     }, 350);
-
 
     $("#my-team-grid").kendoGrid({
       dataSource: myTeamDataSource,
@@ -550,9 +548,13 @@
     color: #ffa600;
   }
 
-  .k-button.k-state-active {
+  .k-button.k-active {
     background-color: #ff6358;
     color: #ffffff;
+  }
+
+  .k-spacer {
+    display:none;
   }
 
   @media (max-width: 716px) {
@@ -565,5 +567,9 @@
     #dashboard-tilelayout div.k-tilelayout-item:nth-child(-n + 4) {
       grid-column-end: span 2 !important;
     }
+  }
+
+  .k-input {
+    width: auto;
   }
 </style>

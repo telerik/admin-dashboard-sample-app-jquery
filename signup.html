@@ -50,7 +50,7 @@
                 cols:1,
                 gutter:5
             },
-            buttonsTemplate: "<a href='index.html' class='k-button'>Create free account</a>",
+            buttonsTemplate: "<a href='index.html' class='k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base'>Create free account</a>",
             formData:{
                 fullname:"",
                 email:"",
@@ -188,6 +188,7 @@ div.k-form-field:nth-child(3) {
         position: relative;
     }        
 .k-icon.k-i-preview {
+        z-index: 10;
         position: absolute;
         bottom: 2px;
         right: 5px;
@@ -245,7 +246,7 @@ hr {
 .k-button, .k-button:hover {
     height: 30px;
     width: 270px;
-    background:#FF6358;
+    background:#FF6358 !important;
     color: #FFFFFF;
 
 }
