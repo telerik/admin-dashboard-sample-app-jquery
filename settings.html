@@ -210,8 +210,8 @@
     });
 
     $("#accountButton").kendoButton({
-      fillMode:"flat",
-      themeColor:"primary",
+      fillMode: "flat",
+      themeColor: "primary",
       icon: "user",
       click: function () {
         settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#account-template").html());
@@ -227,9 +227,11 @@
         createAccountWidgets();
       }
     });
+
     $("#accountButton").addClass("k-active");
-    var cancelButton = $("#cancelButton").kendoButton({
-      fillMode:"flat",
+
+    $("#cancelButton").kendoButton({
+      fillMode: "flat",
       enable: false,
       click: function (e) {
         if ($("#paymentDetailsForm").length) {
@@ -241,23 +243,21 @@
           $("#securityForm").data("kendoForm").clear();
           $("#publicProfile").data("kendoSwitch").check(false);
         }
-
-        disableButton();
+        enableButtons(false);
       }
-    }).data("kendoButton");
+    });
 
-    var saveButton = $("#save").kendoButton({
-      themeColor:"primary",
+    $("#save").kendoButton({
+      themeColor: "primary",
       enable: false,
       click: function () {
         $("#dialog").data("kendoDialog").open();
-
-        disableButtons();
+        enableButtons(false);
       }
-    }).data("kendoButton");
+    });
 
     $("#billingButton").kendoButton({
-      fillMode:"flat",
+      fillMode: "flat",
       icon: "file-txt",
       click: function () {
         settingsTileLayout.options.containers[0].bodyTemplate = kendo.template($("#billing-template").html());
@@ -275,7 +275,7 @@
     });
 
     $("#notificationsButton").kendoButton({
-      fillMode:"flat",
+      fillMode: "flat",
       icon: "notification",
       showOn: "click",
       click: function () {
@@ -288,7 +288,7 @@
         createConstantWidgets();
         $("#accountButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
         $("#billingButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
-        
+
         createNotificationsWidgets();
         $("#notificationsButton").addClass("k-button-flat-primary k-active").removeClass("k-button-flat-base");
       }
@@ -340,8 +340,7 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-
-        enableButtons();
+        enableButtons(true);
       }
     });
 
@@ -424,8 +423,7 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-
-        enableButtons();
+        enableButtons(true);
       }
     });
 
@@ -489,14 +487,14 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        enableButtons();
+        enableButtons(true);
       }
     });
 
     $("#publicProfile").kendoSwitch({
       checked: true,
       change: function () {
-        enableButtons();
+        enableButtons(true);
       }
     });
 
@@ -600,7 +598,7 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        enableButtons();
+        enableButtons(true);
       }
     });
 
@@ -611,7 +609,6 @@
     $("#allNotifications").kendoSwitch({
       checked: true,
       change: function (e) {
-        $("#save").data("kendoButton").enable(true);
         var switchValue = e.sender.check();
         var alertsFormData = $("#alertsForm").data("kendoForm").options.formData;
         var emailsFormData = $("#emailsForm").data("kendoForm").options.formData
@@ -619,6 +616,7 @@
         for (const key of Object.keys(alertsFormData)) {
           alertsFormData[key] = switchValue;
         }
+
         $("#alertsForm").data("kendoForm").setOptions({
           formData: alertsFormData
         });
@@ -626,10 +624,12 @@
         for (const key of Object.keys(emailsFormData)) {
           emailsFormData[key] = switchValue;
         }
+
         $("#emailsForm").data("kendoForm").setOptions({
           formData: emailsFormData
         });
-        $("#cancelButton").data("kendoButton").enable(true);
+
+        enableButtons(true);
       }
     });
 
@@ -677,7 +677,7 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        enableButtons();
+        enableButtons(true);
       }
     });
 
@@ -718,21 +718,15 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        enableButtons();
+        enableButtons(true);
       }
     });
   }
 
-  function enableButtons(){
-      saveButton.enable(true);
-      cancelButton.enable(true);
+  function enableButtons(args) {
+    $("#cancelButton").data("kendoButton").enable(args);
+    $("#save").data("kendoButton").enable(args);
   }
-
-  function disableButtons(){
-      saveButton.enable(false);
-      cancelButton.enable(false);
-  }
-
 </script>
 
 <style>

@@ -214,7 +214,6 @@
       select: onGridChange
     });
 
-
     var chart = $("#total-points-chart").kendoChart({
       dataSource: salesRevenueDataSource,
       title: {
@@ -268,11 +267,10 @@
       chart.resize();
     }, 350);
 
-
     $("#my-team-grid").kendoGrid({
       dataSource: myTeamDataSource,
       height: "650px",
-      toolbar: ["excel", "pdf", "search"],
+      toolbar: ["search", "excel", "pdf"],
       groupable: true,
       sortable: true,
       pageable: {
@@ -550,17 +548,15 @@
     color: #ffa600;
   }
 
-  .k-button.k-state-active {
+  .k-button.k-active {
     background-color: #ff6358;
     color: #ffffff;
   }
+
   .k-spacer {
     display:none;
   }
-  .k-grid-excel{
-    margin-left:auto;
-  }
-  
+
   @media (max-width: 716px) {
     #dashboard-tilelayout div.k-tilelayout-item:nth-child(-n + 4) {
       grid-column-end: span 4 !important;
@@ -574,6 +570,6 @@
   }
 
   .k-input {
-    width:auto;
+    width: auto;
   }
 </style>
