@@ -1,6 +1,6 @@
 # Kendo UI Admin Dashboard
 
-Kendo UI Admin Dashboard is a web application built with Progress award-winning Kendo UI for jQuery widgets - 100+ UI components to help you build responsive websites and apps fast. Kendo UI for jQuery® offers widgets for every need - from the must-have for every app Grids, Dropdowns and Menus to the advanced line-of-business UI, such as Charts, Gantt, Diagram, Scheduler, PivotGrid and Maps.
+Kendo UI Admin Dashboard is a web application built with Progress award-winning Kendo UI for jQuery widgets - 110+ UI components to help you build responsive websites and apps fast. Kendo UI for jQuery® offers widgets for every need - from the must-have for every app Grids, Dropdowns and Menus to the advanced line-of-business UI, such as Charts, Gantt, Diagram, Scheduler, PivotGrid and Maps.
 
 ----------
 
