@@ -1,7 +1,7 @@
 <div id="settings-tilelayout"></div>
 <ul id="plan-cards-menu">
-  <li><span class='k-icon k-i-delete'></span>Delete</li>
-</ul>
+  <li><span id='del'></span>Delete</li>
+</ul> 
 <div id="dialog"></div>
 
 <script id="info-header-template" type="text/html">
@@ -45,9 +45,8 @@
             <h5 class="k-card-title plan-title">Starter</h5>
             <span class="template-menu">
                 <div class="k-card-header-actions">
-                    <button class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-taskboard-card-menu-button k-button-icon">
-                        <span class="k-icon k-i-more-vertical"></span>
-                    </button>
+                  <button class="ver-bttn k-taskboard-card-menu-button">
+                  </button>
                 </div>
             </span>
         </div>
@@ -62,8 +61,7 @@
           <h5 class="k-card-title plan-title">Team</h5>
           <span class="template-menu">
               <div class="k-card-header-actions menu">
-                  <button class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-taskboard-card-menu-button k-button-icon">
-                      <span class="k-icon k-i-more-vertical"></span>
+                  <button class="ver-bttn k-taskboard-card-menu-button">
                   </button>
               </div>
           </span>
@@ -76,8 +74,7 @@
           <h5 class="k-card-title plan-title">Enterprise</h5>
           <span class="template-menu">
               <div class="k-card-header-actions">
-                  <button class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-taskboard-card-menu-button k-button-icon">
-                      <span class="k-icon k-i-more-vertical"></span>
+                  <button class="ver-bttn k-taskboard-card-menu-button">
                   </button>
               </div>
           </span>
@@ -117,7 +114,7 @@
   <span class="k-card-title side-tile-header">Weather</span>
   <span class="k-spacer k-toolbar-spacer"></span>
   <a class="k-card-title k-link" style="float: right;">
-    <span class="k-icon k-i-globe" style="margin-right:9px;"></span>
+    <span id="globe" style="margin-right:9px;"></span>
     <span class="side-tile-header" style="color: \\#0058E9;">Sofia</span>
   </a>
 </script>
@@ -206,7 +203,10 @@
       showOn: "click",
       select: function (e) {
         e.target.closest(".k-card").remove();
-      }
+      },
+      activate: function(e) {
+        kendo.ui.icon($("#del"), { icon: 'trash' });
+         }
     });
 
     $("#accountButton").kendoButton({
@@ -481,7 +481,7 @@
           field: "ChangePwOnSixMonths",
           editor: "Switch",
           label: {
-            text: "Ask to change password on every 6 months"
+            text: "Ask to change password on everticaly 6 months"
           }
         }
       ],
@@ -598,11 +598,18 @@
       ],
       buttonsTemplate: " ",
       change: function (e) {
-        enableButtons(true);
+        enableButtons(true);  
       }
     });
 
     $("input#CVC").attr('maxlength', '3');
+
+    $(".ver-bttn").kendoButton({
+      icon: "more-vertical",
+      fillMode: "flat"
+    });
+    kendo.ui.icon($("#globe"), { icon: 'globe' });
+    
   }
 
   function createNotificationsWidgets() {
@@ -721,12 +728,20 @@
         enableButtons(true);
       }
     });
+
+    kendo.ui.icon($("#globe"), { icon: 'globe' });
   }
 
   function enableButtons(args) {
     $("#cancelButton").data("kendoButton").enable(args);
     $("#save").data("kendoButton").enable(args);
   }
+
+  kendo.ui.icon($("#globe"), { icon: 'globe' });
+  // kendo.ui.icon($("#del"), { icon: 'trash' });
+
+
+
 </script>
 
 <style>

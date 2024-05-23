@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-main.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/8.0.1/default/default-main.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2023.2.718/js/jszip.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2023.2.718/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.2.514/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.2.514/js/kendo.all.min.js"></script>
 </head>
 
 <body>
@@ -63,10 +63,10 @@
             $("#appbar").kendoAppBar({
                 themeColor: "inherit",
                 items: [
-                    { template: '<a id="toggleDrawer" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" style="border:0px; background:\\#FFFFFF;" href="\\#"><span class="k-icon k-i-menu"></span></a>', type: "contentItem" },
+                    { template: '<a id="toggleDrawer" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" style="border:0px; background:\\#FFFFFF;" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
                     { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
                     { width: 0, type: "spacer" },
-                    { template: "<a class='k-link app-bar-link'><span class='k-icon k-i-notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
+                    { template: "<a class='k-link app-bar-link'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
                     { width: 26, type: "spacer" },
                     { template: "<a class='k-link app-bar-link aboutPage'>About</a>" }
                 ]
@@ -81,11 +81,11 @@
 
             var drawer = $("#drawer").kendoDrawer({
                 template: "<ul> \
-                            <li data-role='drawer-item' class='k-state-selected'><span class='k-icon k-i-grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
-                            <li data-role='drawer-item'><span class='k-icon k-i-notification k-i-globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
-                            <li data-role='drawer-item'><span class='k-icon k-i-aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
+                            <li data-role='drawer-item' class='k-state-selected'><span id='grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
+                            <li data-role='drawer-item'><span id='globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
+                            <li data-role='drawer-item'><span id='aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
                             <li data-role='drawer-separator'></li> \
-                            <li data-role='drawer-item'><span class='k-icon k-i-gear'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
+                            <li data-role='drawer-item'><span id='gear'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
                           </ul>",
                 mode: "push",
                 autoCollapse: false,
@@ -125,6 +125,12 @@
             drawer.drawerWrapper.prepend(userContentTemplate);
 
             document.title = $("div.appTitle").text(); + " - AdminDashboard";
+            kendo.ui.icon($("#menu"), { icon: 'menu' });
+            kendo.ui.icon($("#notification"), { icon: 'notification' });
+            kendo.ui.icon($("#grid"), { icon: 'grid' });
+            kendo.ui.icon($("#globe"), { icon: 'globe' });
+            kendo.ui.icon($("#aggregate-fields"), { icon: 'aggregate-fields' });
+            kendo.ui.icon($("#gear"), { icon: 'gear' });
 
             $("#appbar").kendoPopover({
                 showOn: "click",

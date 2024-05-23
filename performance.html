@@ -1,7 +1,7 @@
 <div id="performance-tilelayout"></div>
 
 <ul id="performance-options-menu">
-  <li><span class='k-icon k-i-delete'></span>Delete</li>
+  <li><span class='del'></span>Delete</li>
 </ul>
 
 <!-- container gauges templates -->
@@ -60,7 +60,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#sales-revenue-template").html()),
         colSpan: 6,
         header: {
-          template: "<span class=k-card-title>Sales Revenue</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+          template: "<span class=k-card-title>Sales Revenue</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
         },
         rowSpan: 1
       },
@@ -68,7 +68,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#performance-template").html()),
         colSpan: 4,
         header: {
-          template: "<span class=k-card-title>Weekday Payment Preferences</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+          template: "<span class=k-card-title>Weekday Payment Preferences</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
         },
         rowSpan: 1
       },
@@ -76,7 +76,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#monthly-sales-template").html()),
         colSpan: 2,
         header: {
-          template: "<span class=k-card-title>Monthly Sales</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+          template: "<span class=k-card-title>Monthly Sales</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
         },
         rowSpan: 1
       },
@@ -84,7 +84,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#europe-template").html()),
         colSpan: 3,
         header: {
-          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Europe</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a></span></div>"
+          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Europe</span><a class='vertical' class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' ></span></a></span></div>"
         },
         rowSpan: 1
       },
@@ -92,7 +92,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#global-template").html()),
         colSpan: 3,
         header: {
-          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Global</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a></span></div>"
+          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Global</span><a class='vertical' class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' ></span></a></span></div>"
         },
         rowSpan: 1
       },
@@ -100,7 +100,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#weekly-sales-template").html()),
         colSpan: 2,
         header: {
-          template: "<span class=k-card-title>Weekly Sales </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+          template: "<span class=k-card-title>Weekly Sales </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
         },
         rowSpan: 1
       },
@@ -108,7 +108,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#cost-template").html()),
         colSpan: 4,
         header: {
-          template: "<span class=k-card-title>Cost Breakdown </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+          template: "<span class=k-card-title>Cost Breakdown </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
         },
         rowSpan: 1
       }
@@ -570,7 +570,9 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       item.colSpan = 1;
      
       recreateSetup(mainItems);
-
+    },
+    activate: function() {
+      kendo.ui.icon($(".del"), { icon: 'trash' });
     }
   });
 
@@ -624,7 +626,9 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       kendo.resize($(".k-chart"));
       resizeWidgets();
     })
-  })
+  });
+
+  kendo.ui.icon($(".vertical"), { icon: 'more-vertical' });
 </script>
 <style>
   .k-card-title {

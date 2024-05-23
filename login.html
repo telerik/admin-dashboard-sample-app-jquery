@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-main.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/8.0.1/default/default-main.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2023.2.718/js/jszip.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2023.2.718/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.2.514/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.2.514/js/kendo.all.min.js"></script>
 </head>
 
 <body>
@@ -95,15 +95,15 @@
                         }
                     }
                 ]
-            })
-            $("#Password").parent().append("<span class='k-icon k-i-preview'></span>");
+            });
+            
+            $("#Password").parent().append("<span id='preview'></span>");
+            kendo.ui.icon($("#preview"), { icon: 'eye' });
             $("#Password").val("somepassword");
-            $(".k-i-preview").mousedown(function () {
-
+            $("#preview").mousedown(function () {
                 $("#Password").attr("type", "text");
             })
-            $(".k-i-preview").mouseup(function () {
-
+            $("#preview").mouseup(function () {
                 $("#Password").attr("type", "password");
             })
         })
@@ -121,7 +121,7 @@
             width: 100%;
         }
 
-        .k-icon.k-i-preview {
+        #preview {
             z-index: 10;
             position: absolute;
             bottom: 2px;
