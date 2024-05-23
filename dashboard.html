@@ -1,7 +1,7 @@
 <div class="greeting">Hello again, Jaxons!</div>
 <div id="dashboard-tilelayout" style="margin-bottom: 24px"></div>
 <ul id="options-menu">
-  <li><span class='k-icon k-i-delete'></span>Delete</li>
+  <li><span class='del'></span>Delete</li>
 </ul>
 
 <script id="tasks-ontrack-template" type="text/html">
@@ -52,7 +52,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Tasks On Track</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+            "<span class=k-card-title>Tasks On Track</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#tasks-ontrack-template").html())
       },
@@ -61,7 +61,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Overdue Tasks</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+            "<span class=k-card-title>Overdue Tasks</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#overdue-tasks-template").html())
       },
@@ -70,7 +70,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Issues</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+            "<span class=k-card-title>Issues</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#issues-template").html())
       },
@@ -79,7 +79,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Used Space</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='k-icon k-i-more-vertical'></span></a>"
+            "<span class=k-card-title>Used Space</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
         },
         bodyTemplate: kendo.template($("#used-space-template").html())
       },
@@ -125,6 +125,9 @@
 
       $("#my-team-grid").data("kendoGrid").destroy();
       recreateSetup(mainItems);
+    },
+    activate: function() {
+      kendo.ui.icon($(".del"), { icon: 'trash' });
     }
   });
 
@@ -466,6 +469,8 @@
       updateCategoryAxisLabelsStep();
     });
   });
+
+  kendo.ui.icon($(".vertical"), { icon: 'more-vertical' });
 </script>
 
 <style>
