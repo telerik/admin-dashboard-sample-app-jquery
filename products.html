@@ -54,7 +54,7 @@
 
 <script id="products-template" type="text/html" style="background-color: #FAFAFA">
     <div class="k-d-flex-row k-justify-content-center k-align-content-center" style="margin-bottom:45px;">
-        <span class="k-input k-textbox">
+        <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
         <input id="filter" class="k-input-inner" data-role="textbox" name="search" placeholder="Product Search" style="width:40%;" />
     </span>
     </div>
@@ -87,7 +87,7 @@
     }
 
     function onTileResize(e) {
-        // for widgets that do not auto resize
+        // for components that do not auto resize
         // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
         kendo.resize(e.container, true);
     }
