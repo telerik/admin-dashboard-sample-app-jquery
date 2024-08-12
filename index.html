@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/9.0.0/default/default-main.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/8.2.1/default/default-main.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2024.3.806/js/jszip.min.js"></script>
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2024.3.806/js/kendo.all.min.js"></script>
 </head>
 
@@ -126,7 +126,7 @@
 
             document.title = $("div.appTitle").text(); + " - AdminDashboard";
             kendo.ui.icon($("#menu"), { icon: 'menu' });
-            kendo.ui.icon($("#notification"), { icon: 'notification' });
+            kendo.ui.icon($("#notification"), { icon: 'bell' });
             kendo.ui.icon($("#grid"), { icon: 'grid' });
             kendo.ui.icon($("#globe"), { icon: 'globe' });
             kendo.ui.icon($("#aggregate-fields"), { icon: 'aggregate-fields' });
@@ -134,7 +134,7 @@
 
             $("#appbar").kendoPopover({
                 showOn: "click",
-                filter: ".k-i-notification",
+                filter: ".k-svg-i-bell",
                 width: "400px",
                 height: "392px",
                 position: "bottom",

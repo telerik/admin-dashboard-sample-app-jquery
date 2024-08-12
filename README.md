@@ -1,12 +1,12 @@
 # Kendo UI Admin Dashboard
 
-Kendo UI Admin Dashboard is a web application built with Progress award-winning Kendo UI for jQuery widgets - 110+ UI components to help you build responsive websites and apps fast. Kendo UI for jQuery® offers widgets for every need - from the must-have for every app Grids, Dropdowns and Menus to the advanced line-of-business UI, such as Charts, Gantt, Diagram, Scheduler, PivotGrid and Maps.
+Kendo UI Admin Dashboard is a web application built with Progress award-winning Kendo UI for jQuery components - 110+ UI components to help you build responsive websites and apps fast. Kendo UI for jQuery® offers components for every need - from the must-have for every app Grids, Dropdowns and Menus to the advanced line-of-business UI, such as Charts, Gantt, Diagram, Scheduler, PivotGrid and Maps.
 
 ----------
 
-## Featured Kendo UI widgets
+## Featured Kendo UI components
 
-The sample app showcases some of the most popular Kendo UI for jQuery widgets, such as:
+The sample app showcases some of the most popular Kendo UI for jQuery components, such as:
 
  - [Grid][1]
  - [Chart][2]
@@ -25,14 +25,14 @@ The sample app showcases some of the most popular Kendo UI for jQuery widgets, s
 
   [1]: https://demos.telerik.com/kendo-ui/grid/index
   [2]: https://demos.telerik.com/kendo-ui/chart/index
-  [3]: http://www.telerik.com/kendo-ui/tilelayout/index
-  [4]: http://www.telerik.com/kendo-ui/drawer/index
-  [5]: http://www.telerik.com/kendo-ui/form/index
-  [6]: http://www.telerik.com/kendo-ui/appbar/index
-  [7]: http://www.telerik.com/kendo-ui/pager/index
-  [8]: http://demos.telerik.com/kendo-ui/arc-gauge/index
-  [9]: http://demos.telerik.com/kendo-ui/popover/index
-  [10]: http://demos.telerik.com/kendo-ui/daterangepicker/index
-  [11]: http://demos.telerik.com/kendo-ui/calendar/index
-  [12]: http://www.telerik.com/kendo-ui/badge/index
-  [13]: http://demos.telerik.com/kendo-ui/button/index
+  [3]: https://www.telerik.com/kendo-ui/tilelayout/index
+  [4]: https://www.telerik.com/kendo-ui/drawer/index
+  [5]: https://www.telerik.com/kendo-ui/form/index
+  [6]: https://www.telerik.com/kendo-ui/appbar/index
+  [7]: https://www.telerik.com/kendo-ui/pager/index
+  [8]: https://demos.telerik.com/kendo-ui/arc-gauge/index
+  [9]: https://demos.telerik.com/kendo-ui/popover/index
+  [10]: https://demos.telerik.com/kendo-ui/daterangepicker/index
+  [11]: https://demos.telerik.com/kendo-ui/calendar/index
+  [12]: https://www.telerik.com/kendo-ui/badge/index
+  [13]: https://demos.telerik.com/kendo-ui/button/index
