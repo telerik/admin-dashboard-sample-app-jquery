@@ -103,7 +103,9 @@
     columns: 4,
     columnsWidth: "25%",
     rowsHeight: "230px",
-    reorderable: true,
+    reorderable: {
+      clickMoveClick: false
+    },
     resizable: true,
     resize: function (e) {
       // for components that do not auto resize
