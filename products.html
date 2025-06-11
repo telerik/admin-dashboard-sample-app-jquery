@@ -143,10 +143,13 @@
             ],
             reorderable: true,
             resizable: true,
-            rowsHeight: "420px"
+            rowsHeight: "auto"
         })
 
         $("#bubble-chart").kendoChart({
+            chartArea: {
+                height: 400
+        },
             dataSource: {
                 group: [{
                     field: "Region"
