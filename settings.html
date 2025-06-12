@@ -1,8 +1,9 @@
 <div id="settings-tilelayout"></div>
 <ul id="plan-cards-menu">
-  <li><span id='del'></span>Delete</li>
+  <li><span class='file-icon'></span>Get Details</li>
 </ul> 
 <div id="dialog"></div>
+<div id="detailsDialog"></div>
 
 <script id="info-header-template" type="text/html">
   <button id="accountButton">Account</button>
@@ -40,7 +41,7 @@
 <script id="billing-template" type="text/html">
   <div class="formTitle" class="formTitle">CHANGE YOUR PLAN</div>
   <div id="cards-container">
-    <div class="k-card k-card-type-rich" onclick="selectCard(event)">
+    <div class="k-card k-card-type-rich" onclick="selectCard(event)" data-title="Suitable for exploring the product">
         <div class="k-card-header plan-card">
             <h5 class="k-card-title plan-title">Starter</h5>
             <span class="template-menu">
@@ -56,7 +57,7 @@
         <div class="k-card-footer plan-footer">STARTER  PLAN FOR INDIVIDUALS</div>
     </div>
 
-    <div class="k-card k-card-type-rich" onclick="selectCard(event)">
+    <div class="k-card k-card-type-rich" onclick="selectCard(event)" data-title="Great options for small teams">
       <div class="k-card-header plan-card">
           <h5 class="k-card-title plan-title">Team</h5>
           <span class="template-menu">
@@ -69,7 +70,7 @@
       <div class="k-card-body body-label">$20/Month</div>
       <div class="k-card-footer plan-footer">COLLABORATE UP TO 16 PEOPLE</div>
     </div>
-    <div class="k-card k-card-type-rich" onclick="selectCard(event)">
+    <div class="k-card k-card-type-rich" onclick="selectCard(event)" data-title="Special discount available for higher number of accounts">
       <div class="k-card-header plan-card">
           <h5 class="k-card-title plan-title">Enterprise</h5>
           <span class="template-menu">
@@ -146,6 +147,7 @@
 </script>
 
 <script>
+  var cardContent;
   var settingsTileLayout = $("#settings-tilelayout").kendoTileLayout({
     containers: [
       {
@@ -176,7 +178,7 @@
     columns: 3,
     columnsWidth: "33%",
     rowsHeight: "auto",
-    reorderable: true,
+    reorderable: false,
     resizable: true,
   }).data("kendoTileLayout");
 
@@ -197,15 +199,23 @@
   }
 
   function createConstantWidgets() {
+
+    $("#detailsDialog").kendoDialog({
+      title: "Plan Details",
+      content: "Form has been submitted!",
+      visible: false
+    });
+
     $("#plan-cards-menu").kendoContextMenu({
-      target: "#settings-tilelayout",
+      target: "#cards-container",
       filter: ".template-menu",
       showOn: "click",
       select: function (e) {
-        e.target.closest(".k-card").remove();
+        $("#detailsDialog").data("kendoDialog").content(cardContent).open();
       },
       activate: function(e) {
-        kendo.ui.icon($("#del"), { icon: 'trash' });
+        cardContent = $(e.target).closest(".k-card").attr("data-title");
+        kendo.ui.icon($(".file-icon"), { icon: 'file-txt' });
          }
     });
 
@@ -738,9 +748,6 @@
   }
 
   kendo.ui.icon($("#globe"), { icon: 'globe' });
-  // kendo.ui.icon($("#del"), { icon: 'trash' });
-
-
 
 </script>
 
