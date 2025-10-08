@@ -35,8 +35,8 @@ function getCurrentThemesVersion {
         fi
     done
 }
-    getCurrentVersion $file
-    getCurrentThemesVersion $file
+    getCurrentVersion
+    getCurrentThemesVersion
 
     echo "Current version is $CURRENT_GLOBAL_VERSION"
     echo "Current themes version is $CURRENT_GLOBAL_THEMES_VERSION"
