@@ -33,6 +33,8 @@ function getCurrentThemesVersion {
 
     echo "Current version is $CURRENT_GLOBAL_VERSION"
     echo "Current themes version is $CURRENT_GLOBAL_THEMES_VERSION"
+    echo "Latest version is $LATEST_RELEASE" 
+    echo "Latest themes version is $LATEST_THEMES_RELEASE"
 
 
 for file in `find . -type f -name "*.html"`  
