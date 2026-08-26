@@ -6,7 +6,7 @@
             <div class="k-card-subtitle">#= Description #</div>
         </div>
         <div class="k-card-footer">
-            <div class="k-d-flex-col k-align-items-center">
+            <div class="product-card-actions">
                 <span>
                     <span class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base" onclick="review()">
                         <span class="preview"></span>Review
@@ -30,7 +30,7 @@
             <div class="k-card-subtitle"><textarea data-role="textarea" data-rows="3" data-bind="value: Description" name="Description" style="width: 100%;" ></textarea></div>
         </div>
         <div class="k-card-footer">
-            <div class="k-d-flex-col k-align-items-center">
+            <div class="product-card-actions">
                 <span class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-cancel-button"><span class="cancel"></span>Cancel</span>
                 <span class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-update-button"><span class="check"></span>Save</span>
             </div>
@@ -53,7 +53,7 @@
 </script>
 
 <script id="products-template" type="text/html" style="background-color: #FAFAFA">
-    <div class="k-d-flex-row k-justify-content-center k-align-content-center" style="margin-bottom:45px;">
+    <div class="product-search">
         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
         <input id="filter" class="k-input-inner" data-role="textbox" name="search" placeholder="Product Search" style="width:40%;" />
     </span>
@@ -96,7 +96,7 @@
         var productsChart = $("#bubble-chart").data("kendoChart");
 
         if (productsChart) {
-            
+
             var windowWidth = $(window).width();
 
             if (windowWidth >= 925) {
@@ -271,15 +271,15 @@
     .k-card-title {
         font-style: normal;
         font-weight: normal;
-        font-size: 18px;
-        line-height: 20px;
+        font-size: var(--kendo-font-size-lg);
+        line-height: var(--kendo-line-height-md);
     }
 
     .k-card-subtitle {
         font-style: normal;
         font-weight: normal;
-        font-size: 14px;
-        line-height: 17px;
+        font-size: var(--kendo-font-size-sm);
+        line-height: var(--kendo-line-height-sm);
     }
 
     .k-tilelayout-item.k-card:nth-child(2) {
@@ -290,8 +290,5 @@
     .k-listview {
         background: inherit;
         border: none;
-    }
-    .k-d-flex-row>.k-textbox{
-        width:40%;
     }
 </style>

@@ -8,7 +8,8 @@
     <meta name="description" content="Try the Kendo UI Admin Dashboard demo. Explore charts, grids, and interactive panels that showcase responsive layouts and real-time data views.">
 
     <link rel="icon" type="image/x-icon" href="/kendo-ui/content/favicon/favicon.ico">
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/13.0.1/default/default-main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
+    <link rel="stylesheet" href="Content/site.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
@@ -46,9 +47,9 @@
       </script>
 
     <script id="notification-header" type="text/x-kendo-template">
-        <div class="k-hstack">
+        <div class="notification-header">
             <div style="font-size: 19px">Notifications</div>
-            <div class="k-spacer"></div>
+            <div class="notification-header__spacer"></div>
             <div id="new-count">2 New</div>
         </div>
       </script>
@@ -203,7 +204,7 @@
     <style>
         body {
             margin: 0px;
-            font-family: Roboto;
+            font-family: var(--kendo-font-family);
             font-style: normal;
             font-weight: normal;
         }
@@ -211,8 +212,8 @@
         #appbar {
             padding: 0px 25px 0px 24px;
             height: 48px;
-            background: #FFFFFF;
-            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
+            background: var(--kendo-color-surface-alt);
+            box-shadow: var(--kendo-elevation-1);
         }
 
         #avatar {
@@ -224,11 +225,11 @@
         #signOutButton {
             pointer-events: auto;
             margin: 12px 0 9px 0;
-            background: rgba(66, 66, 66, 0.16);
+            background: var(--kendo-color-base-emphasis);
         }
 
         #drawer-content {
-            background-color: #FAFAFA;
+            background-color: var(--kendo-color-app-surface);
         }
 
         .k-popover-callout {

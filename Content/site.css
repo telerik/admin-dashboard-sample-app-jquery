@@ -1,0 +1,95 @@
+:root {
+  /* Preserve the app's brand layer while Meridian derives its state variants. */
+  --kendo-font-family: Roboto, system-ui, sans-serif;
+  --kendo-color-app-surface: #fafafa;
+  --kendo-color-surface-alt: #ffffff;
+  --kendo-color-primary: #ff6358;
+  --kendo-color-secondary: #2727be;
+  --kendo-color-info: #0058e9;
+  --kendo-color-success: #37b400;
+  --kendo-color-warning: #ffc000;
+  --kendo-color-error: #f31700;
+  --kendo-border-radius-base: 0.25rem;
+  --kendo-translucency-base: 24%;
+  --kendo-translucency-blur-base: 8px;
+  --kendo-translucency-blur-step: 2px;
+}
+
+body {
+  font-family: var(--kendo-font-family);
+  color: var(--kendo-color-on-app-surface);
+  background-color: var(--kendo-color-app-surface);
+}
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--kendo-spacing-8);
+  width: 60%;
+  margin: var(--kendo-spacing-8);
+}
+
+.notification-header,
+.settings-actions,
+.settings-content {
+  display: flex;
+}
+
+.settings-content {
+  flex-direction: column;
+}
+
+.notification-header,
+.settings-actions {
+  align-items: center;
+}
+
+.notification-header__spacer,
+.settings-actions__spacer,
+.weather-header__spacer {
+  flex: 1 1 auto;
+}
+
+.product-card-actions,
+.sales-gauges__item,
+.weather-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-search,
+.sales-gauges,
+.weather-data-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-search {
+  margin-bottom: var(--kendo-spacing-11);
+}
+
+.product-search .k-textbox {
+  width: 40%;
+}
+
+.sales-gauges {
+  height: 100%;
+}
+
+.sales-gauges__item {
+  justify-content: space-evenly;
+  width: 300px;
+  height: 200px;
+}
+
+.weather-summary {
+  justify-content: space-around;
+}
+
+.weather-data-container {
+  gap: var(--kendo-spacing-4\.5);
+}

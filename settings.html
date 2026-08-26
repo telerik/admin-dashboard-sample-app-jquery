@@ -12,7 +12,7 @@
 </script>
 
 <script id="account-template" type="text/html">
-  <div class="k-d-flex-col">
+  <div class="settings-content">
     <div style="margin-bottom: 16px;">
       <div class="formTitle" class="formTitle">USERNAME</div>
       <form id="userDetailForm" class="settingsForm"></form>
@@ -26,9 +26,9 @@
     <div>
       <div class="formTitle" class="formTitle">SECURITY</div>
       <form id="securityForm" class="settingsForm"></form>
-      <div class="k-hstack" style="margin-top: 26px;">
+      <div class="settings-actions" style="margin-top: 26px;">
         <div>Public Profile<input id="publicProfile" aria-label="Name Switch" style="margin-left: 8px;"/></div>
-        <div class="k-spacer"></div>
+        <div class="settings-actions__spacer"></div>
         <div style="margin-top: 26px; float: right;">
           <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
           <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
@@ -113,7 +113,7 @@
 
 <script id="weather-header-template" type="text/html">
   <span class="k-card-title side-tile-header">Weather</span>
-  <span class="k-spacer k-toolbar-spacer"></span>
+  <span class="k-toolbar-spacer weather-header__spacer"></span>
   <a class="k-card-title k-link" style="float: right;">
     <span id="globe" style="margin-right:9px;"></span>
     <span class="side-tile-header" style="color: \\#0058E9;">Sofia</span>
@@ -121,7 +121,7 @@
 </script>
 
 <script id="weather-template" type="text/html">
-  <div class="k-d-flex-col k-align-items-center k-justify-content-around">
+  <div class="weather-summary">
     <div style="width: 100px; height: 100px; background-image: url(Content/images/cloud.svg)"></div>
     <div class="k-state-disabled">Partly Cloudy</div>
     <div style="font-family: 'Roboto'; font-size: 70px; font-weight: 300; color: \\#0058E9">
@@ -129,7 +129,7 @@
     </div>
   </div>
   <div class="k-card-footer">
-    <div class="weather-data-container k-d-flex-row k-align-items-center k-justify-content-center">
+    <div class="weather-data-container">
       <div>
         Humidity:<br />
         Dew:<br />
@@ -758,14 +758,14 @@
 
   .weather-data-container {
     padding: 8px 0px 0px;
-    gap: 18px;
+    gap: var(--kendo-spacing-4\.5);
   }
 
   .weather-data-container>div {
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: var(--kendo-font-size-xs);
+    line-height: var(--kendo-line-height-sm);
   }
 
   .weather-data-container>div:nth-child(1) {
@@ -787,13 +787,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--kendo-spacing-4);
   }
 
   .k-card-type-rich {
     min-width: 160px;
     flex-grow: 1;
-    padding: 8px 16px;
+    padding: var(--kendo-spacing-2) var(--kendo-spacing-4);
     justify-content: space-between;
   }
 
@@ -802,13 +802,13 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 8px 8px 0px;
+    padding: var(--kendo-spacing-2) var(--kendo-spacing-2) var(--kendo-spacing-2) var(--kendo-spacing-0);
   }
 
   .plan-title {
-    font-family: Roboto;
-    font-size: 20px;
-    color: #424242;
+    font-family: var(--kendo-font-family);
+    font-size: var(--kendo-font-size-xl);
+    color: var(--kendo-color-on-surface);
   }
 
   .body-label {
@@ -818,7 +818,7 @@
   }
 
   .plan-footer {
-    color: #8F8F8F;
+    color: var(--kendo-color-subtle);
     font-weight: 400;
     font-size: 12px;
     border-width: 0px;
@@ -834,19 +834,19 @@
   }
 
   .alertSubLabel {
-    color: #8F8F8F;
+    color: var(--kendo-color-subtle);
   }
 
   .formTitle {
-    color: #8F8F8F;
-    padding: 16px 0px 8px 0px;
-    font-size: 12px;
+    color: var(--kendo-color-subtle);
+    padding: var(--kendo-spacing-4) var(--kendo-spacing-0) var(--kendo-spacing-2) var(--kendo-spacing-0);
+    font-size: var(--kendo-font-size-xs);
   }
 
   .settingsForm {
-    background-color: #fafafa;
-    padding: 0px 16px 0px 16px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: var(--kendo-color-app-surface);
+    padding: var(--kendo-spacing-0) var(--kendo-spacing-4);
+    border: 1px solid var(--kendo-color-border);
   }
 
   .side-tile-header {
@@ -854,6 +854,6 @@
   }
 
   .selected {
-    border: 1px solid #37B400;
+    border: 1px solid var(--kendo-color-success);
   }
 </style>

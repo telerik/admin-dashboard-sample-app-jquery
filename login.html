@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/13.0.1/default/default-main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
+    <link rel="stylesheet" href="Content/site.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
@@ -112,7 +113,7 @@
     <style>
         body {
             margin: 0;
-            font-family: Roboto;
+            font-family: var(--kendo-font-family);
             font-style: normal;
             font-weight: normal;
         }
@@ -144,7 +145,7 @@
 
         #banner {
             height: 68px;
-            color: #2727BE;
+            color: var(--kendo-color-secondary);
             font-weight: 300;
             font-size: 56px;
             display: flex;
@@ -164,7 +165,7 @@
 
         #account>a {
             margin-left: 16px;
-            color: #0058E9;
+            color: var(--kendo-color-info);
         }
 
         #continue-with-wrapper {
@@ -178,7 +179,7 @@
 
         #continue-with-wrapper>span {
             position: static;
-            color: #8F8F8F;
+            color: var(--kendo-color-subtle);
             font-size: 14px;
             line-height: 20px;
 
@@ -187,7 +188,7 @@
         hr {
             width: 75px;
             height: 0px;
-            border: 1px solid #8F8F8F;
+            border: 1px solid var(--kendo-color-border);
         }
 
         #sign-in-page {
@@ -206,7 +207,7 @@
             min-width: 560px;
             width: 39%;
             z-index: 1;
-            background: #FFFFFF;
+            background: var(--kendo-color-surface-alt);
         }
 
         #login {
@@ -235,8 +236,8 @@
         .k-button:hover {
             height: 30px;
             width: 270px;
-            background: #FF6358;
-            color: #FFFFFF;
+            background: var(--kendo-color-primary);
+            color: var(--kendo-color-on-primary);
 
         }
 
@@ -259,8 +260,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 15px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -274,8 +275,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 35px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -289,8 +290,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 35px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -319,7 +320,7 @@
 
         #frame-wrapper h2 {
             font-size: 48px;
-            color: #FFFFFF;
+            color: var(--kendo-color-on-secondary);
             font-weight: bold;
             text-align: center;
             line-height: 1.4;
@@ -328,7 +329,7 @@
         #frame-wrapper h4 {
             font-size: 19px;
             text-align: center;
-            color: #FFFFFF;
+            color: var(--kendo-color-on-secondary);
             font-weight: normal;
             line-height: 1.3;
         }
