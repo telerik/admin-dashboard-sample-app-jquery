@@ -1,0 +1,34 @@
+<section class="page-panel profile-panel" aria-labelledby="profile-title">
+  <div class="page-panel__header">
+    <div>
+      <h1 id="profile-title">Profile</h1>
+      <p>Manage the information your colleagues see in the workspace.</p>
+    </div>
+  </div>
+  <div class="profile-panel__content">
+    <div class="profile-summary">
+      <img src="Content/Avatar/avatar.png" alt="Jaxons Danniels">
+      <h2>Jaxons Danniels</h2>
+      <p>Workspace administrator</p>
+    </div>
+    <form id="profile-form"></form>
+  </div>
+</section>
+
+<script>
+  $(document).ready(function () {
+    $("#profile-form").kendoForm({
+      formData: {
+        DisplayName: "Jaxons Danniels",
+        Role: "Workspace administrator",
+        Bio: "I coordinate product operations and keep the team aligned on customer priorities."
+      },
+      items: [
+        { field: "DisplayName", label: "Display name" },
+        { field: "Role", label: "Role" },
+        { field: "Bio", editor: "TextArea", label: "About you", editorOptions: { rows: 4 } }
+      ],
+      buttonsTemplate: "<button class='k-button k-button-solid k-button-solid-primary k-form-submit' type='submit'>Save profile</button>"
+    });
+  });
+</script>

@@ -105,78 +105,21 @@
   </div>
 </script>
 
-<script id="date-template" type="text/html">
-  <div style="display:flex; justify-content:center; flex-direction:row; align-content:center">
-    <div id="calendar"></div>
-  </div>
-</script>
-
-<script id="weather-header-template" type="text/html">
-  <span class="k-card-title side-tile-header">Weather</span>
-  <span class="k-toolbar-spacer weather-header__spacer"></span>
-  <a class="k-card-title k-link" style="float: right;">
-    <span id="globe" style="margin-right:9px;"></span>
-    <span class="side-tile-header" style="color: \\#0058E9;">Sofia</span>
-  </a>
-</script>
-
-<script id="weather-template" type="text/html">
-  <div class="weather-summary">
-    <div style="width: 100px; height: 100px; background-image: url(Content/images/cloud.svg)"></div>
-    <div class="k-state-disabled">Partly Cloudy</div>
-    <div style="font-family: 'Roboto'; font-size: 70px; font-weight: 300; color: \\#0058E9">
-      12 &\\#176;C
-    </div>
-  </div>
-  <div class="k-card-footer">
-    <div class="weather-data-container">
-      <div>
-        Humidity:<br />
-        Dew:<br />
-        Pressure:<br />
-        Wind Speed:
-      </div>
-      <div>
-        76%<br />
-        2˚C<br />
-        1031mb<br />
-        12km/h NW
-      </div>
-    </div>
-  </div>
-</script>
-
 <script>
   var cardContent;
   var settingsTileLayout = $("#settings-tilelayout").kendoTileLayout({
     containers: [
       {
-        colSpan: 2,
+        colSpan: 1,
         rowSpan: 2,
         header: {
           template: kendo.template($("#info-header-template").html()),
         },
         bodyTemplate: kendo.template($("#account-template").html())
       },
-      {
-        colSpan: 1,
-        rowSpan: 1,
-        header: {
-          template: "<span class='k-card-title side-tile-header'>Date</span>"
-        },
-        bodyTemplate: kendo.template($("#date-template").html())
-      },
-      {
-        colSpan: 1,
-        rowSpan: 1,
-        header: {
-          template: kendo.template($("#weather-header-template").html())
-        },
-        bodyTemplate: kendo.template($("#weather-template").html())
-      },
     ],
-    columns: 3,
-    columnsWidth: "33%",
+    columns: 1,
+    columnsWidth: "100%",
     rowsHeight: "auto",
     reorderable: false,
     resizable: true,
@@ -304,9 +247,6 @@
       }
     });
 
-    $("#calendar").kendoCalendar({
-      componentType: "modern"
-    });
   }
 
   function createAccountWidgets() {
@@ -618,8 +558,6 @@
       icon: "more-vertical",
       fillMode: "flat"
     });
-    kendo.ui.icon($("#globe"), { icon: 'globe' });
-    
   }
 
   function createNotificationsWidgets() {
@@ -739,15 +677,12 @@
       }
     });
 
-    kendo.ui.icon($("#globe"), { icon: 'globe' });
   }
 
   function enableButtons(args) {
     $("#cancelButton").data("kendoButton").enable(args);
     $("#save").data("kendoButton").enable(args);
   }
-
-  kendo.ui.icon($("#globe"), { icon: 'globe' });
 
 </script>
 
@@ -756,31 +691,8 @@
     border-style: none;
   }
 
-  .weather-data-container {
-    padding: 8px 0px 0px;
-    gap: var(--kendo-spacing-4\.5);
-  }
-
-  .weather-data-container>div {
-    font-style: normal;
-    font-weight: normal;
-    font-size: var(--kendo-font-size-xs);
-    line-height: var(--kendo-line-height-sm);
-  }
-
-  .weather-data-container>div:nth-child(1) {
-    font-weight: bold;
-    text-align: right;
-  }
-
   #userInformationForm>div.k-form-buttons {
     justify-content: space-between;
-  }
-
-  @media (max-width: 716px) {
-    #settings-tilelayout div.k-tilelayout-item {
-      grid-column-end: span 3 !important;
-    }
   }
 
   #cards-container {

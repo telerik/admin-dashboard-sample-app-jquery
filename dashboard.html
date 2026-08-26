@@ -444,7 +444,7 @@
   function updateCategoryAxisLabelsStep() {
     var chart = $("#total-points-chart").data("kendoChart");
     if (chart) {
-      if ($(window).width() <= 716) {
+      if ($(window).width() < 768) {
         chart.setOptions({
           categoryAxis: {
             labels: {
@@ -561,13 +561,13 @@
     color: var(--kendo-color-on-primary);
   }
 
-  @media (max-width: 716px) {
+  @media (max-width: 767px) {
     #dashboard-tilelayout div.k-tilelayout-item:nth-child(-n + 4) {
       grid-column-end: span 4 !important;
     }
   }
 
-  @media (min-width: 717px) and (max-width: 1065px) {
+  @media (min-width: 768px) and (max-width: 991px) {
     #dashboard-tilelayout div.k-tilelayout-item:nth-child(-n + 4) {
       grid-column-end: span 2 !important;
     }

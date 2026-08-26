@@ -54,9 +54,7 @@
 
 <script id="products-template" type="text/html" style="background-color: #FAFAFA">
     <div class="product-search">
-        <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-        <input id="filter" class="k-input-inner" data-role="textbox" name="search" placeholder="Product Search" style="width:40%;" />
-    </span>
+        <input id="filter" aria-label="Search products" name="search" placeholder="Search products" />
     </div>
     <div style="height:100%;">
         <div id="listView"></div>
@@ -99,15 +97,15 @@
 
             var windowWidth = $(window).width();
 
-            if (windowWidth >= 925) {
+            if (windowWidth >= 992) {
 
                 productsChart.options.xAxis.labels.step = 1;
 
-            } else if (windowWidth >= 716 && windowWidth < 925) {
+            } else if (windowWidth >= 768) {
 
                 productsChart.options.xAxis.labels.step = 2;
 
-            } else if (windowWidth >= 520 && windowWidth < 716) {
+            } else {
 
                 productsChart.options.xAxis.labels.step = 4;
 
@@ -231,18 +229,18 @@
             }
         });
 
-        $("#filter").keyup(function () {
-            var filter = $(this).val(),
-                count = 0;
-
-            $('#listView .k-card').each(function () {
-                if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                    count++;
-                }
-            });
+        $("#filter").kendoTextBox({
+            clearButton: true,
+            input: function (e) {
+                var value = e.sender.value();
+                dataSource.filter(value ? {
+                    logic: "or",
+                    filters: [
+                        { field: "Title", operator: "contains", value: value },
+                        { field: "Description", operator: "contains", value: value }
+                    ]
+                } : {});
+            }
         });
 
         setTimeout(function () {

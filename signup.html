@@ -20,7 +20,7 @@
         <div id="sign-in-wrapper">
             <div id="logo-wrapper">
                 <div id="logo">
-                    <img src="./Content/images/signin-logo.svg"></img>
+                    <img src="./Content/images/signin-logo.svg" alt="Kendo UI">
                 </div>
                 <div id='banner'>
                     Sign Up
@@ -38,7 +38,7 @@
                 <h2>How Does Kendo UI Cut Development Time?</h2>
                 <h4>Kendo UI delivers everything you need to build modern, beautiful, responsive apps.</h4>
                 <div id="image-wrapper">
-                    <img src="./Content/images/kendoka-waves.svg"></img>
+                    <img src="./Content/images/kendoka-waves.svg" alt="">
                 </div>
             </div>
         </div>
@@ -50,7 +50,11 @@
                     cols: 1,
                     gutter: 5
                 },
-                buttonsTemplate: "<a href='index.html' class='k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base'>Create free account</a>",
+                buttonsTemplate: "<button class='k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit' type='submit'>Create free account</button>",
+                submit: function (e) {
+                    e.preventDefault();
+                    location.href = "index.html";
+                },
                 formData: {
                     fullname: "",
                     email: "",
@@ -61,34 +65,38 @@
                 items: [
                     {
                         field: "fullname",
-                        label: "",
+                        label: "Full name",
                         attributes: {
                             placeholder: "Full Name",
+                            autocomplete: "name",
                             required: true
                         }
                     },
                     {
                         field: "email",
-                        label: "",
+                        label: "Email address",
                         attributes: {
                             placeholder: "Email Address",
+                            autocomplete: "email",
                             required: true
                         }
                     },
                     {
                         field: "password",
-                        label: "",
+                        label: "Password",
                         attributes: {
                             placeholder: "Password",
                             type: "password",
+                            autocomplete: "new-password",
                             required: true
                         }
                     },
                     {
                         field: "company",
-                        label: "",
+                        label: "Company",
                         attributes: {
                             placeholder: "Company",
+                            autocomplete: "organization",
                             required: true
                         }
                     },
@@ -99,20 +107,20 @@
                             encoded: false
                         },
                         attributes: {
-                            type: "checkbox"
+                            type: "checkbox",
+                            required: true
                         }
                     }
                 ]
             })
 
-            $("#password").parent().append("<span id='preview'></span>");
+            $("#password").parent().append("<button id='preview' type='button' aria-label='Show password'></button>");
             kendo.ui.icon($("#preview"), { icon: 'eye' });
-            $("#preview").mousedown(function () {
+            $("#preview").on("pointerdown keydown", function () {
                 $("#password").attr("type", "text");
-            })
-            $("#preview").mouseup(function () {
+            }).on("pointerup keyup blur", function () {
                 $("#password").attr("type", "password");
-            })
+            });
         })
     </script>
 

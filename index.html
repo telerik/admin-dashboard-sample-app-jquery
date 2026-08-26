@@ -43,7 +43,10 @@
                 <div style="font-size: 14px; color: \#8F8F8F">MD Inc. order update</div>
             </div>
         </div>
-        <button id="mark-as-read" style="margin: 15px 15px 0px 0px; background-color: \#FFFFFF; border-color: \#FF6358; color:\#FF6358; width: 165px; float: right;">Mark all as read</button>
+        <div class="notification-actions">
+            <button id="mark-as-read">Mark all as read</button>
+            <a class="app-route" data-page="notifications.html" data-title="Notifications" href="#notifications">View all notifications</a>
+        </div>
       </script>
 
     <script id="notification-header" type="text/x-kendo-template">
@@ -63,52 +66,54 @@
 
     <script>
         $(document).ready(function () {
-            $("main").load("dashboard.html");
+            function loadPage(page, title) {
+                $("main").load(page, function (_, status) {
+                    if (status === "error") {
+                        $("main").load("404.html");
+                        title = "Page not found";
+                    }
+
+                    document.title = title + " - Admin Dashboard";
+                    $("div.appTitle").text(title);
+                });
+            }
+
+            loadPage("dashboard.html", "Overview");
             $("#appbar").kendoAppBar({
                 themeColor: "inherit",
                 items: [
-                    { template: '<a id="toggleDrawer" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" style="border:0px; background:\\#FFFFFF;" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
+                    { template: '<a id="toggleDrawer" aria-label="Toggle navigation" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" style="border:0px; background:\\#FFFFFF;" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
                     { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
                     { width: 0, type: "spacer" },
-                    { template: "<a class='k-link app-bar-link'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
+                    { template: "<a class='k-link app-bar-link' aria-label='Open notifications'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
                     { width: 26, type: "spacer" },
                     { template: "<a class='k-link app-bar-link aboutPage'>About</a>" }
                 ]
             }).on("click", ".aboutPage", function (e) {
+                e.preventDefault();
                 $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
-
-                var aboutTitle = $(".aboutPage").text();
-                $("div.appTitle").text(aboutTitle);
-                $("main").load("about.html");
-                document.title = aboutTitle + " - AdminDashboard";
+                loadPage("about.html", "About");
             });
 
             var drawer = $("#drawer").kendoDrawer({
                 template: "<ul> \
-                            <li data-role='drawer-item' class='k-state-selected'><span id='grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
-                            <li data-role='drawer-item'><span id='globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
-                            <li data-role='drawer-item'><span id='aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
+                            <li data-role='drawer-item' class='k-state-selected' data-page='dashboard.html' data-title='Overview'><span id='grid'></span><span class='k-item-text'>Dashboard</span></li> \
+                            <li data-role='drawer-item' data-page='performance.html' data-title='Performance & Sales'><span id='globe'></span><span class='k-item-text'>Performance & Sales</span></li> \
+                            <li data-role='drawer-item' data-page='products.html' data-title='Products'><span id='aggregate-fields'></span><span class='k-item-text'>Products</span></li> \
+                            <li data-role='drawer-item' data-page='notifications.html' data-title='Notifications'><span id='bell'></span><span class='k-item-text'>Notifications</span></li> \
                             <li data-role='drawer-separator'></li> \
-                            <li data-role='drawer-item'><span id='gear'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
+                            <li data-role='drawer-item' data-page='profile.html' data-title='Profile'><span id='user'></span><span class='k-item-text'>Profile</span></li> \
+                            <li data-role='drawer-item' data-page='settings.html' data-title='Settings'><span id='gear'></span><span class='k-item-text'>Settings</span></li> \
+                            <li data-role='drawer-item' data-page='help.html' data-title='Help & Support'><span id='question-circle'></span><span class='k-item-text'>Help & Support</span></li> \
                           </ul>",
                 mode: "push",
                 autoCollapse: false,
                 mini: false,
                 itemClick: function (e) {
                     if (!e.item.hasClass("k-drawer-separator")) {
-                        var tabName = e.item.find(".k-item-text").text().split(" ")[0];
-                        var titleName = e.item.find(".k-item-text").text();
-                        e.sender.drawerContainer.find("#drawer-content > main").empty();
-                        $("main").load(tabName + ".html");
+                        loadPage(e.item.data("page"), e.item.data("title"));
 
-                        document.title = titleName + " - AdminDashboard";
-                        $("div.appTitle").text(titleName);
-
-                        if ($("div.appTitle").text() === "Dashboard") {
-                            $("div.appTitle").text("Overview");
-                        }
-
-                        if ($(window).width() <= 980) {
+                        if ($(window).width() < 992) {
                             var drawerInstance = e.sender;
                             drawerInstance.hide();
                         }
@@ -122,19 +127,26 @@
             var userContentTemplate = kendo.template("\
                     <div class='user-container' style='text-align: center;'> \
                         <img id='avatar' src='Content/Avatar/avatar.png' /> \
-                        <h1 style='font-size: 14px;'>Jaxons Danniels</h1> \
+                        <a class='app-route profile-link' data-page='profile.html' data-title='Profile' href='#profile'>Jaxons Danniels</a> \
                         <div style='text-decoration-line: underline; font-size: 12px;'>jaxons.daniels@company.com</div> \
                         <button id='signOutButton'>Sign Out</button> \
                     </div>");
             drawer.drawerWrapper.prepend(userContentTemplate);
 
-            document.title = $("div.appTitle").text(); + " - AdminDashboard";
             kendo.ui.icon($("#menu"), { icon: 'menu' });
             kendo.ui.icon($("#notification"), { icon: 'bell' });
             kendo.ui.icon($("#grid"), { icon: 'grid' });
             kendo.ui.icon($("#globe"), { icon: 'globe' });
             kendo.ui.icon($("#aggregate-fields"), { icon: 'aggregate-fields' });
+            kendo.ui.icon($("#bell"), { icon: 'bell' });
+            kendo.ui.icon($("#user"), { icon: 'user' });
             kendo.ui.icon($("#gear"), { icon: 'gear' });
+            kendo.ui.icon($("#question-circle"), { icon: 'question-circle' });
+
+            $("#drawer").on("click", ".app-route", function (e) {
+                e.preventDefault();
+                loadPage($(this).data("page"), $(this).data("title"));
+            });
 
             $("#appbar").kendoPopover({
                 showOn: "click",
@@ -192,7 +204,7 @@
                 }, 350);
             });
 
-            if ($(window).width() <= 980) {
+            if ($(window).width() < 992) {
                 setTimeout(function () {
                     var drawerInstance = $("#drawer").data("kendoDrawer");
                     drawerInstance.hide();
@@ -257,6 +269,25 @@
             display: inline-block;
             vertical-align: middle;
             padding-left: 3 px;
+        }
+
+        .profile-link {
+            display: block;
+            margin: 8px 0;
+            color: var(--kendo-color-on-surface);
+            font-size: var(--kendo-font-size-sm);
+            font-weight: var(--kendo-font-weight-semibold);
+        }
+
+        .notification-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--kendo-spacing-4);
+        }
+
+        .notification-actions .app-route {
+            color: var(--kendo-color-info-on-surface);
         }
     </style>
 </body>

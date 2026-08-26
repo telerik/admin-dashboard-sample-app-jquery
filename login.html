@@ -20,7 +20,7 @@
         <div id="sign-in-wrapper">
             <div id="logo-wrapper">
                 <div id="logo">
-                    <img src="./Content/images/signin-logo.svg"></img>
+                    <img src="./Content/images/signin-logo.svg" alt="Kendo UI">
                 </div>
                 <div id='banner'>
                     Sign In
@@ -37,14 +37,14 @@
                 <hr>
             </div>
             <div id="social-wrapper">
-                <a href="#" class='facebook'>
-                    <img src="./Content/images/facebook.svg"></img>
+                <a href="#" class='facebook' aria-label="Continue with Facebook">
+                    <img src="./Content/images/facebook.svg" alt="">
                 </a>
-                <a href="#" class='twitter'>
-                    <img src="./Content/images/twitter.svg"></img>
+                <a href="#" class='twitter' aria-label="Continue with Twitter">
+                    <img src="./Content/images/twitter.svg" alt="">
                 </a>
-                <a href="#" class='reddit'>
-                    <img src="./Content/images/reddit.svg"></img>
+                <a href="#" class='reddit' aria-label="Continue with Reddit">
+                    <img src="./Content/images/reddit.svg" alt="">
                 </a>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <h2>How Does Kendo UI Cut Development Time?</h2>
                 <h4>Kendo UI delivers everything you need to build modern, beautiful, responsive apps.</h4>
                 <div id="image-wrapper">
-                    <img src="./Content/images/kendoka-waves.svg"></img>
+                    <img src="./Content/images/kendoka-waves.svg" alt="">
                 </div>
             </div>
         </div>
@@ -65,7 +65,11 @@
                     cols: 1,
                     gutter: 5
                 },
-                buttonsTemplate: "<a href='index.html' class='k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base'>Sign In</a>",
+                buttonsTemplate: "<button class='k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit' type='submit'>Sign In</button>",
+                submit: function (e) {
+                    e.preventDefault();
+                    location.href = "index.html";
+                },
                 formData: {
                     Email: "",
                     Password: "",
@@ -74,17 +78,19 @@
                 items: [
                     {
                         field: "Email",
-                        label: "",
+                        label: "Email address",
                         attributes: {
                             placeholder: "Email",
+                            autocomplete: "email",
                             required: true
                         }
                     },
                     {
                         field: "Password",
-                        label: "",
+                        label: "Password",
                         attributes: {
                             type: "password",
+                            autocomplete: "current-password",
                             required: true
                         }
                     },
@@ -98,15 +104,13 @@
                 ]
             });
             
-            $("#Password").parent().append("<span id='preview'></span>");
+            $("#Password").parent().append("<button id='preview' type='button' aria-label='Show password'></button>");
             kendo.ui.icon($("#preview"), { icon: 'eye' });
-            $("#Password").val("somepassword");
-            $("#preview").mousedown(function () {
+            $("#preview").on("pointerdown keydown", function () {
                 $("#Password").attr("type", "text");
-            })
-            $("#preview").mouseup(function () {
+            }).on("pointerup keyup blur", function () {
                 $("#Password").attr("type", "password");
-            })
+            });
         })
     </script>
 
@@ -130,6 +134,8 @@
             width: 24px;
             height: 24px;
             color: gray;
+            border: 0;
+            background: transparent;
         }
 
         #logo-wrapper {
