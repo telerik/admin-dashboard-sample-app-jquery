@@ -1,15 +1,11 @@
 :root {
-  /* Preserve the app's brand layer while Meridian derives its state variants. */
-  --kendo-font-family: Roboto, system-ui, sans-serif;
-  --kendo-color-app-surface: #fafafa;
-  --kendo-color-surface-alt: #ffffff;
+  /* Preserve the app's established brand and status palette. */
   --kendo-color-primary: #ff6358;
   --kendo-color-secondary: #2727be;
   --kendo-color-info: #0058e9;
   --kendo-color-success: #37b400;
   --kendo-color-warning: #ffc000;
   --kendo-color-error: #f31700;
-  --kendo-border-radius-base: 0.25rem;
   --kendo-translucency-base: 24%;
   --kendo-translucency-blur-base: 8px;
   --kendo-translucency-blur-step: 2px;
@@ -49,6 +45,10 @@ body {
 .notification-header__spacer,
 .settings-actions__spacer {
   flex: 1 1 auto;
+}
+
+.settings-actions {
+  margin-top: var(--kendo-spacing-6);
 }
 
 .product-card-actions,
@@ -188,6 +188,191 @@ body {
   display: block;
   margin-bottom: var(--kendo-spacing-4);
   color: var(--kendo-color-warning-on-surface);
+}
+
+.dashboard-tilelayout {
+  margin-bottom: var(--kendo-spacing-6);
+}
+
+.dashboard-kpi-value {
+  font-size: calc(var(--kendo-font-size-xl) * 4);
+  line-height: var(--kendo-line-height-xs);
+  font-weight: var(--kendo-font-weight-light);
+}
+
+.dashboard-kpi-value--success {
+  color: var(--kendo-color-success);
+}
+
+.dashboard-kpi-value--error {
+  color: var(--kendo-color-error);
+}
+
+.dashboard-kpi-value--warning {
+  color: var(--kendo-color-warning);
+}
+
+.dashboard-header__title,
+.dashboard-header__range,
+.dashboard-header__actions,
+.dashboard-team-header,
+.dashboard-grid-actions {
+  display: inline-block;
+}
+
+.dashboard-header__actions,
+.dashboard-grid-actions {
+  float: right;
+}
+
+.dashboard-header__actions {
+  padding: var(--kendo-spacing-6) var(--kendo-spacing-4) 0 0;
+}
+
+.dashboard-grid-actions {
+  padding-top: var(--kendo-spacing-3);
+}
+
+.dashboard-team-header {
+  margin-top: var(--kendo-spacing-4);
+}
+
+.dashboard-chart,
+.performance-chart,
+.product-chart {
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-toggle--trend {
+  padding: var(--kendo-spacing-1) var(--kendo-spacing-9);
+}
+
+.dashboard-toggle--volume {
+  padding: var(--kendo-spacing-1) var(--kendo-spacing-7);
+}
+
+.dashboard-toggle--my-team {
+  padding: var(--kendo-spacing-1) var(--kendo-spacing-6);
+}
+
+.dashboard-toggle--all-teams {
+  padding: var(--kendo-spacing-1) var(--kendo-spacing-6);
+}
+
+.dashboard-gauge-center {
+  color: var(--kendo-color-info);
+  font-size: var(--kendo-font-size-xl);
+  font-weight: var(--kendo-font-weight-bold);
+}
+
+.context-menu-trigger {
+  float: right;
+  margin: var(--kendo-spacing-1) var(--kendo-spacing-4) 0 0;
+  color: var(--kendo-color-subtle);
+}
+
+.header-meta {
+  float: right;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kendo-spacing-2);
+}
+
+.budget-negative {
+  color: var(--kendo-color-primary);
+}
+
+.notification-item {
+  padding: var(--kendo-spacing-4) var(--kendo-spacing-4) var(--kendo-spacing-3);
+  border-bottom: 1px solid var(--kendo-color-border);
+}
+
+.notification-item--read {
+  background-color: var(--kendo-color-base-subtle);
+}
+
+.notification-item__title {
+  font-size: var(--kendo-font-size-lg);
+}
+
+.notification-item__detail {
+  font-size: var(--kendo-font-size-sm);
+  color: var(--kendo-color-subtle);
+}
+
+.notification-user-photo {
+  margin: 0 var(--kendo-spacing-4) 0 var(--kendo-spacing-2);
+}
+
+.notification-user-photo--employee-9 {
+  background-image: url("../Content/Employees-images/9.jpg");
+}
+
+.notification-user-photo--employee-4 {
+  background-image: url("../Content/Employees-images/4.jpg");
+}
+
+.notification-user-photo--initials {
+  background-image: url("../Content/images/initials.jpg");
+}
+
+.notification-header__title {
+  font-size: var(--kendo-font-size-lg);
+}
+
+.appbar-toggle {
+  border: 0;
+  background: var(--kendo-color-surface-alt);
+}
+
+.app-title {
+  color: var(--kendo-color-info);
+  font-size: var(--kendo-font-size-lg);
+}
+
+.user-container {
+  text-align: center;
+}
+
+.user-container__email {
+  text-decoration-line: underline;
+  font-size: var(--kendo-font-size-xs);
+}
+
+.products-template {
+  height: 100%;
+}
+
+.product-card {
+  width: 260px;
+  height: 340px;
+}
+
+.product-card-input {
+  width: 100%;
+}
+
+.settings-section {
+  margin-bottom: var(--kendo-spacing-4);
+}
+
+.settings-actions--right {
+  float: right;
+  margin-top: var(--kendo-spacing-6);
+}
+
+.settings-actions__label {
+  margin-left: var(--kendo-spacing-2);
+}
+
+.notifications-toggle {
+  float: right;
+  margin-right: var(--kendo-spacing-4);
+}
+
+.settings-form-title--alert {
+  margin-top: var(--kendo-spacing-8);
 }
 
 @media (max-width: 767px) {

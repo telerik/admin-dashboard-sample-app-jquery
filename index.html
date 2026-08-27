@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
     <link rel="stylesheet" href="Content/site.css" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2026.1.212/js/kendo.all.min.js"></script>
@@ -20,27 +18,27 @@
 
 <body>
     <script id="notification-body" type="text/x-kendo-template">
-        <div class="notification-item" style="padding: 18px 16px 13px 16px; border-bottom: 1px solid rgba(0,0,0,.08);">
+        <div class="notification-item">
             <span class="badge-missed"></span>
-            <div class="user-photo" style="background-image: url(Content/Employees-images/9.jpg); margin:0px 16px 0px 8px;"></div>
+            <div class="user-photo notification-user-photo notification-user-photo--employee-9"></div>
             <div class="customer-name">
-                <div style="font-size: 18px">Rudolf joined the Team</div>
-                <div style="font-size: 14px; color: \#8F8F8F">Congratulate her</div>
+                <div class="notification-item__title">Rudolf joined the Team</div>
+                <div class="notification-item__detail">Congratulate her</div>
             </div>
         </div>
-        <div class="notification-item" style="padding: 13px 16px 13px 16px; border-bottom: 1px solid rgba(0,0,0,.08);">
+        <div class="notification-item">
             <span class="badge-missed"></span>
-            <div class="user-photo" style="background-image: url(Content/Employees-images/4.jpg); margin:0px 16px 0px 8px;"></div>
+            <div class="user-photo notification-user-photo notification-user-photo--employee-4"></div>
             <div class="customer-name">
-                <div style="font-size: 18px">Joy invited you to the class</div>
-                <div style="font-size: 14px; color: \#8F8F8F">You have 3 more messages from Joy</div>
+                <div class="notification-item__title">Joy invited you to the class</div>
+                <div class="notification-item__detail">You have 3 more messages from Joy</div>
             </div>
         </div>
-        <div class="notification-item" style="padding: 13px 16px 13px 16px; background-color: rgba(66, 66, 66, 0.04); border-bottom: 1px solid rgba(0,0,0,.08);">
-            <div class="user-photo" style="background-image: url(Content/images/initials.jpg); margin:0px 16px 0px 8px;"></div>
+        <div class="notification-item notification-item--read">
+            <div class="user-photo notification-user-photo notification-user-photo--initials"></div>
             <div class="customer-name">
-                <div style="font-size: 18px">Your order has been shipped</div>
-                <div style="font-size: 14px; color: \#8F8F8F">MD Inc. order update</div>
+                <div class="notification-item__title">Your order has been shipped</div>
+                <div class="notification-item__detail">MD Inc. order update</div>
             </div>
         </div>
         <div class="notification-actions">
@@ -51,7 +49,7 @@
 
     <script id="notification-header" type="text/x-kendo-template">
         <div class="notification-header">
-            <div style="font-size: 19px">Notifications</div>
+            <div class="notification-header__title">Notifications</div>
             <div class="notification-header__spacer"></div>
             <div id="new-count">2 New</div>
         </div>
@@ -82,8 +80,8 @@
             $("#appbar").kendoAppBar({
                 themeColor: "inherit",
                 items: [
-                    { template: '<a id="toggleDrawer" aria-label="Toggle navigation" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" style="border:0px; background:\\#FFFFFF;" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
-                    { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
+                    { template: '<a id="toggleDrawer" aria-label="Toggle navigation" class="appbar-toggle k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
+                    { template: '<div class="appTitle app-title">Overview</div>', type: "contentItem" },
                     { width: 0, type: "spacer" },
                     { template: "<a class='k-link app-bar-link' aria-label='Open notifications'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
                     { width: 26, type: "spacer" },
@@ -125,10 +123,10 @@
             }).getKendoDrawer();
 
             var userContentTemplate = kendo.template("\
-                    <div class='user-container' style='text-align: center;'> \
+                    <div class='user-container'> \
                         <img id='avatar' src='Content/Avatar/avatar.png' /> \
                         <a class='app-route profile-link' data-page='profile.html' data-title='Profile' href='#profile'>Jaxons Danniels</a> \
-                        <div style='text-decoration-line: underline; font-size: 12px;'>jaxons.daniels@company.com</div> \
+                        <div class='user-container__email'>jaxons.daniels@company.com</div> \
                         <button id='signOutButton'>Sign Out</button> \
                     </div>");
             drawer.drawerWrapper.prepend(userContentTemplate);
@@ -173,7 +171,7 @@
                             $(".k-badge-dot").remove();
                             $('.badge-missed').remove();
                             $("#new-count").text("0 New");
-                            $(".notification-item").css("background-color", "rgba(66, 66, 66, 0.04)")
+                            $(".notification-item").addClass("notification-item--read");
                         }
                     });
                 }
@@ -215,28 +213,28 @@
 
     <style>
         body {
-            margin: 0px;
+            margin: 0;
             font-family: var(--kendo-font-family);
             font-style: normal;
             font-weight: normal;
         }
 
         #appbar {
-            padding: 0px 25px 0px 24px;
+            padding: 0 var(--kendo-spacing-6) 0 var(--kendo-spacing-6);
             height: 48px;
             background: var(--kendo-color-surface-alt);
             box-shadow: var(--kendo-elevation-1);
         }
 
         #avatar {
-            margin: 32px auto 0;
+            margin: var(--kendo-spacing-8) auto 0;
             width: 64px;
-            border-radius: 50%;
+            border-radius: var(--kendo-border-radius-full);
         }
 
         #signOutButton {
             pointer-events: auto;
-            margin: 12px 0 9px 0;
+            margin: var(--kendo-spacing-3) 0 var(--kendo-spacing-2) 0;
             background: var(--kendo-color-base-emphasis);
         }
 
@@ -249,31 +247,31 @@
         }
 
         .k-popover-body {
-            padding: 0px;
+            padding: 0;
         }
 
         .user-photo {
             display: inline-block;
             width: 64px;
             height: 64px;
-            border-radius: 50%;
+            border-radius: var(--kendo-border-radius-full);
             background-size: 60px 64px;
             background-position: center center;
             vertical-align: middle;
             line-height: 64px;
-            box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-left: 5px;
+            box-shadow: var(--kendo-elevation-1);
+            margin-left: var(--kendo-spacing-1);
         }
 
         .customer-name {
             display: inline-block;
             vertical-align: middle;
-            padding-left: 3 px;
+            padding-left: var(--kendo-spacing-1);
         }
 
         .profile-link {
             display: block;
-            margin: 8px 0;
+            margin: var(--kendo-spacing-2) 0;
             color: var(--kendo-color-on-surface);
             font-size: var(--kendo-font-size-sm);
             font-weight: var(--kendo-font-weight-semibold);

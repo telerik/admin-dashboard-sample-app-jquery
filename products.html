@@ -1,5 +1,5 @@
 <script type="text/html" id="cardTemplate">
-    <div class="k-card" style="width:260px; height:340px;">
+    <div class="k-card product-card">
         <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png" alt="#: Title # image">
         <div class="k-card-body">
             <div class="k-card-title">#= Title #</div>
@@ -23,11 +23,11 @@
 </script>
 
 <script type="text/html" id="editTemplate">
-    <div class="k-card" style="width:260px; height:340px;">
+    <div class="k-card product-card">
         <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png" alt="#: Title # image">
         <div class="k-card-body">
-            <div class="k-card-title"><input data-role="textbox" data-bind="value: Title" name="Title" style="width: 100%;" /></div>
-            <div class="k-card-subtitle"><textarea data-role="textarea" data-rows="3" data-bind="value: Description" name="Description" style="width: 100%;" ></textarea></div>
+            <div class="k-card-title"><input class="product-card-input" data-role="textbox" data-bind="value: Title" name="Title" /></div>
+            <div class="k-card-subtitle"><textarea class="product-card-input" data-role="textarea" data-rows="3" data-bind="value: Description" name="Description"></textarea></div>
         </div>
         <div class="k-card-footer">
             <div class="product-card-actions">
@@ -39,7 +39,7 @@
 </script>
 
 <script type="text/html" id="previewTemplate">
-    <div class="k-card" style="width:260px; height:340px;">
+    <div class="k-card product-card">
         <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png" alt="#: Title # image">
         <div class="k-card-body">
             <div class="k-card-title">#= Title #</div>
@@ -49,14 +49,14 @@
 </script>
 
 <script id="bubble-chart-template" type="text/x-kendo-template">
-    <div id="bubble-chart" style="height:100%; width:100%"></div>
+    <div id="bubble-chart" class="product-chart"></div>
 </script>
 
-<script id="products-template" type="text/html" style="background-color: #FAFAFA">
+<script id="products-template" type="text/html">
     <div class="product-search">
         <input id="filter" aria-label="Search products" name="search" placeholder="Search products" />
     </div>
-    <div style="height:100%;">
+    <div class="products-template">
         <div id="listView"></div>
         <div id="pager"></div>
     </div>
@@ -177,9 +177,7 @@
             seriesDefaults: {
                 type: "bubble"
             },
-            theme: "sass",
             title: {
-                font: "font-family: Roboto; font-style: normal; font-weight: normal; font-size: 20px;",
                 text: "Revenue per Product Type",
                 align: "left",
                 position: "top"
@@ -257,7 +255,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 32px;
+        gap: var(--kendo-spacing-8);
         max-height: 1100px;
     }
 

@@ -1,20 +1,19 @@
 <div class="greeting">Hello again, Jaxons!</div>
-<div id="dashboard-tilelayout" style="margin-bottom: 24px"></div>
+<div id="dashboard-tilelayout" class="dashboard-tilelayout"></div>
 <ul id="options-menu">
   <li><span class='del'></span>Delete</li>
 </ul>
 
 <script id="tasks-ontrack-template" type="text/html">
-  <div style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#37B400">22</div>
+  <div class="dashboard-kpi-value dashboard-kpi-value--success">22</div>
   <div class="template-footer">In Backlog: 43</div>
 </script>
 <script id="overdue-tasks-template" type="text/html">
-  <div style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#F31700">7</div>
+  <div class="dashboard-kpi-value dashboard-kpi-value--error">7</div>
   <div class="template-footer">From Yesterday: 16</div>
 </script>
 <script id="issues-template" type="text/html">
-  <div
-    style="font-size: 84px; line-height: 101px; font-weight: 300; color: \\#FFC000">47</div>
+  <div class="dashboard-kpi-value dashboard-kpi-value--warning">47</div>
   <div class="template-footer">Closed By Team: 15</div>
 </script>
 <script id="used-space-template" type="text/html">
@@ -23,18 +22,18 @@
 </script>
 
 <script id="total-points-header-template" type="text/html">
-  <span class="points-header" style="display: inline-block;">Total Points</span>
-    <div id="range-selection" title="daterangepicker" style="display: inline;"></div>
-  <span id="trend-volume-buttons" style="float: right; padding: 23px 16px 0 0;"></span>
+  <span class="points-header dashboard-header__title">Total Points</span>
+    <div id="range-selection" class="dashboard-header__range" title="daterangepicker"></div>
+  <span id="trend-volume-buttons" class="dashboard-header__actions"></span>
 </script>
 
 <script id="total-points-template" type="text/x-kendo-template">
-  <div id="total-points-chart" style="height:100%; width:100%"></div>
+  <div id="total-points-chart" class="dashboard-chart"></div>
 </script>
 
 <script id="mk-team-header-template" type="text/html">
-  <span class="mkteam-header" style="display: inline-block; margin-top: 16px">MK Team</span>
-  <span id="grid-button-group" style="float: right; padding: 12px 0 0 0;"></span>
+  <span class="mkteam-header dashboard-team-header">MK Team</span>
+  <span id="grid-button-group" class="dashboard-grid-actions"></span>
 </script>
 
 <script id="mk-team-template" type="text/x-kendo-template">
@@ -52,7 +51,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Tasks On Track</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
+            "<span class=k-card-title>Tasks On Track</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         bodyTemplate: kendo.template($("#tasks-ontrack-template").html())
       },
@@ -61,7 +60,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Overdue Tasks</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
+            "<span class=k-card-title>Overdue Tasks</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         bodyTemplate: kendo.template($("#overdue-tasks-template").html())
       },
@@ -70,7 +69,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Issues</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
+            "<span class=k-card-title>Issues</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         bodyTemplate: kendo.template($("#issues-template").html())
       },
@@ -79,7 +78,7 @@
         rowSpan: 1,
         header: {
           template:
-            "<span class=k-card-title>Used Space</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical'></span></a>"
+            "<span class=k-card-title>Used Space</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         bodyTemplate: kendo.template($("#used-space-template").html())
       },
@@ -191,8 +190,8 @@
     $("#gauge").kendoArcGauge({
       value: 50,
       centerTemplate:
-        "<span style='color:\\#0058E9; font-size:28px; font-weight: bold;'>#:value#%</span>",
-      color: "#0058E9"
+        "<span class='dashboard-gauge-center'>#:value#%</span>",
+      color: "var(--kendo-color-info)"
     });
 
     $("#range-selection").kendoDateRangePicker({
@@ -204,8 +203,8 @@
 
     $("#trend-volume-buttons").kendoButtonGroup({
       items: [
-        { text: "Trend", attributes: { style: "padding: 4px 35px" } },
-        { text: "Volume", attributes: { style: "padding: 4px 29px" } },
+        { text: "Trend", attributes: { class: "dashboard-toggle--trend" } },
+        { text: "Volume", attributes: { class: "dashboard-toggle--volume" } },
       ],
       index: 0,
       select: onChartChange
@@ -213,8 +212,8 @@
 
     $("#grid-button-group").kendoButtonGroup({
       items: [
-        { text: "My Team", attributes: { style: "padding: 4px 24px" } },
-        { text: "All Teams", attributes: { style: "padding: 4px 22px" } },
+        { text: "My Team", attributes: { class: "dashboard-toggle--my-team" } },
+        { text: "All Teams", attributes: { class: "dashboard-toggle--all-teams" } },
       ],
       index: 0,
       select: onGridChange
@@ -437,7 +436,7 @@
 
   function getBudgetTemplate(dataItem) {
     if (dataItem.Budget < 0) {
-      return '<span style="color: #FF6358;">-' + kendo.format("{0:c}", Math.abs(dataItem.Budget)) + "</span>";
+      return '<span class="budget-negative">-' + kendo.format("{0:c}", Math.abs(dataItem.Budget)) + "</span>";
     } else return kendo.format("{0:c}", dataItem.Budget);
   }
 
@@ -478,9 +477,9 @@
 
 <style>
   .greeting {
-    font-weight: 300;
-    font-size: 28px;
-    padding: 24px 0px 8px 17px;
+    font-weight: var(--kendo-font-weight-light);
+    font-size: var(--kendo-font-size-xl);
+    padding: var(--kendo-spacing-6) 0 var(--kendo-spacing-2) var(--kendo-spacing-4);
     background: var(--kendo-color-app-surface);
   }
 
@@ -496,12 +495,12 @@
   }
 
   .k-card-title {
-    font-size: 20px;
+    font-size: var(--kendo-font-size-lg);
     color: var(--kendo-color-on-surface);
   }
 
   .template-footer {
-    font-size: 20px;
+    font-size: var(--kendo-font-size-lg);
     color: var(--kendo-color-subtle);
   }
 
@@ -511,15 +510,15 @@
   }
 
   .mkteam-header {
-    font-size: 20px;
-    line-height: 24px;
+    font-size: var(--kendo-font-size-lg);
+    line-height: var(--kendo-line-height-md);
     color: var(--kendo-color-on-surface);
   }
 
   .points-header {
-    padding: 23px 24px 0px 16px;
-    font-size: 20px;
-    line-height: 24px;
+    padding: var(--kendo-spacing-6) var(--kendo-spacing-6) 0 var(--kendo-spacing-4);
+    font-size: var(--kendo-font-size-lg);
+    line-height: var(--kendo-line-height-md);
     color: var(--kendo-color-on-surface);
   }
 
@@ -527,28 +526,28 @@
     display: inline-block;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: var(--kendo-border-radius-full);
     background-size: 32px 35px;
     background-position: center center;
     vertical-align: middle;
-    line-height: 32px;
-    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-left: 5px;
+    line-height: var(--kendo-spacing-8);
+    box-shadow: var(--kendo-elevation-1);
+    margin-left: var(--kendo-spacing-1);
   }
 
   .customer-name {
     display: inline-block;
     vertical-align: middle;
-    line-height: 32px;
-    padding-left: 3px;
+    line-height: var(--kendo-spacing-8);
+    padding-left: var(--kendo-spacing-1);
   }
 
   .k-rating-container .k-rating-item {
-    padding: 4px 0;
+    padding: var(--kendo-spacing-1) 0;
   }
 
   .k-rating-container .k-rating-item .k-icon {
-    font-size: 16px;
+    font-size: var(--kendo-icon-size);
   }
 
   .ratingInGrid .k-rating-item.k-state-selected,

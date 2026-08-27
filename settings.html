@@ -13,23 +13,23 @@
 
 <script id="account-template" type="text/html">
   <div class="settings-content">
-    <div style="margin-bottom: 16px;">
-      <div class="formTitle" class="formTitle">USERNAME</div>
+    <div class="settings-section">
+      <div class="formTitle">USERNAME</div>
       <form id="userDetailForm" class="settingsForm"></form>
     </div>
 
-    <div style="margin-bottom: 16px;">
-      <div class="formTitle" class="formTitle">INFORMATION</div>
+    <div class="settings-section">
+      <div class="formTitle">INFORMATION</div>
       <form id="userInformationForm" class="settingsForm"></form>
     </div>
 
     <div>
-      <div class="formTitle" class="formTitle">SECURITY</div>
+      <div class="formTitle">SECURITY</div>
       <form id="securityForm" class="settingsForm"></form>
-      <div class="settings-actions" style="margin-top: 26px;">
-        <div>Public Profile<input id="publicProfile" aria-label="Name Switch" style="margin-left: 8px;"/></div>
+      <div class="settings-actions">
+        <div>Public Profile<input id="publicProfile" class="settings-actions__label" aria-label="Name Switch"/></div>
         <div class="settings-actions__spacer"></div>
-        <div style="margin-top: 26px; float: right;">
+        <div class="settings-actions--right">
           <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
           <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
         </div>
@@ -86,20 +86,20 @@
   </div>
   <div class="formTitle">PAYMENT DETAILS</div>
   <form id="paymentDetailsForm" class="settingsForm"></form>
-  <div style="margin-top: 26px; float: right;">
+  <div class="settings-actions--right">
     <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
     <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
 <script id="notifications-template" type="text/html">
-  <div style="float: right; margin-right: 15px;"><span>Toggle all notifications</span><input id="allNotifications" aria-label="Name Switch" style="margin-left: 8px;"/></div>
-  <div class="formTitle" style="margin-top: 30px;">ALERT</div>
+  <div class="notifications-toggle"><span>Toggle all notifications</span><input id="allNotifications" class="settings-actions__label" aria-label="Name Switch"/></div>
+  <div class="formTitle settings-form-title--alert">ALERT</div>
   <form id="alertsForm" class="settingsForm"></form>
 
   <div class="formTitle">EMAILS</div>
   <form id="emailsForm" class="settingsForm"></form>
-  <div style="margin-top: 26px; float: right;">
+  <div class="settings-actions--right">
     <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
     <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
   </div>
@@ -725,14 +725,14 @@
 
   .body-label {
     text-align: center;
-    font-weight: 300;
-    font-size: 28px;
+    font-weight: var(--kendo-font-weight-light);
+    font-size: calc(var(--kendo-font-size-xl) * 1.4);
   }
 
   .plan-footer {
     color: var(--kendo-color-subtle);
-    font-weight: 400;
-    font-size: 12px;
+    font-weight: var(--kendo-font-weight-normal);
+    font-size: var(--kendo-font-size-xs);
     border-width: 0px;
   }
 
@@ -762,7 +762,7 @@
   }
 
   .side-tile-header {
-    font-size: 20px;
+    font-size: var(--kendo-font-size-lg);
   }
 
   .selected {

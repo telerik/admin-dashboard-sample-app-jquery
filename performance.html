@@ -36,19 +36,19 @@
 
 <!-- container chart templates -->
 <script id="performance-template" type="text/x-kendo-template">
-  <div id="bar-chart" style="height:100%; width:100%"></div>
+  <div id="bar-chart" class="performance-chart"></div>
 </script>
 <script id="sales-revenue-template" type="text/x-kendo-template">
-  <div id="area-chart" style="height:100%; width:100%"></div>
+  <div id="area-chart" class="performance-chart"></div>
 </script>
 <script id="cost-template" type="text/x-kendo-template">
-  <div id="cost-pie-chart" style="height:100%; width:100%"></div>
+  <div id="cost-pie-chart" class="performance-chart"></div>
 </script>
 <script id="europe-template" type="text/x-kendo-template">
-  <div id="europe-chart" style="height:100%; width:100%"></div>
+  <div id="europe-chart" class="performance-chart"></div>
 </script>
 <script id="global-template" type="text/x-kendo-template">
-  <div id="global-chart" style="height:100%; width:100%"></div>
+  <div id="global-chart" class="performance-chart"></div>
 </script>
 
 <script>
@@ -60,7 +60,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#sales-revenue-template").html()),
         colSpan: 6,
         header: {
-          template: "<span class=k-card-title>Sales Revenue</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
+          template: "<span class=k-card-title>Sales Revenue</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         rowSpan: 1
       },
@@ -68,7 +68,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#performance-template").html()),
         colSpan: 4,
         header: {
-          template: "<span class=k-card-title>Weekday Payment Preferences</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
+          template: "<span class=k-card-title>Weekday Payment Preferences</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         rowSpan: 1
       },
@@ -76,7 +76,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#monthly-sales-template").html()),
         colSpan: 2,
         header: {
-          template: "<span class=k-card-title>Monthly Sales</span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
+          template: "<span class=k-card-title>Monthly Sales</span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         rowSpan: 1
       },
@@ -84,7 +84,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#europe-template").html()),
         colSpan: 3,
         header: {
-          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Europe</span><a class='vertical' class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' ></span></a></span></div>"
+          template:"<div class='k-card-title'>Top 5 Countries <span class='header-meta'><span class='k-state-disabled'>Europe</span><a class='vertical contextMenuButton context-menu-trigger'></a></span></div>"
         },
         rowSpan: 1
       },
@@ -92,7 +92,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#global-template").html()),
         colSpan: 3,
         header: {
-          template:"<div class='k-card-title'>Top 5 Countries <span style='float:right;''><span class='k-state-disabled' style='margin-right:10px'>Global</span><a class='vertical' class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' ></span></a></span></div>"
+          template:"<div class='k-card-title'>Top 5 Countries <span class='header-meta'><span class='k-state-disabled'>Global</span><a class='vertical contextMenuButton context-menu-trigger'></a></span></div>"
         },
         rowSpan: 1
       },
@@ -100,7 +100,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#weekly-sales-template").html()),
         colSpan: 2,
         header: {
-          template: "<span class=k-card-title>Weekly Sales </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
+          template: "<span class=k-card-title>Weekly Sales </span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         rowSpan: 1
       },
@@ -108,7 +108,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         bodyTemplate: kendo.template($("#cost-template").html()),
         colSpan: 4,
         header: {
-          template: "<span class=k-card-title>Cost Breakdown </span><a class='contextMenuButton'><span style='float:right; margin:5px 15px 0px 0px; color:\\#656565;' class='vertical' ></span></a>"
+          template: "<span class=k-card-title>Cost Breakdown </span><a class='contextMenuButton'><span class='vertical context-menu-trigger'></span></a>"
         },
         rowSpan: 1
       }
@@ -168,7 +168,6 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     seriesDefaults: {
       type: "area"
     },
-    theme: "sass",
     valueAxis: [{
       labels: {
         format: "{0:c}"
@@ -231,25 +230,24 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     series: [{
       fromField: "Min",
       toField: "Max",
-      gap: 10,
+      gap: 8,
       labels: {
         visible: false
       },
       type: "rangeColumn"
     }],
     seriesColors: [
-      "#28B4C8",
-      "#2D73F5",
-      "#AA46BE"
+      "var(--kendo-color-series-a)",
+      "var(--kendo-color-series-b)",
+      "var(--kendo-color-series-c)"
     ],
-    theme: "sass",
   });
 
   //Monthly Sales Gauges
 
   $("#active-users-gauge").kendoCircularGauge({
     value: 1275,
-    color: '#FF6358',
+    color: 'var(--kendo-color-primary)',
     gaugeArea: {
       width: 100,
       height: 100
@@ -260,12 +258,11 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       max: 4976,
       startAngle: 270
     },
-    theme: "sass"
   });
 
   $("#inactive-users-gauge").kendoCircularGauge({
     value: 419,
-    color: '#666666',
+    color: 'var(--kendo-color-subtle)',
     gaugeArea: {
       width: 100,
       height: 100
@@ -276,14 +273,13 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       max: 4200,
       startAngle: 270
     },
-    theme: "sass"
   })
 
   //Weekly Sales Gauges
 
   $("#active-gauge-week").kendoCircularGauge({
     value: 419,
-    color: '#FF6358',
+    color: 'var(--kendo-color-primary)',
     gaugeArea: {
       width: 100,
       height: 100
@@ -294,12 +290,11 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       max: 1275,
       startAngle: 270
     },
-    theme: "sass"
   });
 
   $("#inactive-gauge-week").kendoCircularGauge({
     value: 117,
-    color: '#666666',
+    color: 'var(--kendo-color-subtle)',
     gaugeArea: {
       width: 100,
       height: 100
@@ -310,7 +305,6 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       max: 419,
       startAngle: 270
     },
-    theme: "sass"
   })
 
   //Europe Chart
@@ -330,8 +324,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     },
     categoryAxis: [{
       labels: {
-        color: "#424242",
-        font: "bold 12px  Roboto,sans-serif",
+        color: "var(--kendo-color-on-surface)",
         position: "start"
       },
       line: {
@@ -343,7 +336,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     }],
     chartArea: {
       margin: {
-        right: 35
+        right: 32
       }
     },
     legend: {
@@ -358,16 +351,15 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
       },
       {
         "border": {
-          "color": "rgba(0, 0, 0, 0.08)",
+          "color": "var(--kendo-color-border)",
           "width": 1
         },
         categoryField: "Country",
-        "color": "rgba(0, 0, 0, 0.08)",
+        "color": "var(--kendo-color-border)",
         "field": "NotCompleted",
         "gap": 10,
         labels: {
-          "color": "#424242",
-          "font": "bold 14px  Arial,Helvetica,sans-serif",
+          "color": "var(--kendo-color-on-surface)",
           template: "#= kendo.toString(100-value,'n0') #%",
           "visible": true
         },
@@ -383,8 +375,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     },
     "valueAxis": [{
       labels: {
-        "color": "#8F8F8F",
-        "font": "bold 12px  Roboto,sans-serif",
+        "color": "var(--kendo-color-subtle)",
         "position": "start"
       },
       "line": {
@@ -413,8 +404,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     },
     categoryAxis: [{
       labels: {
-        color: "#424242",
-        font: "bold 12px  Roboto,sans-serif",
+        color: "var(--kendo-color-on-surface)",
         position: "start"
       },
       line: {
@@ -426,7 +416,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     }],
     chartArea: {
       margin: {
-        right: 35
+        right: 32
       }
     },
     legend: {
@@ -436,21 +426,20 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         categoryField: "Country",
         colorField: "Color",
         field: "Completed",
-        gap: 10,
+        gap: 8,
         spacing: 0.2
       },
       {
         border: {
-          color: "rgba(0, 0, 0, 0.08)",
+          color: "var(--kendo-color-border)",
           width: 1
         },
         categoryField: "Country",
-        color: "rgba(0, 0, 0, 0.08)",
+        color: "var(--kendo-color-border)",
         field: "NotCompleted",
-        gap: 10,
+        gap: 8,
         labels: {
-          color: "#424242",
-          font: "bold 14px  Arial,Helvetica,sans-serif",
+          color: "var(--kendo-color-on-surface)",
           template: "#= kendo.toString(100-value,'n0') #%",
           visible: true
         },
@@ -466,8 +455,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     },
     valueAxis: [{
       labels: {
-        color: "#8F8F8F",
-        font: "bold 12px  Roboto,sans-serif",
+        color: "var(--kendo-color-subtle)",
         position: "start"
       },
       line: {
@@ -493,13 +481,13 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         visual: function (e) {
           var rect = new kendo.geometry.Rect([0, 0], [400, 20]);
           var layout = new kendo.drawing.Layout(rect, {
-            spacing: 15
+            spacing: 16
           });
           var label = new kendo.drawing.Text(e.series.data[e.pointIndex].Group, [40, 0], {
             fill: {
               color: e.options.labels.color
             },
-            font: "normal 14px 'Roboto', sans-serif"
+            font: "var(--kendo-font-size-sm) var(--kendo-font-family)"
           });
           var value = new kendo.drawing.Text(kendo.toString(e.series.data[e.pointIndex].Amount, "c"), [0,
             0
@@ -507,7 +495,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
             fill: {
               color: e.options.labels.color
             },
-            font: "bold 14px 'Roboto', sans-serif"
+            font: "var(--kendo-font-size-sm) var(--kendo-font-family)"
           });
           var marker = new kendo.drawing.Path({
             fill: {
@@ -518,8 +506,8 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
               color: e.options.markers.background
             }
           }).moveTo(0, 0).moveTo(10, 10).lineTo(30, 10);
-          var spaceRect = new kendo.geometry.Rect([0, 0], [(200 - value.measure().width - label.measure()
-            .width), 20]);
+          var spaceRect = new kendo.geometry.Rect([0, 0], [Math.max(0, 200 - value.measure().width -
+            label.measure().width), 20]);
           var spacer = new kendo.drawing.Rect(spaceRect, {
             opacity: 0
           });
@@ -531,7 +519,6 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
         }
       },
       labels: {
-        font: "bold 14px Roboto",
         template: "#: text # | #:kendo.toString(value, 'c0')#"
       },
       position: "right"
@@ -544,7 +531,6 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
     seriesDefaults: {
       type: "pie"
     },
-    theme: "sass",
     tooltip: {
       template: "#= category #",
       visible: true
@@ -632,9 +618,9 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
 </script>
 <style>
   .k-card-title {
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 400;
+    font-size: var(--kendo-font-size-lg);
+    line-height: var(--kendo-line-height-md);
+    font-weight: var(--kendo-font-weight-normal);
     color: var(--kendo-color-on-surface);
   }
 
@@ -643,7 +629,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
   }
 
   .k-menu-link{
-    font-size: 14px;
+    font-size: var(--kendo-font-size-sm);
   }
 
   #performance-tilelayout .k-card-header {
@@ -662,7 +648,7 @@ var tilelayout = $("#performance-tilelayout").kendoTileLayout({
 
   @media only screen and (max-width: 575px) {
     .k-card-body {
-      padding: 16px 0px;
+      padding: var(--kendo-spacing-4) 0;
     }
   }
 </style>
