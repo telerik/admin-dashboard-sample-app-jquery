@@ -15,6 +15,57 @@ body {
   font-family: var(--kendo-font-family);
   color: var(--kendo-color-on-app-surface);
   background-color: var(--kendo-color-app-surface);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.k-drawer-container,
+#drawer,
+.k-drawer-content,
+#drawer-content {
+  height: 100%;
+  min-height: 0;
+}
+
+.k-drawer-container,
+#drawer-content {
+  overflow: hidden;
+}
+
+#drawer .k-drawer-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+#drawer .k-drawer-items {
+  flex: 0 0 auto;
+}
+
+#drawer .user-container {
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding: var(--kendo-spacing-4);
+  border-top: 1px solid var(--kendo-color-border);
+}
+
+#drawer-content {
+  display: flex;
+  flex-direction: column;
+}
+
+#appbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  flex: 0 0 auto;
+}
+
+#drawer-content > main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .about-page {

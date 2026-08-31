@@ -43,7 +43,7 @@
         </div>
         <div class="notification-actions">
             <button id="mark-as-read">Mark all as read</button>
-            <a class="app-route" data-page="notifications.html" data-title="Notifications" href="#notifications">View all notifications</a>
+            <a class="app-route" data-page="notifications.html" data-title="Notifications" href="\#notifications">View all notifications</a>
         </div>
       </script>
 
@@ -125,11 +125,11 @@
             var userContentTemplate = kendo.template("\
                     <div class='user-container'> \
                         <img id='avatar' src='Content/Avatar/avatar.png' /> \
-                        <a class='app-route profile-link' data-page='profile.html' data-title='Profile' href='#profile'>Jaxons Danniels</a> \
+                        <a class='app-route profile-link' data-page='profile.html' data-title='Profile' href='\\#profile'>Jaxons Danniels</a> \
                         <div class='user-container__email'>jaxons.daniels@company.com</div> \
                         <button id='signOutButton'>Sign Out</button> \
                     </div>");
-            drawer.drawerWrapper.prepend(userContentTemplate);
+            drawer.drawerWrapper.append(userContentTemplate);
 
             kendo.ui.icon($("#menu"), { icon: 'menu' });
             kendo.ui.icon($("#notification"), { icon: 'bell' });
