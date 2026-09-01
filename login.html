@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/13.0.1/default/default-main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
+    <link rel="stylesheet" href="Content/site.css" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
@@ -19,7 +19,7 @@
         <div id="sign-in-wrapper">
             <div id="logo-wrapper">
                 <div id="logo">
-                    <img src="./Content/images/signin-logo.svg"></img>
+                    <img src="./Content/images/signin-logo.svg" alt="Kendo UI">
                 </div>
                 <div id='banner'>
                     Sign In
@@ -36,14 +36,14 @@
                 <hr>
             </div>
             <div id="social-wrapper">
-                <a href="#" class='facebook'>
-                    <img src="./Content/images/facebook.svg"></img>
+                <a href="#" class='facebook' aria-label="Continue with Facebook">
+                    <img src="./Content/images/facebook.svg" alt="">
                 </a>
-                <a href="#" class='twitter'>
-                    <img src="./Content/images/twitter.svg"></img>
+                <a href="#" class='twitter' aria-label="Continue with Twitter">
+                    <img src="./Content/images/twitter.svg" alt="">
                 </a>
-                <a href="#" class='reddit'>
-                    <img src="./Content/images/reddit.svg"></img>
+                <a href="#" class='reddit' aria-label="Continue with Reddit">
+                    <img src="./Content/images/reddit.svg" alt="">
                 </a>
             </div>
         </div>
@@ -52,7 +52,7 @@
                 <h2>How Does Kendo UI Cut Development Time?</h2>
                 <h4>Kendo UI delivers everything you need to build modern, beautiful, responsive apps.</h4>
                 <div id="image-wrapper">
-                    <img src="./Content/images/kendoka-waves.svg"></img>
+                    <img src="./Content/images/kendoka-waves.svg" alt="">
                 </div>
             </div>
         </div>
@@ -64,7 +64,11 @@
                     cols: 1,
                     gutter: 5
                 },
-                buttonsTemplate: "<a href='index.html' class='k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base'>Sign In</a>",
+                buttonsTemplate: "<button class='k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit' type='submit'>Sign In</button>",
+                submit: function (e) {
+                    e.preventDefault();
+                    location.href = "index.html";
+                },
                 formData: {
                     Email: "",
                     Password: "",
@@ -73,17 +77,19 @@
                 items: [
                     {
                         field: "Email",
-                        label: "",
+                        label: "Email address",
                         attributes: {
                             placeholder: "Email",
+                            autocomplete: "email",
                             required: true
                         }
                     },
                     {
                         field: "Password",
-                        label: "",
+                        label: "Password",
                         attributes: {
                             type: "password",
+                            autocomplete: "current-password",
                             required: true
                         }
                     },
@@ -97,24 +103,22 @@
                 ]
             });
             
-            $("#Password").parent().append("<span id='preview'></span>");
+            $("#Password").parent().append("<button id='preview' type='button' aria-label='Show password'></button>");
             kendo.ui.icon($("#preview"), { icon: 'eye' });
-            $("#Password").val("somepassword");
-            $("#preview").mousedown(function () {
+            $("#preview").on("pointerdown keydown", function () {
                 $("#Password").attr("type", "text");
-            })
-            $("#preview").mouseup(function () {
+            }).on("pointerup keyup blur", function () {
                 $("#Password").attr("type", "password");
-            })
+            });
         })
     </script>
 
     <style>
         body {
             margin: 0;
-            font-family: Roboto;
+            font-family: var(--kendo-font-family);
             font-style: normal;
-            font-weight: normal;
+            font-weight: var(--kendo-font-weight-normal);
         }
 
         span.k-textbox {
@@ -128,7 +132,9 @@
             right: 5px;
             width: 24px;
             height: 24px;
-            color: gray;
+            color: var(--kendo-color-subtle);
+            border: 0;
+            background: transparent;
         }
 
         #logo-wrapper {
@@ -144,50 +150,50 @@
 
         #banner {
             height: 68px;
-            color: #2727BE;
-            font-weight: 300;
-            font-size: 56px;
+            color: var(--kendo-color-secondary);
+            font-weight: var(--kendo-font-weight-light);
+            font-size: calc(var(--kendo-font-size-xl) * 3);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 32px;
+            margin-top: var(--kendo-spacing-8);
         }
 
         #account {
             position: relative;
             height: 20px;
             left: 31.5px;
-            margin: 32px 0px 32px 0px;
-            font-size: 14px;
+            margin: var(--kendo-spacing-8) 0;
+            font-size: var(--kendo-font-size-sm);
 
         }
 
         #account>a {
-            margin-left: 16px;
-            color: #0058E9;
+            margin-left: var(--kendo-spacing-4);
+            color: var(--kendo-color-info);
         }
 
         #continue-with-wrapper {
             display: inline-flex;
             height: 20px;
             width: 270px;
-            margin-bottom: 16px;
-            margin-top: 16px;
+            margin-bottom: var(--kendo-spacing-4);
+            margin-top: var(--kendo-spacing-4);
 
         }
 
         #continue-with-wrapper>span {
             position: static;
-            color: #8F8F8F;
-            font-size: 14px;
-            line-height: 20px;
+            color: var(--kendo-color-subtle);
+            font-size: var(--kendo-font-size-sm);
+            line-height: var(--kendo-line-height-md);
 
         }
 
         hr {
             width: 75px;
             height: 0px;
-            border: 1px solid #8F8F8F;
+            border: 1px solid var(--kendo-color-border);
         }
 
         #sign-in-page {
@@ -206,7 +212,7 @@
             min-width: 560px;
             width: 39%;
             z-index: 1;
-            background: #FFFFFF;
+            background: var(--kendo-color-surface-alt);
         }
 
         #login {
@@ -235,8 +241,8 @@
         .k-button:hover {
             height: 30px;
             width: 270px;
-            background: #FF6358;
-            color: #FFFFFF;
+            background: var(--kendo-color-primary);
+            color: var(--kendo-color-on-primary);
 
         }
 
@@ -259,8 +265,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 15px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -274,8 +280,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 35px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -289,8 +295,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 35px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -318,19 +324,19 @@
         }
 
         #frame-wrapper h2 {
-            font-size: 48px;
-            color: #FFFFFF;
-            font-weight: bold;
+            font-size: calc(var(--kendo-font-size-xl) * 2.5);
+            color: var(--kendo-color-on-secondary);
+            font-weight: var(--kendo-font-weight-bold);
             text-align: center;
-            line-height: 1.4;
+            line-height: var(--kendo-line-height-lg);
         }
 
         #frame-wrapper h4 {
-            font-size: 19px;
+            font-size: var(--kendo-font-size-xl);
             text-align: center;
-            color: #FFFFFF;
-            font-weight: normal;
-            line-height: 1.3;
+            color: var(--kendo-color-on-secondary);
+            font-weight: var(--kendo-font-weight-normal);
+            line-height: var(--kendo-line-height-md);
         }
 
         #wave {

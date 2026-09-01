@@ -12,24 +12,24 @@
 </script>
 
 <script id="account-template" type="text/html">
-  <div class="k-d-flex-col">
-    <div style="margin-bottom: 16px;">
-      <div class="formTitle" class="formTitle">USERNAME</div>
+  <div class="settings-content">
+    <div class="settings-section">
+      <div class="formTitle">USERNAME</div>
       <form id="userDetailForm" class="settingsForm"></form>
     </div>
 
-    <div style="margin-bottom: 16px;">
-      <div class="formTitle" class="formTitle">INFORMATION</div>
+    <div class="settings-section">
+      <div class="formTitle">INFORMATION</div>
       <form id="userInformationForm" class="settingsForm"></form>
     </div>
 
     <div>
-      <div class="formTitle" class="formTitle">SECURITY</div>
+      <div class="formTitle">SECURITY</div>
       <form id="securityForm" class="settingsForm"></form>
-      <div class="k-hstack" style="margin-top: 26px;">
-        <div>Public Profile<input id="publicProfile" aria-label="Name Switch" style="margin-left: 8px;"/></div>
-        <div class="k-spacer"></div>
-        <div style="margin-top: 26px; float: right;">
+      <div class="settings-actions">
+        <div>Public Profile<input id="publicProfile" class="settings-actions__label" aria-label="Name Switch"/></div>
+        <div class="settings-actions__spacer"></div>
+        <div class="settings-actions--right">
           <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
           <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
         </div>
@@ -86,63 +86,22 @@
   </div>
   <div class="formTitle">PAYMENT DETAILS</div>
   <form id="paymentDetailsForm" class="settingsForm"></form>
-  <div style="margin-top: 26px; float: right;">
+  <div class="settings-actions--right">
     <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
     <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
 <script id="notifications-template" type="text/html">
-  <div style="float: right; margin-right: 15px;"><span>Toggle all notifications</span><input id="allNotifications" aria-label="Name Switch" style="margin-left: 8px;"/></div>
-  <div class="formTitle" style="margin-top: 30px;">ALERT</div>
+  <div class="notifications-toggle"><span>Toggle all notifications</span><input id="allNotifications" class="settings-actions__label" aria-label="Name Switch"/></div>
+  <div class="formTitle settings-form-title--alert">ALERT</div>
   <form id="alertsForm" class="settingsForm"></form>
 
   <div class="formTitle">EMAILS</div>
   <form id="emailsForm" class="settingsForm"></form>
-  <div style="margin-top: 26px; float: right;">
+  <div class="settings-actions--right">
     <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
     <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
-  </div>
-</script>
-
-<script id="date-template" type="text/html">
-  <div style="display:flex; justify-content:center; flex-direction:row; align-content:center">
-    <div id="calendar"></div>
-  </div>
-</script>
-
-<script id="weather-header-template" type="text/html">
-  <span class="k-card-title side-tile-header">Weather</span>
-  <span class="k-spacer k-toolbar-spacer"></span>
-  <a class="k-card-title k-link" style="float: right;">
-    <span id="globe" style="margin-right:9px;"></span>
-    <span class="side-tile-header" style="color: \\#0058E9;">Sofia</span>
-  </a>
-</script>
-
-<script id="weather-template" type="text/html">
-  <div class="k-d-flex-col k-align-items-center k-justify-content-around">
-    <div style="width: 100px; height: 100px; background-image: url(Content/images/cloud.svg)"></div>
-    <div class="k-state-disabled">Partly Cloudy</div>
-    <div style="font-family: 'Roboto'; font-size: 70px; font-weight: 300; color: \\#0058E9">
-      12 &\\#176;C
-    </div>
-  </div>
-  <div class="k-card-footer">
-    <div class="weather-data-container k-d-flex-row k-align-items-center k-justify-content-center">
-      <div>
-        Humidity:<br />
-        Dew:<br />
-        Pressure:<br />
-        Wind Speed:
-      </div>
-      <div>
-        76%<br />
-        2˚C<br />
-        1031mb<br />
-        12km/h NW
-      </div>
-    </div>
   </div>
 </script>
 
@@ -151,32 +110,16 @@
   var settingsTileLayout = $("#settings-tilelayout").kendoTileLayout({
     containers: [
       {
-        colSpan: 2,
+        colSpan: 1,
         rowSpan: 2,
         header: {
           template: kendo.template($("#info-header-template").html()),
         },
         bodyTemplate: kendo.template($("#account-template").html())
       },
-      {
-        colSpan: 1,
-        rowSpan: 1,
-        header: {
-          template: "<span class='k-card-title side-tile-header'>Date</span>"
-        },
-        bodyTemplate: kendo.template($("#date-template").html())
-      },
-      {
-        colSpan: 1,
-        rowSpan: 1,
-        header: {
-          template: kendo.template($("#weather-header-template").html())
-        },
-        bodyTemplate: kendo.template($("#weather-template").html())
-      },
     ],
-    columns: 3,
-    columnsWidth: "33%",
+    columns: 1,
+    columnsWidth: "100%",
     rowsHeight: "auto",
     reorderable: false,
     resizable: true,
@@ -304,9 +247,6 @@
       }
     });
 
-    $("#calendar").kendoCalendar({
-      componentType: "modern"
-    });
   }
 
   function createAccountWidgets() {
@@ -618,8 +558,6 @@
       icon: "more-vertical",
       fillMode: "flat"
     });
-    kendo.ui.icon($("#globe"), { icon: 'globe' });
-    
   }
 
   function createNotificationsWidgets() {
@@ -739,15 +677,12 @@
       }
     });
 
-    kendo.ui.icon($("#globe"), { icon: 'globe' });
   }
 
   function enableButtons(args) {
     $("#cancelButton").data("kendoButton").enable(args);
     $("#save").data("kendoButton").enable(args);
   }
-
-  kendo.ui.icon($("#globe"), { icon: 'globe' });
 
 </script>
 
@@ -756,44 +691,21 @@
     border-style: none;
   }
 
-  .weather-data-container {
-    padding: 8px 0px 0px;
-    gap: 18px;
-  }
-
-  .weather-data-container>div {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .weather-data-container>div:nth-child(1) {
-    font-weight: bold;
-    text-align: right;
-  }
-
   #userInformationForm>div.k-form-buttons {
     justify-content: space-between;
-  }
-
-  @media (max-width: 716px) {
-    #settings-tilelayout div.k-tilelayout-item {
-      grid-column-end: span 3 !important;
-    }
   }
 
   #cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--kendo-spacing-4);
   }
 
   .k-card-type-rich {
     min-width: 160px;
     flex-grow: 1;
-    padding: 8px 16px;
+    padding: var(--kendo-spacing-2) var(--kendo-spacing-4);
     justify-content: space-between;
   }
 
@@ -802,25 +714,25 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 8px 8px 0px;
+    padding: var(--kendo-spacing-2) var(--kendo-spacing-2) var(--kendo-spacing-2) var(--kendo-spacing-0);
   }
 
   .plan-title {
-    font-family: Roboto;
-    font-size: 20px;
-    color: #424242;
+    font-family: var(--kendo-font-family);
+    font-size: var(--kendo-font-size-xl);
+    color: var(--kendo-color-on-surface);
   }
 
   .body-label {
     text-align: center;
-    font-weight: 300;
-    font-size: 28px;
+    font-weight: var(--kendo-font-weight-light);
+    font-size: calc(var(--kendo-font-size-xl) * 1.4);
   }
 
   .plan-footer {
-    color: #8F8F8F;
-    font-weight: 400;
-    font-size: 12px;
+    color: var(--kendo-color-subtle);
+    font-weight: var(--kendo-font-weight-normal);
+    font-size: var(--kendo-font-size-xs);
     border-width: 0px;
   }
 
@@ -834,26 +746,26 @@
   }
 
   .alertSubLabel {
-    color: #8F8F8F;
+    color: var(--kendo-color-subtle);
   }
 
   .formTitle {
-    color: #8F8F8F;
-    padding: 16px 0px 8px 0px;
-    font-size: 12px;
+    color: var(--kendo-color-subtle);
+    padding: var(--kendo-spacing-4) var(--kendo-spacing-0) var(--kendo-spacing-2) var(--kendo-spacing-0);
+    font-size: var(--kendo-font-size-xs);
   }
 
   .settingsForm {
-    background-color: #fafafa;
-    padding: 0px 16px 0px 16px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: var(--kendo-color-app-surface);
+    padding: var(--kendo-spacing-0) var(--kendo-spacing-4);
+    border: 1px solid var(--kendo-color-border);
   }
 
   .side-tile-header {
-    font-size: 20px;
+    font-size: var(--kendo-font-size-lg);
   }
 
   .selected {
-    border: 1px solid #37B400;
+    border: 1px solid var(--kendo-color-success);
   }
 </style>

@@ -8,9 +8,8 @@
     <meta name="description" content="Try the Kendo UI Admin Dashboard demo. Explore charts, grids, and interactive panels that showcase responsive layouts and real-time data views.">
 
     <link rel="icon" type="image/x-icon" href="/kendo-ui/content/favicon/favicon.ico">
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/13.0.1/default/default-main.css" />
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
+    <link rel="stylesheet" href="Content/site.css" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
@@ -19,36 +18,39 @@
 
 <body>
     <script id="notification-body" type="text/x-kendo-template">
-        <div class="notification-item" style="padding: 18px 16px 13px 16px; border-bottom: 1px solid rgba(0,0,0,.08);">
+        <div class="notification-item">
             <span class="badge-missed"></span>
-            <div class="user-photo" style="background-image: url(Content/Employees-images/9.jpg); margin:0px 16px 0px 8px;"></div>
+            <div class="user-photo notification-user-photo notification-user-photo--employee-9"></div>
             <div class="customer-name">
-                <div style="font-size: 18px">Rudolf joined the Team</div>
-                <div style="font-size: 14px; color: \#8F8F8F">Congratulate her</div>
+                <div class="notification-item__title">Rudolf joined the Team</div>
+                <div class="notification-item__detail">Congratulate her</div>
             </div>
         </div>
-        <div class="notification-item" style="padding: 13px 16px 13px 16px; border-bottom: 1px solid rgba(0,0,0,.08);">
+        <div class="notification-item">
             <span class="badge-missed"></span>
-            <div class="user-photo" style="background-image: url(Content/Employees-images/4.jpg); margin:0px 16px 0px 8px;"></div>
+            <div class="user-photo notification-user-photo notification-user-photo--employee-4"></div>
             <div class="customer-name">
-                <div style="font-size: 18px">Joy invited you to the class</div>
-                <div style="font-size: 14px; color: \#8F8F8F">You have 3 more messages from Joy</div>
+                <div class="notification-item__title">Joy invited you to the class</div>
+                <div class="notification-item__detail">You have 3 more messages from Joy</div>
             </div>
         </div>
-        <div class="notification-item" style="padding: 13px 16px 13px 16px; background-color: rgba(66, 66, 66, 0.04); border-bottom: 1px solid rgba(0,0,0,.08);">
-            <div class="user-photo" style="background-image: url(Content/images/initials.jpg); margin:0px 16px 0px 8px;"></div>
+        <div class="notification-item notification-item--read">
+            <div class="user-photo notification-user-photo notification-user-photo--initials"></div>
             <div class="customer-name">
-                <div style="font-size: 18px">Your order has been shipped</div>
-                <div style="font-size: 14px; color: \#8F8F8F">MD Inc. order update</div>
+                <div class="notification-item__title">Your order has been shipped</div>
+                <div class="notification-item__detail">MD Inc. order update</div>
             </div>
         </div>
-        <button id="mark-as-read" style="margin: 15px 15px 0px 0px; background-color: \#FFFFFF; border-color: \#FF6358; color:\#FF6358; width: 165px; float: right;">Mark all as read</button>
+        <div class="notification-actions">
+            <button id="mark-as-read">Mark all as read</button>
+            <a class="app-route" data-page="notifications.html" data-title="Notifications" href="\#notifications">View all notifications</a>
+        </div>
       </script>
 
     <script id="notification-header" type="text/x-kendo-template">
-        <div class="k-hstack">
-            <div style="font-size: 19px">Notifications</div>
-            <div class="k-spacer"></div>
+        <div class="notification-header">
+            <div class="notification-header__title">Notifications</div>
+            <div class="notification-header__spacer"></div>
             <div id="new-count">2 New</div>
         </div>
       </script>
@@ -62,52 +64,54 @@
 
     <script>
         $(document).ready(function () {
-            $("main").load("dashboard.html");
+            function loadPage(page, title) {
+                $("main").load(page, function (_, status) {
+                    if (status === "error") {
+                        $("main").load("404.html");
+                        title = "Page not found";
+                    }
+
+                    document.title = title + " - Admin Dashboard";
+                    $("div.appTitle").text(title);
+                });
+            }
+
+            loadPage("dashboard.html", "Overview");
             $("#appbar").kendoAppBar({
                 themeColor: "inherit",
                 items: [
-                    { template: '<a id="toggleDrawer" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" style="border:0px; background:\\#FFFFFF;" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
-                    { template: '<div class="appTitle" style="color:\\#2D73F5; font-size:18px;">Overview</div>', type: "contentItem" },
+                    { template: '<a id="toggleDrawer" aria-label="Toggle navigation" class="appbar-toggle k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
+                    { template: '<div class="appTitle app-title">Overview</div>', type: "contentItem" },
                     { width: 0, type: "spacer" },
-                    { template: "<a class='k-link app-bar-link'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
+                    { template: "<a class='k-link app-bar-link' aria-label='Open notifications'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
                     { width: 26, type: "spacer" },
                     { template: "<a class='k-link app-bar-link aboutPage'>About</a>" }
                 ]
             }).on("click", ".aboutPage", function (e) {
+                e.preventDefault();
                 $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
-
-                var aboutTitle = $(".aboutPage").text();
-                $("div.appTitle").text(aboutTitle);
-                $("main").load("about.html");
-                document.title = aboutTitle + " - AdminDashboard";
+                loadPage("about.html", "About");
             });
 
             var drawer = $("#drawer").kendoDrawer({
                 template: "<ul> \
-                            <li data-role='drawer-item' class='k-state-selected'><span id='grid'></span><span class='k-item-text' data-id='Inbox'>Dashboard</span></li> \
-                            <li data-role='drawer-item'><span id='globe'></span><span class='k-item-text' data-id='Notifications'>Performance & Sales</span></li> \
-                            <li data-role='drawer-item'><span id='aggregate-fields'></span><span class='k-item-text' data-id='Calendar'>Products</span></li> \
+                            <li data-role='drawer-item' class='k-state-selected' data-page='dashboard.html' data-title='Overview'><span id='grid'></span><span class='k-item-text'>Dashboard</span></li> \
+                            <li data-role='drawer-item' data-page='performance.html' data-title='Performance & Sales'><span id='globe'></span><span class='k-item-text'>Performance & Sales</span></li> \
+                            <li data-role='drawer-item' data-page='products.html' data-title='Products'><span id='aggregate-fields'></span><span class='k-item-text'>Products</span></li> \
+                            <li data-role='drawer-item' data-page='notifications.html' data-title='Notifications'><span id='bell'></span><span class='k-item-text'>Notifications</span></li> \
                             <li data-role='drawer-separator'></li> \
-                            <li data-role='drawer-item'><span id='gear'></span><span class='k-item-text' data-id='Attachments'>Settings</span></li> \
+                            <li data-role='drawer-item' data-page='profile.html' data-title='Profile'><span id='user'></span><span class='k-item-text'>Profile</span></li> \
+                            <li data-role='drawer-item' data-page='settings.html' data-title='Settings'><span id='gear'></span><span class='k-item-text'>Settings</span></li> \
+                            <li data-role='drawer-item' data-page='help.html' data-title='Help & Support'><span id='question-circle'></span><span class='k-item-text'>Help & Support</span></li> \
                           </ul>",
                 mode: "push",
                 autoCollapse: false,
                 mini: false,
                 itemClick: function (e) {
                     if (!e.item.hasClass("k-drawer-separator")) {
-                        var tabName = e.item.find(".k-item-text").text().split(" ")[0];
-                        var titleName = e.item.find(".k-item-text").text();
-                        e.sender.drawerContainer.find("#drawer-content > main").empty();
-                        $("main").load(tabName + ".html");
+                        loadPage(e.item.data("page"), e.item.data("title"));
 
-                        document.title = titleName + " - AdminDashboard";
-                        $("div.appTitle").text(titleName);
-
-                        if ($("div.appTitle").text() === "Dashboard") {
-                            $("div.appTitle").text("Overview");
-                        }
-
-                        if ($(window).width() <= 980) {
+                        if ($(window).width() < 992) {
                             var drawerInstance = e.sender;
                             drawerInstance.hide();
                         }
@@ -119,21 +123,28 @@
             }).getKendoDrawer();
 
             var userContentTemplate = kendo.template("\
-                    <div class='user-container' style='text-align: center;'> \
+                    <div class='user-container'> \
                         <img id='avatar' src='Content/Avatar/avatar.png' /> \
-                        <h1 style='font-size: 14px;'>Jaxons Danniels</h1> \
-                        <div style='text-decoration-line: underline; font-size: 12px;'>jaxons.daniels@company.com</div> \
+                        <a class='app-route profile-link' data-page='profile.html' data-title='Profile' href='\\#profile'>Jaxons Danniels</a> \
+                        <div class='user-container__email'>jaxons.daniels@company.com</div> \
                         <button id='signOutButton'>Sign Out</button> \
                     </div>");
-            drawer.drawerWrapper.prepend(userContentTemplate);
+            drawer.drawerWrapper.append(userContentTemplate);
 
-            document.title = $("div.appTitle").text(); + " - AdminDashboard";
             kendo.ui.icon($("#menu"), { icon: 'menu' });
             kendo.ui.icon($("#notification"), { icon: 'bell' });
             kendo.ui.icon($("#grid"), { icon: 'grid' });
             kendo.ui.icon($("#globe"), { icon: 'globe' });
             kendo.ui.icon($("#aggregate-fields"), { icon: 'aggregate-fields' });
+            kendo.ui.icon($("#bell"), { icon: 'bell' });
+            kendo.ui.icon($("#user"), { icon: 'user' });
             kendo.ui.icon($("#gear"), { icon: 'gear' });
+            kendo.ui.icon($("#question-circle"), { icon: 'question-circle' });
+
+            $("#drawer").on("click", ".app-route", function (e) {
+                e.preventDefault();
+                loadPage($(this).data("page"), $(this).data("title"));
+            });
 
             $("#appbar").kendoPopover({
                 showOn: "click",
@@ -160,7 +171,7 @@
                             $(".k-badge-dot").remove();
                             $('.badge-missed').remove();
                             $("#new-count").text("0 New");
-                            $(".notification-item").css("background-color", "rgba(66, 66, 66, 0.04)")
+                            $(".notification-item").addClass("notification-item--read");
                         }
                     });
                 }
@@ -191,7 +202,7 @@
                 }, 350);
             });
 
-            if ($(window).width() <= 980) {
+            if ($(window).width() < 992) {
                 setTimeout(function () {
                     var drawerInstance = $("#drawer").data("kendoDrawer");
                     drawerInstance.hide();
@@ -202,33 +213,33 @@
 
     <style>
         body {
-            margin: 0px;
-            font-family: Roboto;
+            margin: 0;
+            font-family: var(--kendo-font-family);
             font-style: normal;
             font-weight: normal;
         }
 
         #appbar {
-            padding: 0px 25px 0px 24px;
+            padding: 0 var(--kendo-spacing-6) 0 var(--kendo-spacing-6);
             height: 48px;
-            background: #FFFFFF;
-            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.06);
+            background: var(--kendo-color-surface-alt);
+            box-shadow: var(--kendo-elevation-1);
         }
 
         #avatar {
-            margin: 32px auto 0;
+            margin: var(--kendo-spacing-8) auto 0;
             width: 64px;
-            border-radius: 50%;
+            border-radius: var(--kendo-border-radius-full);
         }
 
         #signOutButton {
             pointer-events: auto;
-            margin: 12px 0 9px 0;
-            background: rgba(66, 66, 66, 0.16);
+            margin: var(--kendo-spacing-3) 0 var(--kendo-spacing-2) 0;
+            background: var(--kendo-color-base-emphasis);
         }
 
         #drawer-content {
-            background-color: #FAFAFA;
+            background-color: var(--kendo-color-app-surface);
         }
 
         .k-popover-callout {
@@ -236,26 +247,45 @@
         }
 
         .k-popover-body {
-            padding: 0px;
+            padding: 0;
         }
 
         .user-photo {
             display: inline-block;
             width: 64px;
             height: 64px;
-            border-radius: 50%;
+            border-radius: var(--kendo-border-radius-full);
             background-size: 60px 64px;
             background-position: center center;
             vertical-align: middle;
             line-height: 64px;
-            box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-left: 5px;
+            box-shadow: var(--kendo-elevation-1);
+            margin-left: var(--kendo-spacing-1);
         }
 
         .customer-name {
             display: inline-block;
             vertical-align: middle;
-            padding-left: 3 px;
+            padding-left: var(--kendo-spacing-1);
+        }
+
+        .profile-link {
+            display: block;
+            margin: var(--kendo-spacing-2) 0;
+            color: var(--kendo-color-on-surface);
+            font-size: var(--kendo-font-size-sm);
+            font-weight: var(--kendo-font-weight-semibold);
+        }
+
+        .notification-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--kendo-spacing-4);
+        }
+
+        .notification-actions .app-route {
+            color: var(--kendo-color-info-on-surface);
         }
     </style>
 </body>

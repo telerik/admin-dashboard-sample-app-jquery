@@ -1,0 +1,40 @@
+<section class="page-panel help-panel" aria-labelledby="help-title">
+  <div class="page-panel__header">
+    <div>
+      <h1 id="help-title">Help &amp; Support</h1>
+      <p>Find guidance for common workspace tasks or contact the support team.</p>
+    </div>
+  </div>
+  <div class="help-panel__grid">
+    <div>
+      <label for="help-search">Search help topics</label>
+      <input id="help-search" aria-label="Search help topics">
+      <ul id="help-topics">
+        <li><span>Managing workspace members</span><div>Invite teammates, assign roles, and update access from Settings.</div></li>
+        <li><span>Understanding performance reports</span><div>Use date controls and chart views to compare sales activity over time.</div></li>
+        <li><span>Updating your notification preferences</span><div>Choose the alerts and email updates that matter to you.</div></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Contact support</h2>
+      <p class="support-response">Typical response time: one business day.</p>
+      <form id="support-form"></form>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).ready(function () {
+    $("#help-search").kendoTextBox({ placeholder: "Search articles" });
+    $("#help-topics").kendoPanelBar({ expandMode: "multiple" });
+    $("#support-form").kendoForm({
+      formData: { Topic: "Account access", Email: "jaxons.danniels@company.com", Message: "" },
+      items: [
+        { field: "Topic", editor: "DropDownList", editorOptions: { dataSource: ["Account access", "Billing", "Product feedback", "Technical issue"] } },
+        { field: "Email", validation: { email: true, required: true } },
+        { field: "Message", editor: "TextArea", editorOptions: { rows: 4 }, validation: { required: true } }
+      ],
+      buttonsTemplate: "<button class='k-button k-button-solid k-button-solid-primary k-form-submit' type='submit'>Send request</button>"
+    });
+  });
+</script>

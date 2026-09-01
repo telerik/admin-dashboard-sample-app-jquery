@@ -1,12 +1,12 @@
 <script type="text/html" id="cardTemplate">
-    <div class="k-card" style="width:260px; height:340px;">
+    <div class="k-card product-card">
         <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png" alt="#: Title # image">
         <div class="k-card-body">
             <div class="k-card-title">#= Title #</div>
             <div class="k-card-subtitle">#= Description #</div>
         </div>
         <div class="k-card-footer">
-            <div class="k-d-flex-col k-align-items-center">
+            <div class="product-card-actions">
                 <span>
                     <span class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base" onclick="review()">
                         <span class="preview"></span>Review
@@ -23,14 +23,14 @@
 </script>
 
 <script type="text/html" id="editTemplate">
-    <div class="k-card" style="width:260px; height:340px;">
+    <div class="k-card product-card">
         <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png" alt="#: Title # image">
         <div class="k-card-body">
-            <div class="k-card-title"><input data-role="textbox" data-bind="value: Title" name="Title" style="width: 100%;" /></div>
-            <div class="k-card-subtitle"><textarea data-role="textarea" data-rows="3" data-bind="value: Description" name="Description" style="width: 100%;" ></textarea></div>
+            <div class="k-card-title"><input class="product-card-input" data-role="textbox" data-bind="value: Title" name="Title" /></div>
+            <div class="k-card-subtitle"><textarea class="product-card-input" data-role="textarea" data-rows="3" data-bind="value: Description" name="Description"></textarea></div>
         </div>
         <div class="k-card-footer">
-            <div class="k-d-flex-col k-align-items-center">
+            <div class="product-card-actions">
                 <span class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base k-cancel-button"><span class="cancel"></span>Cancel</span>
                 <span class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-primary k-update-button"><span class="check"></span>Save</span>
             </div>
@@ -39,7 +39,7 @@
 </script>
 
 <script type="text/html" id="previewTemplate">
-    <div class="k-card" style="width:260px; height:340px;">
+    <div class="k-card product-card">
         <img class="k-card-image" src="Content/Products-images/#= (ProductID % 9) + 1 #.png" alt="#: Title # image">
         <div class="k-card-body">
             <div class="k-card-title">#= Title #</div>
@@ -49,16 +49,14 @@
 </script>
 
 <script id="bubble-chart-template" type="text/x-kendo-template">
-    <div id="bubble-chart" style="height:100%; width:100%"></div>
+    <div id="bubble-chart" class="product-chart"></div>
 </script>
 
-<script id="products-template" type="text/html" style="background-color: #FAFAFA">
-    <div class="k-d-flex-row k-justify-content-center k-align-content-center" style="margin-bottom:45px;">
-        <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-        <input id="filter" class="k-input-inner" data-role="textbox" name="search" placeholder="Product Search" style="width:40%;" />
-    </span>
+<script id="products-template" type="text/html">
+    <div class="product-search">
+        <input id="filter" aria-label="Search products" name="search" placeholder="Search products" />
     </div>
-    <div style="height:100%;">
+    <div class="products-template">
         <div id="listView"></div>
         <div id="pager"></div>
     </div>
@@ -96,18 +94,18 @@
         var productsChart = $("#bubble-chart").data("kendoChart");
 
         if (productsChart) {
-            
+
             var windowWidth = $(window).width();
 
-            if (windowWidth >= 925) {
+            if (windowWidth >= 992) {
 
                 productsChart.options.xAxis.labels.step = 1;
 
-            } else if (windowWidth >= 716 && windowWidth < 925) {
+            } else if (windowWidth >= 768) {
 
                 productsChart.options.xAxis.labels.step = 2;
 
-            } else if (windowWidth >= 520 && windowWidth < 716) {
+            } else {
 
                 productsChart.options.xAxis.labels.step = 4;
 
@@ -179,9 +177,7 @@
             seriesDefaults: {
                 type: "bubble"
             },
-            theme: "sass",
             title: {
-                font: "font-family: Roboto; font-style: normal; font-weight: normal; font-size: 20px;",
                 text: "Revenue per Product Type",
                 align: "left",
                 position: "top"
@@ -231,18 +227,18 @@
             }
         });
 
-        $("#filter").keyup(function () {
-            var filter = $(this).val(),
-                count = 0;
-
-            $('#listView .k-card').each(function () {
-                if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                    count++;
-                }
-            });
+        $("#filter").kendoTextBox({
+            clearButton: true,
+            input: function (e) {
+                var value = e.sender.value();
+                dataSource.filter(value ? {
+                    logic: "or",
+                    filters: [
+                        { field: "Title", operator: "contains", value: value },
+                        { field: "Description", operator: "contains", value: value }
+                    ]
+                } : {});
+            }
         });
 
         setTimeout(function () {
@@ -259,7 +255,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 32px;
+        gap: var(--kendo-spacing-8);
         max-height: 1100px;
     }
 
@@ -271,15 +267,15 @@
     .k-card-title {
         font-style: normal;
         font-weight: normal;
-        font-size: 18px;
-        line-height: 20px;
+        font-size: var(--kendo-font-size-lg);
+        line-height: var(--kendo-line-height-md);
     }
 
     .k-card-subtitle {
         font-style: normal;
         font-weight: normal;
-        font-size: 14px;
-        line-height: 17px;
+        font-size: var(--kendo-font-size-sm);
+        line-height: var(--kendo-line-height-sm);
     }
 
     .k-tilelayout-item.k-card:nth-child(2) {
@@ -290,8 +286,5 @@
     .k-listview {
         background: inherit;
         border: none;
-    }
-    .k-d-flex-row>.k-textbox{
-        width:40%;
     }
 </style>

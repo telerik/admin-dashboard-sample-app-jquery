@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/13.0.1/default/default-main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
+    <link rel="stylesheet" href="Content/site.css" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
@@ -19,7 +19,7 @@
         <div id="sign-in-wrapper">
             <div id="logo-wrapper">
                 <div id="logo">
-                    <img src="./Content/images/signin-logo.svg"></img>
+                    <img src="./Content/images/signin-logo.svg" alt="Kendo UI">
                 </div>
                 <div id='banner'>
                     Sign Up
@@ -37,7 +37,7 @@
                 <h2>How Does Kendo UI Cut Development Time?</h2>
                 <h4>Kendo UI delivers everything you need to build modern, beautiful, responsive apps.</h4>
                 <div id="image-wrapper">
-                    <img src="./Content/images/kendoka-waves.svg"></img>
+                    <img src="./Content/images/kendoka-waves.svg" alt="">
                 </div>
             </div>
         </div>
@@ -49,7 +49,11 @@
                     cols: 1,
                     gutter: 5
                 },
-                buttonsTemplate: "<a href='index.html' class='k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base'>Create free account</a>",
+                buttonsTemplate: "<button class='k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit' type='submit'>Create free account</button>",
+                submit: function (e) {
+                    e.preventDefault();
+                    location.href = "index.html";
+                },
                 formData: {
                     fullname: "",
                     email: "",
@@ -60,34 +64,38 @@
                 items: [
                     {
                         field: "fullname",
-                        label: "",
+                        label: "Full name",
                         attributes: {
                             placeholder: "Full Name",
+                            autocomplete: "name",
                             required: true
                         }
                     },
                     {
                         field: "email",
-                        label: "",
+                        label: "Email address",
                         attributes: {
                             placeholder: "Email Address",
+                            autocomplete: "email",
                             required: true
                         }
                     },
                     {
                         field: "password",
-                        label: "",
+                        label: "Password",
                         attributes: {
                             placeholder: "Password",
                             type: "password",
+                            autocomplete: "new-password",
                             required: true
                         }
                     },
                     {
                         field: "company",
-                        label: "",
+                        label: "Company",
                         attributes: {
                             placeholder: "Company",
+                            autocomplete: "organization",
                             required: true
                         }
                     },
@@ -98,29 +106,29 @@
                             encoded: false
                         },
                         attributes: {
-                            type: "checkbox"
+                            type: "checkbox",
+                            required: true
                         }
                     }
                 ]
             })
 
-            $("#password").parent().append("<span id='preview'></span>");
+            $("#password").parent().append("<button id='preview' type='button' aria-label='Show password'></button>");
             kendo.ui.icon($("#preview"), { icon: 'eye' });
-            $("#preview").mousedown(function () {
+            $("#preview").on("pointerdown keydown", function () {
                 $("#password").attr("type", "text");
-            })
-            $("#preview").mouseup(function () {
+            }).on("pointerup keyup blur", function () {
                 $("#password").attr("type", "password");
-            })
+            });
         })
     </script>
 
     <style>
         body {
             margin: 0;
-            font-family: Roboto;
+            font-family: var(--kendo-font-family);
             font-style: normal;
-            font-weight: normal;
+            font-weight: var(--kendo-font-weight-normal);
         }
 
         span.k-textbox {
@@ -144,42 +152,42 @@
 
         #banner {
             height: 68px;
-            color: #2727BE;
-            font-weight: 300;
-            font-size: 56px;
+            color: var(--kendo-color-secondary);
+            font-weight: var(--kendo-font-weight-light);
+            font-size: calc(var(--kendo-font-size-xl) * 3);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 32px;
+            margin-top: var(--kendo-spacing-8);
         }
 
         #account {
             position: relative;
             height: 20px;
             left: 31.5px;
-            margin: 32px 0px 32px 0px;
-            font-size: 14px;
+            margin: var(--kendo-spacing-8) 0;
+            font-size: var(--kendo-font-size-sm);
 
         }
 
         #account>a {
-            margin-left: 16px;
-            color: #0058E9;
+            margin-left: var(--kendo-spacing-4);
+            color: var(--kendo-color-info);
         }
 
         #continue-with-wrapper {
             display: inline-flex;
             height: 20px;
             width: 270px;
-            margin-bottom: 16px;
+            margin-bottom: var(--kendo-spacing-4);
 
         }
 
         #continue-with-wrapper>span {
             position: static;
-            color: #8F8F8F;
-            font-size: 14px;
-            line-height: 20px;
+            color: var(--kendo-color-subtle);
+            font-size: var(--kendo-font-size-sm);
+            line-height: var(--kendo-line-height-md);
 
         }
 
@@ -204,13 +212,13 @@
             right: 5px;
             width: 24px;
             height: 24px;
-            color: gray;
+            color: var(--kendo-color-subtle);
         }
 
         hr {
             width: 75px;
             height: 0px;
-            border: 1px solid #8F8F8F;
+            border: 1px solid var(--kendo-color-border);
         }
 
         #sign-in-page {
@@ -229,13 +237,13 @@
             min-width: 560px;
             width: 39%;
             z-index: 1;
-            background: #FFFFFF;
+            background: var(--kendo-color-surface-alt);
         }
 
         #login {
             height: 346px;
             width: 270px;
-            padding: 16px 0px 16px 0px;
+            padding: var(--kendo-spacing-4) 0;
             justify-content: space-between;
             display: flex;
             flex-flow: column;
@@ -258,8 +266,8 @@
         .k-button:hover {
             height: 30px;
             width: 270px;
-            background: #FF6358 !important;
-            color: #FFFFFF;
+            background: var(--kendo-color-primary) !important;
+            color: var(--kendo-color-on-primary);
 
         }
 
@@ -282,8 +290,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 15px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -297,8 +305,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 35px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -312,8 +320,8 @@
             justify-content: center;
             align-items: center;
             margin-left: 35px;
-            background: rgba(66, 66, 66, 0.04);
-            border-radius: 2px;
+            background: var(--kendo-color-base-subtle);
+            border-radius: var(--kendo-border-radius-xs);
 
         }
 
@@ -341,19 +349,19 @@
         }
 
         #frame-wrapper h2 {
-            font-size: 48px;
-            color: #FFFFFF;
-            font-weight: bold;
+            font-size: calc(var(--kendo-font-size-xl) * 2.5);
+            color: var(--kendo-color-on-secondary);
+            font-weight: var(--kendo-font-weight-bold);
             text-align: center;
-            line-height: 1.4;
+            line-height: var(--kendo-line-height-lg);
         }
 
         #frame-wrapper h4 {
-            font-size: 19px;
+            font-size: var(--kendo-font-size-xl);
             text-align: center;
-            color: #FFFFFF;
-            font-weight: normal;
-            line-height: 1.3;
+            color: var(--kendo-color-on-secondary);
+            font-weight: var(--kendo-font-weight-normal);
+            line-height: var(--kendo-line-height-md);
         }
 
         #wave {

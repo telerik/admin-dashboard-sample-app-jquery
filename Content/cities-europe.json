@@ -1,31 +1,31 @@
 [
 	{
 	   "Country":"Belgium",
-	   "Color":"#FF6358",
+	   "Color":"var(--kendo-color-series-f)",
 	   "Completed":95.53916666666666,
 	   "NotCompleted":4.460833333333332
 	},
 	{
 	   "Country":"Austria",
-	   "Color":"#FFD246",
+	   "Color":"var(--kendo-color-series-e)",
 	   "Completed":95.53666666666668,
 	   "NotCompleted":4.4633333333333285
 	},
 	{
 	   "Country":"Andorra",
-	   "Color":"#AA46BE",
+	   "Color":"var(--kendo-color-series-b)",
 	   "Completed":92.90666666666667,
 	   "NotCompleted":7.093333333333324
 	},
 	{
 	   "Country":"Jersey",
-	   "Color":"#2D73F5",
+	   "Color":"var(--kendo-color-series-a)",
 	   "Completed":92.45333333333335,
 	   "NotCompleted":7.546666666666662
 	},
 	{
 	   "Country":"Gibraltar",
-	   "Color":"#28B4C8",
+	   "Color":"var(--kendo-color-series-d)",
 	   "Completed":91.28916666666666,
 	   "NotCompleted":8.710833333333332
 	}
