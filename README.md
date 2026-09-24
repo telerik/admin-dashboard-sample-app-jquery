@@ -2,6 +2,8 @@
 
 Kendo UI Admin Dashboard is a web application built with Progress award-winning Kendo UI for jQuery components - 110+ UI components to help you build responsive websites and apps fast. Kendo UI for jQuery® offers components for every need - from the must-have for every app Grids, Dropdowns and Menus to the advanced line-of-business UI, such as Charts, Gantt, Diagram, Scheduler, PivotGrid and Maps.
 
+The app loads Kendo UI for jQuery `2026.3.811`, Meridian theme `14.5.0`, and jQuery `3.7.1` from CDNs. Keep the Kendo UI and theme versions aligned with [Telerik's theme compatibility table](https://www.telerik.com/kendo-jquery-ui/documentation/styles-and-layout/sass-themes/compatibility); check the [supported jQuery versions](https://www.telerik.com/kendo-jquery-ui/documentation/intro/supporting/jquery-support) when updating either script.
+
 ----------
 
 ## Featured Kendo UI components
