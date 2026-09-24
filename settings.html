@@ -30,8 +30,8 @@
         <div>Public Profile<input id="publicProfile" class="settings-actions__label" aria-label="Name Switch"/></div>
         <div class="settings-actions__spacer"></div>
         <div class="settings-actions--right">
-          <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
-          <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
+          <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat">Cancel</button>
+          <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-primary k-form-submit" type="submit">Save Changes</button>
         </div>
       </div>
     </div>
@@ -87,8 +87,8 @@
   <div class="formTitle">PAYMENT DETAILS</div>
   <form id="paymentDetailsForm" class="settingsForm"></form>
   <div class="settings-actions--right">
-    <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
-    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
+    <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat">Cancel</button>
+    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
@@ -100,8 +100,8 @@
   <div class="formTitle">EMAILS</div>
   <form id="emailsForm" class="settingsForm"></form>
   <div class="settings-actions--right">
-    <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat k-button-flat-base">Cancel</button>
-    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-primary k-form-submit" type="submit">Save Changes</button>
+    <button id="cancelButton" class="k-button k-button-md k-button-rectangle k-rounded-md k-button-flat">Cancel</button>
+    <button id="save" class="k-selected k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-primary k-form-submit" type="submit">Save Changes</button>
   </div>
 </script>
 
@@ -174,9 +174,8 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").addClass("k-active k-button-flat-primary").removeClass("k-button-flat-base");
-        $("#billingButton").removeClass("k-button-flat-primary k-active").addClass("k-button-flat-base");
-        $("#notificationsButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
+        $("#accountButton").addClass("k-active k-button-primary");
+        $("#billingButton, #notificationsButton").removeClass("k-active k-button-primary");
         createAccountWidgets();
       }
     });
@@ -220,9 +219,8 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
-        $("#billingButton").removeClass('k-button-flat-base').addClass("k-button-flat-primary k-active");
-        $("#notificationsButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
+        $("#accountButton, #notificationsButton").removeClass("k-active k-button-primary");
+        $("#billingButton").addClass("k-button-primary k-active");
         createBillingWidgets();
       }
     });
@@ -239,11 +237,10 @@
         });
 
         createConstantWidgets();
-        $("#accountButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
-        $("#billingButton").removeClass("k-active k-button-flat-primary").addClass("k-button-flat-base");
+        $("#accountButton, #billingButton").removeClass("k-active k-button-primary");
 
         createNotificationsWidgets();
-        $("#notificationsButton").addClass("k-button-flat-primary k-active").removeClass("k-button-flat-base");
+        $("#notificationsButton").addClass("k-button-primary k-active");
       }
     });
 

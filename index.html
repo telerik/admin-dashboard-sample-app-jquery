@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://unpkg.com/@progress/kendo-theme-meridian@14.5.0/dist/all.css" />
     <link rel="stylesheet" href="Content/site.css" />
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2026.1.212/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2026.3.811/js/kendo.all.min.js"></script>
 </head>
 
 <body>
@@ -80,7 +80,7 @@
             $("#appbar").kendoAppBar({
                 themeColor: "inherit",
                 items: [
-                    { template: '<a id="toggleDrawer" aria-label="Toggle navigation" class="appbar-toggle k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
+                    { template: '<a id="toggleDrawer" aria-label="Toggle navigation" class="appbar-toggle k-button k-button-md k-button-rectangle k-rounded-md k-button-solid" href="\\#"><span id="menu"></span></a>', type: "contentItem" },
                     { template: '<div class="appTitle app-title">Overview</div>', type: "contentItem" },
                     { width: 0, type: "spacer" },
                     { template: "<a class='k-link app-bar-link' aria-label='Open notifications'><span id='notification'><span data-role='badge' class='k-badge k-badge-solid k-badge-error k-badge-md k-badge-dot k-badge-outside k-top-end'></span></span></a>", type: "contentItem" },
@@ -89,13 +89,13 @@
                 ]
             }).on("click", ".aboutPage", function (e) {
                 e.preventDefault();
-                $("div.k-drawer-items").find(".k-state-selected").removeClass("k-state-selected");
+                $("div.k-drawer-items").find(".k-selected").removeClass("k-selected");
                 loadPage("about.html", "About");
             });
 
             var drawer = $("#drawer").kendoDrawer({
                 template: "<ul> \
-                            <li data-role='drawer-item' class='k-state-selected' data-page='dashboard.html' data-title='Overview'><span id='grid'></span><span class='k-item-text'>Dashboard</span></li> \
+                            <li data-role='drawer-item' class='k-selected' data-page='dashboard.html' data-title='Overview'><span id='grid'></span><span class='k-item-text'>Dashboard</span></li> \
                             <li data-role='drawer-item' data-page='performance.html' data-title='Performance & Sales'><span id='globe'></span><span class='k-item-text'>Performance & Sales</span></li> \
                             <li data-role='drawer-item' data-page='products.html' data-title='Products'><span id='aggregate-fields'></span><span class='k-item-text'>Products</span></li> \
                             <li data-role='drawer-item' data-page='notifications.html' data-title='Notifications'><span id='bell'></span><span class='k-item-text'>Notifications</span></li> \
