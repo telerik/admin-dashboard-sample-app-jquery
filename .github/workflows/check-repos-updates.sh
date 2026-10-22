@@ -1,45 +1,25 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 echo "Stage1 Find Updates"
-LATEST_RELEASE=$(curl -s https://api.github.com/repos/telerik/kendo-ui-core/releases | grep tag_name | head -n 1 |  cut -d '"' -f 4)
-LATEST_THEMES_RELEASE=$(curl -s https://api.github.com/repos/telerik/kendo-themes/releases | jq -r '[.[] | select(.prerelease == false)][0].name' | tr -d v)
-echo "Last release version is $LATEST_RELEASE"
-echo "Last Themes release version is $LATEST_THEMES_RELEASE"
+KENDO_VERSION="${2:-}"
+THEMES_VERSION="${3:-}"
+if [[ -z "$KENDO_VERSION" && -z "$THEMES_VERSION" ]]; then
+    KENDO_VERSION=$(curl -fsSL https://api.github.com/repos/telerik/kendo-ui-core/releases | jq -er '[.[] | select(.prerelease == false)][0].tag_name | sub("^v"; "")')
+    THEMES_VERSION=$(curl -fsSL https://api.github.com/repos/telerik/kendo-themes/releases | jq -er '[.[] | select(.prerelease == false)][0].tag_name | sub("^v"; "")')
+elif [[ -z "$KENDO_VERSION" || -z "$THEMES_VERSION" ]]; then
+    echo "Provide both Kendo and themes versions, or leave both blank to use the latest stable releases." >&2
+    exit 1
+fi
+LATEST_RELEASE="$KENDO_VERSION"
+LATEST_THEMES_RELEASE="$THEMES_VERSION"
+echo "Selected Kendo version is $LATEST_RELEASE"
+echo "Selected themes version is $LATEST_THEMES_RELEASE"
 
-function getCurrentVersion {
-    for file in `find . -type f -name "*.html"`  
-    do
-        CURRENT_VERSION=$(grep -hnr "kendo.cdn" $file | head -2 | tail -1 | cut -d '/' -f 4)
-        if [ ! -z "$CURRENT_VERSION" ]
-            then
-                CURRENT_GLOBAL_VERSION=$CURRENT_VERSION
-        fi
-    done
-}
-
-function getCurrentThemesVersion {
-    for file in `find . -type f -name "*.html"`  
-    do
-        CURRENT_THEMES_VERSION=$(grep -hnr "kendo.cdn" $file | head -1 | cut -d '/' -f 5)
-        if [ ! -z "$CURRENT_THEMES_VERSION" ]
-            then
-                CURRENT_GLOBAL_THEMES_VERSION=$CURRENT_THEMES_VERSION
-        fi
-    done
-}
-    getCurrentVersion $file
-    getCurrentThemesVersion $file
-
-    echo "Current version is $CURRENT_GLOBAL_VERSION"
-    echo "Current themes version is $CURRENT_GLOBAL_THEMES_VERSION"
-
-
-for file in `find . -type f -name "*.html"`  
-do
-    sed -i "s/$CURRENT_GLOBAL_VERSION/$LATEST_RELEASE/g" $file
-    sed -i "s/$CURRENT_GLOBAL_THEMES_VERSION/$LATEST_THEMES_RELEASE/g" $file
-done
+node .github/workflows/update-kendo-assets.js "$LATEST_RELEASE" "$LATEST_THEMES_RELEASE"
 
 echo "Stage2 Commit the change"
+DATE=${DATE:-$(date +%F)}
 reviewers="Dimitar-Goshev"
 echo $reviewers
 BRANCH_NAME="update-dependencies"
