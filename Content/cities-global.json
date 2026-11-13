@@ -1,31 +1,31 @@
 [
 	{
 	   "Country":"Saint Kitts and Nevis",
-	   "Color":"#FF6358",
+	   "Color":"var(--kendo-color-series-f)",
 	   "Completed":93.53285714285715,
 	   "NotCompleted":6.467142857142854
 	},
 	{
 	   "Country":"Colombia",
-	   "Color":"#FFD246",
+	   "Color":"var(--kendo-color-series-e)",
 	   "Completed":85.21142857142857,
 	   "NotCompleted":14.788571428571426
 	},
 	{
 	   "Country":"Grenada",
-	   "Color":"#AA46BE",
+	   "Color":"var(--kendo-color-series-b)",
 	   "Completed":84.78142857142858,
 	   "NotCompleted":15.218571428571426
 	},
 	{
 	   "Country":"Martinique",
-	   "Color":"#2D73F5",
+	   "Color":"var(--kendo-color-series-a)",
 	   "Completed":82.06928571428571,
 	   "NotCompleted":17.930714285714284
 	},
 	{
 	   "Country":"Belgium",
-	   "Color":"#28B4C8",
+	   "Color":"var(--kendo-color-series-d)",
 	   "Completed":81.89071428571428,
 	   "NotCompleted":18.10928571428571
 	}

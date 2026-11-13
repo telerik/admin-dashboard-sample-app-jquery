@@ -1,0 +1,34 @@
+<section class="page-panel" aria-labelledby="notifications-title">
+  <div class="page-panel__header">
+    <div>
+      <h1 id="notifications-title">Notifications</h1>
+      <p>Review team activity, account updates, and system alerts.</p>
+    </div>
+    <button id="mark-all-read">Mark all as read</button>
+  </div>
+  <div id="notifications-list" aria-live="polite"></div>
+</section>
+
+<script>
+  $(document).ready(function () {
+    var notifications = [
+      { title: "Maya Chen joined the design workspace", detail: "People update", time: "12 minutes ago", status: "New" },
+      { title: "August sales report is ready to review", detail: "Performance & Sales", time: "1 hour ago", status: "New" },
+      { title: "Your Team plan renews on September 14", detail: "Billing", time: "Yesterday", status: "Read" },
+      { title: "Two-factor authentication was enabled", detail: "Security", time: "Monday", status: "Read" }
+    ];
+
+    var source = new kendo.data.DataSource({ data: notifications });
+    $("#notifications-list").kendoListView({
+      dataSource: source,
+      template: "<article class='notification-center-item'><div><h2>#: title #</h2><p>#: detail #</p></div><div class='notification-center-item__meta'><span class='k-badge k-badge-solid k-badge-md #= status === \"New\" ? \"k-badge-info\" : \"k-badge-base\" #'>#: status #</span><time>#: time #</time></div></article>"
+    });
+
+    $("#mark-all-read").kendoButton({
+      themeColor: "primary",
+      click: function () {
+        source.data().forEach(function (item) { item.set("status", "Read"); });
+      }
+    });
+  });
+</script>
