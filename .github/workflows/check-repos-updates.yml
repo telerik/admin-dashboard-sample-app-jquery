@@ -1,6 +1,16 @@
 name: Check for updates across repos and create pull request
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      kendo_version:
+        description: Optional Kendo UI version. Leave blank to use the latest stable release.
+        required: false
+        type: string
+      themes_version:
+        description: Optional themes version. Leave blank to use the latest stable release.
+        required: false
+        type: string
 jobs:
   check-repos-updates:
     runs-on: ubuntu-latest
@@ -13,6 +23,9 @@ jobs:
       - name: Clean up
         run: rm -rf kendo-*
       - name: Get repos deps
-        run: .github/workflows/check-repos-updates.sh ${{ secrets.GH_TOKEN }}
+        run: .github/workflows/check-repos-updates.sh "$GH_TOKEN" "$KENDO_VERSION" "$THEMES_VERSION"
         env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          KENDO_VERSION: ${{ github.event.inputs.kendo_version || '' }}
+          THEMES_VERSION: ${{ github.event.inputs.themes_version || '' }}

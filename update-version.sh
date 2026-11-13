@@ -1,12 +1,9 @@
-layoutFile="index.html";
-CURRENT_VERSION=$(grep -hnr "kendo.cdn" $layoutFile | head -1 |cut -d '/' -f 4)
-echo "Current release version from $layoutFile is $CURRENT_VERSION"
+#!/usr/bin/env bash
+set -euo pipefail
 
-LAST_RELEASE=$(curl -s https://api.github.com/repos/telerik/kendo-ui-core/releases | grep tag_name | head -n 1 |  cut -d '"' -f 4)
-echo "Last release version is $LAST_RELEASE"
+LATEST_RELEASE=$(curl -fsSL https://api.github.com/repos/telerik/kendo-ui-core/releases | jq -er '[.[] | select(.prerelease == false)][0].tag_name | sub("^v"; "")')
+LATEST_THEMES_RELEASE=$(curl -fsSL https://api.github.com/repos/telerik/kendo-themes/releases | jq -er '[.[] | select(.prerelease == false)][0].tag_name | sub("^v"; "")')
+echo "Last Kendo release version is $LATEST_RELEASE"
+echo "Last Themes release version is $LATEST_THEMES_RELEASE"
 
-files=(index.html dashboard.html login.html signup.html)
-for file in ${files[@]}
-do
-sed -i "s/$CURRENT_VERSION/$LAST_RELEASE/g" $file
-done
+node .github/workflows/update-kendo-assets.js "$LATEST_RELEASE" "$LATEST_THEMES_RELEASE"
